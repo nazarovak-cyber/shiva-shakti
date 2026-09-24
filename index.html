@@ -2039,8 +2039,8 @@ if(!AUTH_ENABLED){
   if(!(S.user&&S.user.demo))ensureDemoUser();
   if(TGU){if(!S.name&&TGU.first_name){S.name=TGU.first_name;S.user.name=TGU.first_name;}S.user.tgId=TGU.id;if(TGU.username)S.user.tg=TGU.username;}
   if(TG_START&&!S.invitedBy&&TG_START!==S.refCode){S.invitedBy=TG_START;setTimeout(()=>toast(L("Тебя пригласил друг — добро пожаловать в игру 🤍","A friend invited you — welcome to the game 🤍")),600);}
-  touchStreak();D();save();hideAuth();setTab(S.tab||"home");
-}else if(S.user&&S.user.email){touchStreak();D();save();hideAuth();setTab(S.tab||"home");}else{S=fresh();setTab("home");showAuth();}
+  touchStreak();D();save();hideAuth();setTab("home");
+}else if(S.user&&S.user.email){touchStreak();D();save();hideAuth();setTab("home");}else{S=fresh();setTab("home");showAuth();}
 })();
 </script>
 
