@@ -9,6 +9,7 @@
 <meta property="og:image" content="art.jpg">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Слияние Шивы и Шакти</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preload" as="image" href="art.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -820,6 +821,23 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
+/* ---------- Telegram Mini App ---------- */
+const TG=(window.Telegram&&window.Telegram.WebApp&&window.Telegram.WebApp.initData)?window.Telegram.WebApp:null;
+const TGU=(TG&&TG.initDataUnsafe&&TG.initDataUnsafe.user)||null;
+const TG_START=(TG&&TG.initDataUnsafe&&TG.initDataUnsafe.start_param)||"";
+const BOT=(new URLSearchParams(location.search).get("bot")||"").replace(/[^A-Za-z0-9_]/g,"");
+const TG_APP=(new URLSearchParams(location.search).get("app")||"").replace(/[^A-Za-z0-9_]/g,"");
+if(TG){
+  try{if(!localStorage.getItem("shivaShakti.lang")&&TGU&&TGU.language_code&&!/^(ru|uk|be|kk)/.test(TGU.language_code))LANG="en";}catch(e){}
+  try{TG.ready();TG.expand();}catch(e){}
+  try{TG.setHeaderColor("#eef1fa");TG.setBackgroundColor("#eef1fa");}catch(e){}
+  try{if(TG.disableVerticalSwipes)TG.disableVerticalSwipes();}catch(e){}
+  document.documentElement.classList.add("in-tg");
+  document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[href]");if(!a)return;const h=a.getAttribute("href")||"";
+    if(/^https:\/\/t\.me\//.test(h)){e.preventDefault();try{TG.openTelegramLink(a.href);}catch(err){location.href=a.href;}}
+    else if(/^https?:\/\//.test(h)&&a.target==="_blank"){e.preventDefault();try{TG.openLink(a.href);}catch(err){window.open(a.href);}}},true);
+}
+const haptic=(t)=>{try{if(TG&&TG.HapticFeedback)TG.HapticFeedback.impactOccurred(t||"medium");}catch(e){}};
 const L=(ru,en)=>LANG==="en"?en:ru;
 const DICT={
 "Трансформационная игра":"Transformational game",
@@ -1215,7 +1233,7 @@ const G=()=>S.g;
 const SITE="https://shiva-shakti.app";
 const TR={а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"y",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"c",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya"};
 function makeCode(name){const base=(name||"").toLowerCase().split("").map(c=>TR[c]!==undefined?TR[c]:c).join("").replace(/[^a-z0-9]/g,"").slice(0,8)||"friend";return (base+"-"+Math.random().toString(36).slice(2,6)).toUpperCase();}
-const refLink=()=>`${SITE}/?ref=${S.refCode}`;
+const refLink=()=>BOT?`https://t.me/${BOT}${TG_APP?"/"+TG_APP:""}?startapp=${S.refCode}`:`${/^https?:/.test(location.protocol)&&!/claude|localhost/.test(location.host)?location.origin+location.pathname:SITE+"/"}?ref=${S.refCode}`;
 function defaultMsg(){const n=(S.user&&S.user.name)||S.name||"";return L(`Привет!${n?" Это "+n+".":""} Я прохожу «Слияние Шивы и Шакти» — игру о любви и отношениях: задаёшь свой вопрос, бросаешь кубик и по 72 клеткам находишь ответы внутри себя. Мне откликнулось — попробуй и ты, первая игра бесплатно 🤍`,`Hi!${n?" It's "+n+".":""} I'm playing “Union of Shiva & Shakti” — a game about love and relationships: you ask your question, roll the die and find the answers within yourself across 72 cells. It really resonated with me — try it too, your first game is free 🤍`);}
 function fullMsg(){return (S.inviteMsg||defaultMsg()).trim()+"\n\n"+refLink();}
 const tgShare=()=>"https://t.me/share/url?url="+encodeURIComponent(refLink())+"&text="+encodeURIComponent((S.inviteMsg||defaultMsg()).trim());
@@ -1684,7 +1702,7 @@ async function roll(){
   const entry=g.view==="entry";
   const die=entry?$("#bigDie"):$("#die");die.classList.add("rolling");
   for(let i=0;i<(entry?12:8);i++){face(1+Math.floor(Math.random()*6),die);await sleep(70);}
-  const d=1+Math.floor(Math.random()*6);face(d,die);die.classList.remove("rolling");
+  const d=1+Math.floor(Math.random()*6);face(d,die);die.classList.remove("rolling");haptic(d===6?"heavy":"medium");
   g.moves++;bump("rolls");if(d===6)S.stats.sixes++;
   if(g.view==="entry"){
     g.entryRolls=(g.entryRolls||[]).concat(d);
@@ -2019,6 +2037,8 @@ function ensureDemoUser(){
 }
 if(!AUTH_ENABLED){
   if(!(S.user&&S.user.demo))ensureDemoUser();
+  if(TGU){if(!S.name&&TGU.first_name){S.name=TGU.first_name;S.user.name=TGU.first_name;}S.user.tgId=TGU.id;if(TGU.username)S.user.tg=TGU.username;}
+  if(TG_START&&!S.invitedBy&&TG_START!==S.refCode){S.invitedBy=TG_START;setTimeout(()=>toast(L("Тебя пригласил друг — добро пожаловать в игру 🤍","A friend invited you — welcome to the game 🤍")),600);}
   touchStreak();D();save();hideAuth();setTab(S.tab||"home");
 }else if(S.user&&S.user.email){touchStreak();D();save();hideAuth();setTab(S.tab||"home");}else{S=fresh();setTab("home");showAuth();}
 })();
