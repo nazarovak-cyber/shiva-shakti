@@ -1,0 +1,2028 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Слияние Шивы и Шакти — трансформационная игра о любви и союзе. Демо-версия.">
+<meta property="og:title" content="Слияние Шивы и Шакти">
+<meta property="og:description" content="Трансформационная игра о любви и союзе: 72 клетки, кубик и голос проводника.">
+<meta property="og:image" content="art.jpg">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Слияние Шивы и Шакти</title>
+<link rel="preload" as="image" href="art.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ink:#3c1616; --ink2:#4a2b23; --soft:#6b4d45; --mute:#8a7a86;
+  --btn:#3c1616; --btn-h:#56352a; --tg:#54a9ec;
+  --indigo:#374370; --indigo2:#24324d; --peri:#8593bb; --peri-l:#c9d1ea;
+  --mist:#eef1fa;
+  --glass:rgba(255,255,255,.62); --glass-b:rgba(255,255,255,.92); --glass-sh:0 10px 34px rgba(55,67,112,.16);
+  --gold:#b98a3e; --rose:#c98398; --ok:#3f8a5a;
+  --serif:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --sans:"Manrope","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --tabbar:78px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:#dfe4f3}
+body{margin:0;color:var(--ink);font-family:var(--sans);font-weight:600;font-size:15px;line-height:1.5;letter-spacing:-.1px;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;
+  background:linear-gradient(180deg,rgba(238,241,250,.84),rgba(238,241,250,.9)),url("art.jpg") center top/cover fixed no-repeat,#eef1fa;min-height:100vh}
+button{font-family:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--peri);outline-offset:3px;border-radius:8px}
+h1,h2,h3{margin:0;text-wrap:balance}
+.h-serif{font-family:var(--serif);font-weight:700;text-transform:uppercase;letter-spacing:.01em;line-height:1.05}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-weight:700}
+.muted{color:var(--soft);font-size:13px}
+
+.app{max-width:560px;margin:0 auto;padding:0 14px calc(var(--tabbar) + 28px + env(safe-area-inset-bottom,0px))}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding-top:10px;margin-bottom:12px}
+.app{padding-top:12px}
+.topaudio{display:flex;align-items:center;gap:12px;width:100%;height:58px;padding:0 14px 0 8px;border:0;border-radius:14px;background:rgba(36,50,77,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;cursor:pointer;text-align:left;font:inherit;box-shadow:0 8px 24px rgba(20,28,56,.25)}
+.topaudio .pl{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--btn)}
+.topaudio .tx{flex:1;min-width:0}
+.topaudio .tx small{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#b8c3dc;font-weight:700}
+.topaudio .tx b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topaudio .pr{height:3px;border-radius:3px;background:rgba(255,255,255,.2);margin-top:5px;overflow:hidden}
+.topaudio .pr i{display:block;height:100%;width:0;background:#f3d7a0}
+.topaudio .tm2{font-size:12px;color:#cedbe9;font-variant-numeric:tabular-nums;white-space:nowrap}
+.topaudio.on .pl{background:#f3d7a0}
+/* entry splash */
+#splash.appear{animation:reveal .9s cubic-bezier(.3,.8,.3,1) both}
+.splash{text-align:center;padding:26px 20px 22px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.splash h2{font-size:clamp(28px,7.4vw,38px)}
+.splash .lead{color:var(--ink2);font-size:15px;max-width:26em;margin:0}
+.bigdie{width:132px;height:132px;border-radius:28px;background:#fff;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:20px;box-shadow:0 18px 40px rgba(55,67,112,.3),0 0 0 6px rgba(255,255,255,.7);border:1px solid var(--peri-l);margin:14px 0 8px;cursor:pointer}
+.bigdie i{width:20px;height:20px;border-radius:50%;background:var(--ink);place-self:center;opacity:0}
+.bigdie i.on{opacity:1}
+.bigdie.rolling{animation:spin .5s linear infinite}
+@keyframes spin{0%{transform:rotate(0) scale(1)}25%{transform:rotate(-14deg) scale(1.05)}50%{transform:rotate(10deg) scale(.97)}75%{transform:rotate(-6deg) scale(1.03)}100%{transform:rotate(0) scale(1)}}
+.bigdie.six{box-shadow:0 18px 40px rgba(185,138,62,.45),0 0 0 6px #f3d7a0}
+.splash .status{min-height:3em;font-size:14.5px}
+.tries{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;min-height:26px}
+.tries span{width:26px;height:26px;border-radius:8px;background:rgba(133,147,187,.22);color:var(--indigo2);display:grid;place-items:center;font-weight:800;font-size:13px}
+.tries span.w{background:linear-gradient(135deg,#f3e3c0,#e2c58c);color:var(--ink)}
+.reveal .board-wrap{animation:reveal 1s cubic-bezier(.3,.8,.3,1) both}
+@keyframes reveal{from{opacity:0;transform:scale(.92) translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.topbar .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;height:52px;padding:0 14px;border-radius:12px;background:rgba(36,50,77,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff}
+.topbar .mk{font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.16);color:#dfe6f5;border-radius:999px;padding:4px 9px;white-space:nowrap}
+
+.glass{background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;box-shadow:var(--glass-sh);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.card{padding:18px}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;border:1px solid transparent;padding:13px 22px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;min-width:0}
+.btn:active{transform:scale(.98)}
+.btn-brown{background:var(--btn);color:#fff}.btn-brown:hover{background:var(--btn-h)}
+.btn-tg{background:var(--tg);color:#fff}.btn-tg:hover{background:#4297d8}
+.btn-line{background:rgba(255,255,255,.6);color:var(--ink);border-color:rgba(60,22,22,.22)}.btn-line:hover{border-color:var(--ink)}
+.btn-block{width:100%}
+.btn-sm{padding:9px 14px;font-size:13.5px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.link{background:none;border:0;color:var(--soft);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px;font-weight:600}
+.row{display:flex;gap:10px;align-items:center}
+.row-between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btns .btn{flex:1 1 150px}
+
+/* HOME */
+.hero{position:relative;overflow:hidden;border-radius:20px;display:flex;flex-direction:column;justify-content:flex-end;padding:min(62vw,300px) 22px 22px;color:#fff;
+  background:linear-gradient(180deg,rgba(15,20,44,0) 30%,rgba(15,20,44,.75) 58%,rgba(15,20,44,.96) 100%),url("art.jpg") center 22%/cover no-repeat,#141c38;box-shadow:var(--glass-sh)}
+.hero h1{font-size:clamp(28px,7.4vw,38px);margin-bottom:10px}
+.hero p{margin:0 0 16px;color:#e3e9f6;font-size:14.5px}
+.progress-card .bar{height:8px;border-radius:8px;background:var(--peri-l);overflow:hidden;margin:10px 0 6px}
+.progress-card .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--peri),var(--indigo));border-radius:8px}
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step .num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--peri);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800}
+.step b{display:block;font-size:15px}
+.step span{font-size:14px;color:var(--ink2)}
+details.acc{border-top:1px solid rgba(60,22,22,.1);padding:12px 0}
+details.acc:first-of-type{border-top:0}
+details.acc summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"+";font-size:20px;color:var(--soft);font-weight:500}
+details.acc[open] summary::after{content:"–"}
+details.acc p,details.acc li{color:var(--ink2);font-size:14px}
+details.acc ul{padding-left:18px;margin:8px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--glass-b);background:rgba(255,255,255,.7);border-radius:999px;padding:8px 14px;font-size:13.5px;color:var(--ink)}
+button.chip{cursor:pointer;font-weight:600}
+button.chip[aria-pressed="true"]{background:var(--btn);color:#fff;border-color:var(--btn)}
+.sec-title{font-size:24px;margin-bottom:10px}
+
+/* cell card */
+.cell-card .head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.cell-card .badge{flex:none;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff,#c9d1ea 60%,#8593bb);box-shadow:0 0 0 3px rgba(255,255,255,.85),0 6px 18px rgba(55,67,112,.28);font-family:var(--serif);font-weight:700;font-size:21px;color:var(--indigo2)}
+.cell-card .lvl{font-size:12px;letter-spacing:.04em;color:var(--soft)}
+.cell-card h3{font-size:18.5px;font-weight:800;line-height:1.2}
+.cell-card p{color:var(--ink2);margin:12px 0 0;font-size:14.5px}
+.tagline{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;border-radius:8px;padding:4px 10px;margin-bottom:10px}
+.tagline.snake{background:rgba(201,131,152,.16);color:#a4566e}
+.tagline.arrow{background:rgba(185,138,62,.16);color:#86611f}
+.tagline.view{background:rgba(133,147,187,.18);color:var(--indigo2)}
+.qbox{margin-top:14px;border-top:1px solid rgba(60,22,22,.12);padding-top:12px}
+.qbox .t{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:700;margin-bottom:4px}
+.qbox .q{font-family:var(--serif);font-weight:700;font-size:20px;line-height:1.2}
+
+/* audio (simulated) */
+.audio{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.75);border:1px solid var(--glass-b);border-radius:12px;padding:9px 12px}
+.aud-wrap{display:flex;flex-direction:column;gap:6px}
+.speeds{display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.speeds span{font-size:11.5px;color:var(--soft);font-weight:700;margin-right:2px}
+.speeds button{border:1px solid rgba(133,147,187,.5);background:rgba(255,255,255,.7);color:var(--indigo2);border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;min-width:48px}
+.speeds button[aria-pressed="true"]{background:var(--indigo2);border-color:var(--indigo2);color:#fff}
+.audio .play{flex:none;width:38px;height:38px;border-radius:50%;border:0;background:var(--btn);color:#fff;display:grid;place-items:center;cursor:pointer}
+.audio .meta{flex:1;min-width:0}
+.audio .rw{display:flex;justify-content:space-between;font-size:12px;color:var(--soft);gap:8px}
+.audio .rw b{color:var(--ink);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.audio .tm{font-variant-numeric:tabular-nums;white-space:nowrap}
+.audio .bar{height:4px;background:var(--peri-l);border-radius:4px;margin-top:7px;overflow:hidden;cursor:pointer}
+.audio .bar i{display:block;height:100%;width:0;background:var(--indigo);border-radius:4px}
+.audio .eq{display:flex;gap:2px;align-items:flex-end;height:14px;flex:none}
+.audio .eq span{width:3px;height:4px;background:var(--indigo);border-radius:2px;opacity:.4}
+.audio.on .eq span{animation:eq .9s ease-in-out infinite;opacity:1}
+.audio.on .eq span:nth-child(2){animation-delay:.15s}.audio.on .eq span:nth-child(3){animation-delay:.3s}.audio.on .eq span:nth-child(4){animation-delay:.45s}
+@keyframes eq{0%,100%{height:4px}50%{height:14px}}
+
+/* GAME */
+.intent{text-align:center}
+.intent h2{font-size:clamp(28px,7vw,36px);margin:6px 0}
+.intent p{color:var(--ink2);margin:0 0 14px}
+.intent .chips{justify-content:center}
+.intent label{display:block;text-align:left;margin-top:16px;font-size:13px;color:var(--soft)}
+.intent textarea{width:100%;min-height:100px;margin-top:6px;background:rgba(255,255,255,.85);border:1px solid rgba(133,147,187,.6);border-radius:10px;color:var(--ink);font:inherit;font-size:16px;padding:12px;resize:vertical}
+.err{color:#a23b3b;font-size:13px;min-height:1.2em;margin-top:6px;text-align:left}
+#vPlay .qpill,#vEntry .qpill{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:15;background:rgba(255,255,255,.9)}
+.cell-card.flash{animation:flash 1.2s ease}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(201,131,152,.6),var(--glass-sh)}40%{box-shadow:0 0 0 6px rgba(201,131,152,.35),var(--glass-sh)}100%{box-shadow:var(--glass-sh)}}
+.answer{margin-top:14px;background:rgba(255,255,255,.85);border:1px solid #e9c4cf;border-radius:14px;padding:12px;box-shadow:0 0 0 3px rgba(201,131,152,.15)}
+.answer label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8f4b62;font-weight:800;margin-bottom:6px}
+.answer textarea{width:100%;min-height:92px;border:1px solid rgba(133,147,187,.55);border-radius:10px;background:#fff;font:inherit;font-size:16px;color:var(--ink);padding:10px;resize:vertical}
+.answer .row-between{margin-top:8px}
+.answer .hint{font-size:12px;color:var(--soft)}
+.answered{margin-top:14px;background:rgba(63,138,90,.08);border:1px solid rgba(63,138,90,.25);border-radius:12px;padding:10px 12px;font-size:14px;color:var(--ink2)}
+.answered b{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ok);margin-bottom:2px}
+.btn.shine{position:relative;overflow:hidden;animation:glow 1.8s ease-in-out infinite}
+.btn.shine::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,236,190,.65),transparent);transform:skewX(-20deg);animation:sweep 2.2s ease-in-out infinite}
+@keyframes sweep{0%{left:-60%}60%,100%{left:130%}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(217,170,90,.0),0 6px 16px rgba(60,22,22,.25)}50%{box-shadow:0 0 0 5px rgba(217,170,90,.35),0 6px 22px rgba(217,170,90,.55)}}
+@media (prefers-reduced-motion:reduce){.btn.shine{box-shadow:0 0 0 4px rgba(217,170,90,.45)}.btn.shine::after{display:none}}
+#rollBtn.need{background:rgba(60,22,22,.12);color:var(--ink)}
+.offer{border:1px solid #efd3dc;background:linear-gradient(180deg,rgba(255,250,246,.9),rgba(255,255,255,.7))}
+.teaser{position:relative;margin:14px 0;border-radius:14px;overflow:hidden;background:rgba(255,255,255,.75);border:1px solid var(--glass-b)}
+.teaser .tz{padding:10px 14px;border-bottom:1px solid rgba(60,22,22,.07);filter:blur(3.2px);user-select:none}
+.teaser .tz b{display:block;font-size:14px}
+.teaser .tz span{font-size:13px;color:var(--ink2)}
+.teaser .lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;color:var(--ink);background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,.6))}
+.teaser .lock svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
+.astro{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,rgba(36,50,77,.95),rgba(55,67,112,.92));color:#fff;border-radius:14px;padding:14px}
+.astro b{display:block;font-size:14.5px;color:#f3d7a0}
+.astro p{margin:4px 0 0;font-size:13.5px;color:#dfe6f5}
+.astro-ic{flex:none;width:46px;height:46px;color:#f3d7a0}
+.astro-ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.4}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.plan{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;border:1px solid rgba(60,22,22,.18);background:#fff;border-radius:14px;padding:14px 12px 12px;cursor:pointer;font:inherit;color:var(--ink)}
+.plan .pn{font-weight:800;font-size:14px}
+.plan .pp{font-family:var(--serif);font-weight:700;font-size:30px;line-height:1}
+.plan .pd{font-size:12px;color:var(--soft)}
+.plan.best{border:2px solid #c98398;box-shadow:0 8px 22px rgba(201,131,152,.25)}
+.plan .tag{position:absolute;top:-10px;right:10px;background:#c98398;color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 8px}
+.quotes{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.quotes blockquote{margin:0;background:rgba(255,255,255,.75);border-left:3px solid #c98398;border-radius:8px;padding:8px 12px;font-size:13.5px;color:var(--ink2)}
+.quotes blockquote small{display:block;font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em;font-weight:800}
+.bform label{display:block;font-size:12.5px;color:var(--soft);font-weight:700;margin:10px 0 4px}
+.bform input:not([type=checkbox]){width:100%;background:#fff;border:1px solid rgba(133,147,187,.6);border-radius:10px;padding:10px 12px;font:inherit;font-size:16px;color:var(--ink)}
+.bform .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.bform .two>div{min-width:0}
+.bform input:not([type=checkbox]){min-width:0;max-width:100%;-webkit-appearance:none;appearance:none}
+.bform .chk input{width:18px;height:18px;accent-color:var(--btn)}
+.bform .chk{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink2)}
+.bform .btn{margin-top:14px}
+.okmark{width:64px;height:64px;border-radius:50%;margin:4px auto 10px;display:grid;place-items:center;font-size:30px;color:#fff;background:linear-gradient(135deg,#7fbf8f,#3f8a5a)}
+.orders{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.orders li{background:rgba(255,255,255,.75);border:1px solid var(--glass-b);border-radius:12px;padding:10px 12px;font-size:13.5px}
+.orders li b{display:block}
+@media (max-width:380px){.plans{grid-template-columns:1fr}}
+body.locked .app,body.locked .tabbar{display:none!important}
+.auth{min-height:100vh;display:flex;align-items:flex-end;justify-content:center;padding:16px 14px calc(20px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg,rgba(15,20,44,.05) 0%,rgba(15,20,44,.35) 35%,rgba(15,20,44,.9) 70%),url("art.jpg") center top/cover no-repeat,#141c38}
+.auth .box{width:100%;max-width:520px;color:#fff}
+.auth h1{font-size:clamp(32px,8.6vw,46px);margin:6px 0 8px}
+.auth .lead{color:#e3e9f6;font-size:15px;margin:0 0 16px}
+.auth .form{background:rgba(255,255,255,.95);color:var(--ink);border-radius:18px;padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.auth label{display:block;font-size:12.5px;color:var(--soft);font-weight:700;margin:10px 0 4px}
+.auth label:first-child{margin-top:0}
+.auth input{width:100%;background:#fff;border:1px solid rgba(133,147,187,.6);border-radius:10px;padding:12px;font:inherit;font-size:16px;color:var(--ink)}
+.auth .invited{display:flex;gap:10px;align-items:center;background:rgba(243,215,160,.18);border:1px solid rgba(243,215,160,.5);color:#f3d7a0;border-radius:12px;padding:10px 12px;font-size:13.5px;margin-bottom:12px}
+.auth .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.auth .two>div{min-width:0}
+.auth input:not([type=checkbox]){min-width:0;max-width:100%;-webkit-appearance:none;appearance:none}
+.auth .chk{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink2);margin-top:8px}
+.auth .chk input{width:18px;height:18px;accent-color:var(--btn)}
+.astro-note{display:flex;gap:10px;align-items:flex-start;margin:14px 0 2px;background:linear-gradient(135deg,rgba(36,50,77,.95),rgba(55,67,112,.92));color:#dfe6f5;border-radius:12px;padding:10px 12px}
+.astro-note .astro-ic{width:34px;height:34px;flex:none;color:#f3d7a0}
+.astro-note .astro-ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.5}
+.astro-note p{margin:0;font-size:12.5px;line-height:1.45}
+.astro-note b{color:#f3d7a0}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:rgba(133,147,187,.18);border-radius:12px;padding:4px;margin-bottom:6px}
+.auth-tabs button{border:0;background:transparent;border-radius:9px;padding:9px;font:inherit;font-weight:800;color:var(--soft);cursor:pointer}
+.auth-tabs button[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(55,67,112,.15)}
+.auth .pass{position:relative}
+.auth .pass input{padding-right:92px}
+.auth .pass button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:rgba(133,147,187,.18);color:var(--indigo2);border-radius:8px;padding:6px 10px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer}
+.auth .fine{font-size:12px;color:var(--soft);text-align:center;margin:10px 0 0}
+.share-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.share-grid a,.share-grid button{display:flex;flex-direction:column;align-items:center;gap:5px;border-radius:12px;padding:10px 4px;font:inherit;font-size:11.5px;font-weight:800;text-decoration:none;border:1px solid var(--glass-b);background:rgba(255,255,255,.8);color:var(--ink);cursor:pointer}
+.share-grid .ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.share-grid .ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9}
+.ic.wa{background:#25d366}.ic.tg{background:#54a9ec}.ic.sms{background:#8593bb}.ic.cp{background:var(--btn)}
+#inviteMsg{width:100%;min-height:96px;background:#fff;border:1px solid rgba(133,147,187,.6);border-radius:10px;padding:10px;font:inherit;font-size:14.5px;color:var(--ink);resize:vertical;margin-top:6px}
+.codechip{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;background:rgba(133,147,187,.18);color:var(--indigo2);border-radius:8px;padding:3px 8px;font-size:13px}
+.hist details summary{cursor:pointer;list-style:none}
+.hist details summary::-webkit-details-marker{display:none}
+.hist details summary b::after{content:" ▾";color:var(--soft);font-size:11px}
+.hist details[open] summary b::after{content:" ▴"}
+.hans{margin-top:6px;background:rgba(255,255,255,.8);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--ink2)}
+.hans b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.langsw{position:fixed;z-index:75;top:calc(env(safe-area-inset-top,0px) + 12px);right:max(12px,calc(50vw - 268px));display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(36,50,77,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 6px 18px rgba(20,28,56,.3)}
+.langsw button{border:0;background:transparent;color:#cedbe9;font:inherit;font-size:12px;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:6px 10px;cursor:pointer;min-width:38px}
+.langsw button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+#vPlay .qpill,#vEntry .qpill{padding-right:112px!important}
+.qpill .t{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:700}
+.qpill .q{font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.3px;line-height:1.3;margin-top:2px}
+.board-wrap{position:relative}
+.board{position:relative;display:grid;grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(8,1fr);aspect-ratio:9/8;max-width:100%;gap:3px;padding:3px;border-radius:14px;background:rgba(255,255,255,.35);border:1px solid var(--glass-b);box-shadow:var(--glass-sh)}
+.cell{position:relative;border-radius:6px;background:rgba(255,255,255,.8);padding:3px 3.5px;overflow:hidden;font-size:8.4px;line-height:1.12;color:var(--ink2);font-weight:600;cursor:pointer;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word;border:0;text-align:left;font-family:inherit;display:block}
+.cell:hover{background:#fff}
+.cell .no{display:block;font-weight:800;color:var(--indigo);font-size:9.5px}
+.cell .nm{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-top:1px}
+.cell.row-odd{background:rgba(240,236,244,.86)}
+.cell.visited{background:#d6dcf0}
+.cell.goal{background:linear-gradient(135deg,#f3e3c0,#e2c58c);color:var(--ink)}
+.cell.here{outline:2px solid var(--btn);outline-offset:-2px}
+.overlay{position:absolute;inset:3px;pointer-events:none;width:calc(100% - 6px);height:calc(100% - 6px)}
+.token{position:absolute;width:5.6%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#8593bb 55%,#374370);box-shadow:0 0 0 3px #fff,0 0 16px rgba(55,67,112,.7);transform:translate(-50%,-50%);transition:left .16s ease,top .16s ease;z-index:3;pointer-events:none}
+.token.slow{transition:left .9s cubic-bezier(.5,0,.3,1),top .9s cubic-bezier(.5,0,.3,1)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--soft);margin-top:8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:18px;border-radius:2px}
+.roller{position:sticky;bottom:calc(var(--tabbar) + 18px + env(safe-area-inset-bottom,0px));z-index:12;background:rgba(255,255,255,.92)}
+.roller .row{gap:14px}
+.die{flex:none;width:54px;height:54px;border-radius:12px;background:#fff;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:8px;box-shadow:0 6px 16px rgba(55,67,112,.22);border:1px solid var(--peri-l)}
+.die i{width:9px;height:9px;border-radius:50%;background:var(--ink);place-self:center;opacity:0}
+.die i.on{opacity:1}
+.die.rolling{animation:shake .12s linear infinite}
+@keyframes shake{0%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}100%{transform:rotate(-8deg)}}
+.status{font-size:13.5px;color:var(--ink2);white-space:pre-line;margin-top:8px}
+.status:empty{display:none}
+.status b{color:var(--ink);font-weight:800}
+.path{display:flex;flex-wrap:wrap;gap:6px}
+.path .p{font-size:12px;border-radius:6px;padding:3px 8px;background:rgba(133,147,187,.2);color:var(--indigo2);font-variant-numeric:tabular-nums;font-weight:700}
+.path .p.s{background:rgba(201,131,152,.18);color:#a4566e}
+.path .p.a{background:rgba(185,138,62,.2);color:#86611f}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stats div{background:rgba(255,255,255,.72);border:1px solid var(--glass-b);border-radius:12px;padding:10px;text-align:center}
+.stats b{display:block;font-family:var(--serif);font-size:30px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+.stats span{font-size:12px;color:var(--soft)}
+
+/* PROFILE */
+.me{display:flex;gap:14px;align-items:center}
+.avatar{flex:none;width:62px;height:62px;border-radius:50%;background:url("art.jpg") 58% 22%/300% no-repeat;box-shadow:0 0 0 3px #fff,0 6px 16px rgba(55,67,112,.25)}
+.me input{width:100%;background:transparent;border:0;border-bottom:1px dashed rgba(60,22,22,.25);font:inherit;font-size:19px;font-weight:800;color:var(--ink);padding:2px 0}
+.ref{display:flex;gap:8px;margin:12px 0 10px}
+.ref input{flex:1;min-width:0;background:rgba(255,255,255,.85);border:1px solid rgba(133,147,187,.6);border-radius:10px;color:var(--ink);padding:10px 12px;font:inherit;font-size:13.5px}
+.reward .bar{height:10px;border-radius:10px;background:var(--peri-l);overflow:hidden;margin:10px 0 6px}
+.reward .bar i{display:block;height:100%;background:linear-gradient(90deg,#e7a9b9,var(--rose));border-radius:10px;transition:width .6s}
+.friends{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.friends li{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.72);border:1px solid var(--glass-b);border-radius:12px;padding:10px 12px}
+.friends li.new{animation:pop .6s ease}
+@keyframes pop{0%{transform:scale(.96);background:#fff4d9}100%{transform:none}}
+.friends .fa{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:var(--peri)}
+.friends .fn{flex:1;min-width:0}
+.friends .fn b{display:block;font-size:14.5px}
+.friends .fn span{font-size:12.5px;color:var(--soft)}
+.st{font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 9px;white-space:nowrap}
+.st.reg{background:rgba(63,138,90,.14);color:var(--ok)}
+.st.play{background:rgba(133,147,187,.2);color:var(--indigo2)}
+.st.done{background:rgba(185,138,62,.18);color:#86611f}
+.empty{font-size:13.5px;color:var(--soft);text-align:center;padding:14px 8px}
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.hist li{background:rgba(255,255,255,.72);border:1px solid var(--glass-b);border-radius:12px;padding:10px 12px;font-size:13.5px}
+.hist li b{display:block;text-transform:uppercase;font-size:12.5px;letter-spacing:.2px}
+
+/* TAB BAR */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:0 12px calc(10px + env(safe-area-inset-bottom,0px))}
+.tabbar .in{max-width:536px;margin:0 auto;height:var(--tabbar);display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;border-radius:22px;background:rgba(36,50,77,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 30px rgba(20,28,56,.35)}
+.tab{position:relative;background:none;border:0;color:#b8c3dc;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:700;cursor:pointer;padding:8px 0}
+.tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8}
+.tab[aria-current="page"]{color:#fff}
+.tab.center .orb{width:66px;height:66px;margin-top:-34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#7a4a3a,var(--btn) 70%);box-shadow:0 0 0 5px rgba(238,241,250,.95),0 10px 22px rgba(60,22,22,.45);color:#fff}
+.tab.center .orb svg{width:30px;height:30px}
+.tab.center[aria-current="page"] .orb{background:radial-gradient(circle at 35% 30%,#a06a4f,#56352a 70%)}
+.tab .dot{position:absolute;top:6px;left:calc(50% + 8px);min-width:18px;height:18px;border-radius:9px;background:#e25670;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 5px}
+
+/* modal + toast */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(20,28,56,.55);display:grid;place-items:end center;padding:16px 12px calc(16px + env(safe-area-inset-bottom,0px))}
+.modal .glass{max-width:536px;width:100%;max-height:88vh;overflow:auto;padding:22px;background:rgba(255,255,255,.95)}
+.modal h3{font-size:28px;margin-bottom:8px}
+.modal p{color:var(--ink2)}
+.toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--indigo2);color:#fff;padding:11px 16px;border-radius:12px;font-size:13.5px;font-weight:700;z-index:80;max-width:min(92vw,520px);box-shadow:0 10px 30px rgba(20,28,56,.35)}
+
+
+/* 5-tab bar */
+.tabbar .in{grid-template-columns:1fr 1fr 1.15fr 1fr 1fr!important}
+.tab{font-size:10.5px}
+.tab svg{width:22px;height:22px}
+.tab .dot{left:calc(50% + 6px)}
+/* level / petals */
+.lvl-card{text-align:center;position:relative;overflow:hidden}
+.lvl-emblem{width:132px;height:132px;margin:4px auto 6px;display:block}
+.lvl-card .lvl-no{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-weight:800}
+.lvl-card h2{font-size:38px;margin:2px 0}
+.lvl-card .chak{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--soft)}
+.lvl-card .desc{color:var(--ink2);font-size:14px;margin:10px auto 0;max-width:30em}
+.pbar{height:12px;border-radius:12px;background:var(--peri-l);overflow:hidden;margin:14px 0 6px}
+.pbar i{display:block;height:100%;border-radius:12px;transition:width .8s cubic-bezier(.3,.7,.3,1)}
+.petals{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-variant-numeric:tabular-nums}
+.petals svg{width:16px;height:16px;flex:none}
+.ladder{list-style:none;margin:0;padding:0;position:relative}
+.ladder li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;position:relative}
+.ladder li+li{border-top:1px solid rgba(60,22,22,.08)}
+.ladder .ic{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 0 0 2px var(--c,#ccc) inset}
+.ladder .ic svg{width:30px;height:30px}
+.ladder li.lock .ic{filter:grayscale(1);opacity:.45}
+.ladder li.cur .ic{box-shadow:0 0 0 3px var(--c) inset,0 0 0 4px #fff,0 0 16px var(--c)}
+.ladder b{display:block;font-size:15px}
+.ladder .sub{font-size:12.5px;color:var(--soft)}
+.ladder .rw{font-size:13px;color:var(--ink2);margin-top:2px}
+.ladder .need{margin-left:auto;font-size:12px;font-weight:800;color:var(--soft);white-space:nowrap;padding-top:3px}
+.earn{display:grid;grid-template-columns:1fr auto;gap:8px 12px;font-size:14px}
+.earn span:nth-child(even){font-weight:800;color:#8f4b62;text-align:right;white-space:nowrap}
+.ach{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ach div{background:rgba(255,255,255,.72);border:1px solid var(--glass-b);border-radius:12px;padding:10px 8px;text-align:center;font-size:12px;color:var(--ink2)}
+.ach div b{display:block;font-size:13px;color:var(--ink);margin-top:4px}
+.ach div .em{font-size:22px;line-height:1;font-family:var(--serif);font-weight:700;color:var(--gold)}
+.ach div.off{opacity:.45;filter:grayscale(1)}
+/* tasks */
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.75);border:1px solid var(--glass-b);border-radius:14px;padding:12px}
+.tasks .tk{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(133,147,187,.18);color:var(--indigo2)}
+.tasks .tk svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
+.tasks .tb{flex:1;min-width:0}
+.tasks .tb b{display:block;font-size:14px;line-height:1.3}
+.tasks .tb .mini{height:5px;border-radius:5px;background:var(--peri-l);overflow:hidden;margin-top:6px}
+.tasks .tb .mini i{display:block;height:100%;background:var(--peri);border-radius:5px}
+.tasks .tb span{font-size:12px;color:var(--soft)}
+.tasks .go{flex:none}
+.tasks li.done{opacity:.6}
+.tasks li.ready{border-color:#e9c4cf;box-shadow:0 0 0 2px rgba(201,131,152,.25)}
+.btn-claim{background:linear-gradient(135deg,#e7a9b9,#c98398);color:#fff}
+.reward-pill{font-size:12px;font-weight:800;color:#8f4b62;white-space:nowrap}
+.streak{display:flex;gap:6px;justify-content:space-between;margin-top:10px}
+.streak div{flex:1;text-align:center;font-size:11px;color:var(--soft)}
+.streak i{display:block;width:30px;height:30px;margin:0 auto 4px;border-radius:50%;background:var(--peri-l);display:grid;place-items:center;font-style:normal;font-weight:800;color:#fff}
+.streak .on i{background:linear-gradient(135deg,#e7a9b9,#c98398)}
+.timer{font-variant-numeric:tabular-nums}
+.mini-lvl{display:flex;gap:12px;align-items:center;cursor:pointer;text-align:left;width:100%;border:1px solid var(--glass-b);font:inherit;color:inherit}
+.mini-lvl svg{width:52px;height:52px;flex:none}
+.mini-lvl .pbar{margin:6px 0 2px;height:8px}
+.note-btn{margin-top:10px}
+.journal{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.journal li{background:rgba(255,255,255,.72);border:1px solid var(--glass-b);border-radius:12px;padding:10px 12px;font-size:13.5px;color:var(--ink2)}
+.journal li b{display:block;font-size:12px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
+#noteText{width:100%;min-height:110px;background:rgba(255,255,255,.9);border:1px solid rgba(133,147,187,.6);border-radius:10px;font:inherit;font-size:16px;padding:12px;color:var(--ink);resize:vertical}
+.lvlup{text-align:center}
+.lvlup .lvl-emblem{animation:rise 1s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes rise{from{transform:scale(.4) rotate(-30deg);opacity:0}to{transform:none;opacity:1}}
+@media (max-width:420px){
+  .cell{font-size:6.6px;padding:2px 2.5px;line-height:1.1}
+  .cell .no{font-size:8.5px}
+  .topbar .mk{font-size:15.5px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="langsw" role="group" aria-label="Язык / Language"><button type="button" data-lang="ru" aria-pressed="true">RU</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+<section class="auth" id="auth" hidden>
+  <div class="box">
+    <div class="eyebrow" style="color:#cedbe9">Трансформационная игра</div>
+    <h1 class="h-serif">Слияние Шивы и Шакти</h1>
+    <p class="lead">Игра о любви и союзе — с собой и с другим. Зарегистрируйся, чтобы начать свой путь по 72 клеткам. Первая игра — бесплатно.</p>
+    <div class="invited" id="invitedBox" hidden><span aria-hidden="true">✦</span><span id="invitedTxt"></span></div>
+    <form class="form" id="authForm" novalidate>
+      <div class="auth-tabs" role="tablist">
+        <button type="button" role="tab" id="modeReg" aria-selected="true">Регистрация</button>
+        <button type="button" role="tab" id="modeLog" aria-selected="false">Вход</button>
+      </div>
+      <div class="reg-only">
+        <label for="aName">Как тебя зовут</label>
+        <input id="aName" autocomplete="given-name" maxlength="30" placeholder="Имя">
+      </div>
+      <label for="aEmail">E-mail</label>
+      <input id="aEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
+      <label for="aPass">Пароль</label>
+      <div class="pass">
+        <input id="aPass" type="password" autocomplete="new-password" minlength="6" maxlength="64" placeholder="Не меньше 6 символов">
+        <button type="button" id="aShow" aria-label="Показать пароль">Показать</button>
+      </div>
+      <div class="reg-only">
+        <label for="aPass2">Повтори пароль</label>
+        <input id="aPass2" type="password" autocomplete="new-password" maxlength="64">
+        <div class="astro-note">
+          <div class="astro-ic" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20"/><circle cx="24" cy="24" r="12"/><path d="M24 4v40M4 24h40M10 10l28 28M38 10L10 38"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg></div>
+          <p>Дата и время рождения помогут нашему астрологу <b>Шива Вакья Сиддха Бабе</b> увидеть твою игру глубже: по натальной карте он подскажет, что стоит за твоим вопросом и какой период у тебя сейчас.</p>
+        </div>
+        <div class="two">
+          <div><label for="aDate">Дата рождения</label><input id="aDate" type="date" max="2020-12-31"></div>
+          <div><label for="aTime">Время рождения</label><input id="aTime" type="time"></div>
+        </div>
+        <label class="chk"><input type="checkbox" id="aNoTime"> Не знаю точное время</label>
+      </div>
+      <div class="err" id="aErr"></div>
+      <button class="btn btn-brown btn-block shine" type="submit" id="aSubmit" style="margin-top:6px">Начать путь</button>
+      <p class="fine log-only" hidden><button type="button" class="link" id="aForgot" style="padding:0">Забыла пароль?</button></p>
+      <p class="fine reg-only">Без подтверждения почты. Нажимая кнопку, ты соглашаешься с правилами игры и политикой конфиденциальности.</p>
+      <p class="fine log-only" hidden>Твой путь, ответы, лепестки и уровень сохранены в аккаунте — продолжишь с того же места.</p>
+    </form>
+  </div>
+</section>
+
+<div class="app">
+  <header class="topbar" id="topBar" hidden><button class="topaudio" type="button" id="topPlay" aria-label="Слушать голос проводника">
+    <span class="pl" id="topIcon"></span>
+    <span class="tx"><small id="topSmall">Голос проводника</small><b id="topTitle"></b><span class="pr"><i id="topProg"></i></span></span>
+    <span class="tm2" id="topTime"></span>
+  </button></header>
+
+  <!-- ============ HOME / DASHBOARD ============ -->
+  <section id="tHome" class="stack">
+    <div class="hero">
+      <div class="eyebrow" style="color:#cedbe9">Трансформационная игра</div>
+      <h1 class="h-serif" style="margin-top:6px">Слияние Шивы и Шакти</h1>
+      <p>Игра о любви и союзе — с собой и с другим. Задай вопрос, брось кубик и пройди свой путь по 72 клеткам с голосом проводника.</p>
+      <button class="btn btn-brown btn-block" type="button" data-go="game" id="heroCta">Начать игру</button>
+    </div>
+
+    <button class="glass card mini-lvl" type="button" data-go="level" id="homeLvl"></button>
+    <div class="glass card progress-card" id="homeProgress" hidden></div>
+
+    <div class="glass card">
+      <div class="stats" id="homeStats"></div>
+    </div>
+
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Как играть</h2>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><b>Задай вопрос</b><span>О нём, о вас или о себе — то, что сейчас болит или требует ясности.</span></div></div>
+        <div class="step"><div class="num">2</div><div><b>Дождись шестёрки</b><span>В игру входят только с шестёркой. До этого ты в пространстве подготовки.</span></div></div>
+        <div class="step"><div class="num">3</div><div><b>Отвечай на вопросы</b><span>На каждой клетке — толкование и вопрос. Напиши свой ответ, и только после этого можно бросать кубик дальше.</span></div></div>
+        <div class="step"><div class="num">4</div><div><b>Слушай клетки</b><span>Стрелы поднимают, змеи возвращают. На каждой клетке — толкование и вопрос для осознания.</span></div></div>
+      </div>
+    </div>
+
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Правила и ответы</h2>
+      <details class="acc" open><summary>Правила игры</summary>
+        <ul>
+          <li>Вопрос задаётся в начале и остаётся с тобой всю игру.</li>
+          <li>Вход в игру — только с шестёркой: она ставит тебя на клетку 1, «Рождение».</li>
+          <li>Шестёрка даёт ещё один бросок.</li>
+          <li>Стрела поднимает выше, змея возвращает назад — туда, где осталось что-то важное.</li>
+          <li>Если бросок уводит за 72-ю клетку, ты отскакиваешь назад на лишние шаги.</li>
+          <li>Игра завершается на клетке 68 — «Космическое сознание».</li>
+        </ul>
+      </details>
+      <details class="acc"><summary>Сколько длится игра?</summary><p>Обычно 30–60 минут. Можно прерваться: прогресс сохранится, и ты продолжишь с той же клетки.</p></details>
+      <details class="acc"><summary>Сколько стоит?</summary><p>Первая игра бесплатна. Каждая следующая игра — $15. Приглашай друзей через задания: за каждого — лепестки, а за трёх друзей — игра в подарок.</p></details>
+      <details class="acc"><summary>Что такое уровни и лепестки?</summary><p>За игры, приглашения и задания ты собираешь лепестки лотоса. Они поднимают тебя по семи уровням — семи чакрам, от «Ростка» до «Союза». На каждом уровне открывается подарок: медитация, скидка, игра в подарок.</p></details>
+      <details class="acc"><summary>Это гадание?</summary><p>Нет. Игра не предсказывает будущее — она помогает посмотреть на свою ситуацию со стороны и услышать собственные ответы.</p></details>
+      <details class="acc"><summary>Как слушать клетки?</summary><p>На каждой клетке есть запись голосом проводника. Нажми на кнопку воспроизведения, послушай и ответь себе на вопрос с карточки.</p></details>
+    </div>
+
+    <div class="glass card">
+      <h2 class="h-serif sec-title">С чем приходят</h2>
+      <div class="chips">
+        <span class="chip">Уйти или остаться</span><span class="chip">Почему я одна</span><span class="chip">Ревность</span><span class="chip">Остыли чувства</span><span class="chip">Отпустить после расставания</span><span class="chip">Женская энергия</span><span class="chip">Доверие</span><span class="chip">Любовь к себе</span>
+      </div>
+    </div>
+    <p class="muted" style="text-align:center;margin:4px 0 0">Демо-версия · аудио и оплата имитируются · прогресс хранится в этом браузере</p>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section id="tGame" hidden>
+    <div id="vIntent" class="glass card intent" hidden>
+      <div class="eyebrow">Вход в игру</div>
+      <h2 class="h-serif">О чём твоя игра?</h2>
+      <p>Выбери тему и сформулируй вопрос своими словами. Чем честнее вопрос, тем точнее игра.</p>
+      <div class="chips" id="intentChips" role="group" aria-label="Тема запроса"></div>
+      <label for="qText">Твой вопрос</label>
+      <textarea id="qText" maxlength="240" placeholder="Например: почему мне страшно подпускать мужчину близко?"></textarea>
+      <div class="err" id="qErr"></div>
+      <button class="btn btn-brown btn-block" type="button" id="startBtn" style="margin-top:8px">Войти в игру</button>
+    </div>
+
+    <div id="vEntry" class="stack" hidden>
+      <div class="glass card qpill" style="padding:12px 16px"><div class="t" id="qType2">Вопрос</div><div class="q" id="qShow2"></div></div>
+      <div class="glass card cell-card" id="entryCard"></div>
+      <button class="btn btn-brown btn-block shine" type="button" id="introStart">Начать игру</button>
+      <div class="glass splash" id="splash">
+        <div class="eyebrow">Вход в игру</div>
+        <h2 class="h-serif">Брось кубик</h2>
+        <p class="lead">Игровое поле откроется, когда выпадет <b>шестёрка</b>. До этого ты в пространстве подготовки — держи свой вопрос в сердце.</p>
+        <div class="bigdie" id="bigDie" role="button" tabindex="0" aria-label="Бросить кубик"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tries" id="tries" aria-label="Броски"></div>
+        <div class="status" id="status2" aria-live="polite"></div>
+        <button class="btn btn-brown btn-block" type="button" id="rollBtn2">Бросить кубик</button>
+      </div>
+    </div>
+
+    <div id="vPlay" class="stack" hidden>
+      <div class="glass card qpill" style="padding:12px 16px"><div class="t" id="qType">Вопрос</div><div class="q" id="qShow"></div></div>
+      <div>
+        <div class="board-wrap">
+          <div class="board" id="board" lang="ru"></div>
+          <svg class="overlay" id="overlay" viewBox="0 0 900 800" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="token" id="token" hidden></div>
+        </div>
+        <div class="legend"><span><i style="background:#b98a3e;height:3px"></i>стрела — подъём</span><span><i style="background:#e7a9b9;height:6px"></i>змея — возврат</span><span>нажми на клетку, чтобы прочитать её</span></div>
+      </div>
+      <div class="glass card roller" style="padding:12px 14px">
+        <div class="row">
+          <div class="die" id="die" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <button class="btn btn-brown" type="button" id="rollBtn" style="flex:1">Бросить кубик</button>
+        </div>
+        <div class="status" id="status" aria-live="polite"></div>
+      </div>
+      <div class="glass card cell-card" id="cellCard"></div>
+      <div class="glass card">
+        <div class="row-between"><div class="eyebrow">Твой путь</div><span class="muted" id="moves"></span></div>
+        <div class="path" id="path" style="margin-top:10px"></div>
+      </div>
+      <div class="row-between">
+        <button class="link" type="button" id="skipBtn">Демо: перейти к финалу</button>
+        <button class="link" type="button" id="resetBtn">Начать заново</button>
+      </div>
+    </div>
+
+    <div id="vFinal" class="stack" hidden>
+      <div class="glass card stack">
+        <div class="eyebrow">Финальное послание</div>
+        <h2 class="h-serif" style="font-size:34px">Твой путь завершён</h2>
+        <div id="finalAudio"></div>
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <div class="glass card">
+        <div class="eyebrow">Короткий ответ игры</div>
+        <div class="qbox" style="border:0;padding:0;margin:6px 0 0"><div class="t">Твой вопрос</div><div class="q" id="finalQ"></div></div>
+        <p id="finalText" style="margin:12px 0 0;color:var(--ink2)"></p>
+        <div id="finalQuotes"></div>
+      </div>
+
+      <div class="glass card offer">
+        <div class="eyebrow" style="color:#8f4b62">Полный разбор твоей игры</div>
+        <h2 class="h-serif" style="font-size:28px;margin:6px 0 8px">Что на самом деле показала игра</h2>
+        <p style="margin:0;color:var(--ink2);font-size:14.5px">Короткий ответ — только верхушка. В полном разборе мы соберём весь твой путь: каждую клетку, каждую змею и стрелу и все твои ответы (<b id="ansCount">0</b>) — и покажем, что за ними стоит.</p>
+        <div class="teaser" aria-hidden="true">
+          <div class="tz"><b>1. Твой главный сценарий в отношениях</b><span>Судя по твоим ответам на клетках «…», ты снова и снова выбираешь…</span></div>
+          <div class="tz"><b>2. Что держит тебя на месте</b><span>Змеи вернули тебя трижды — и каждый раз к теме…</span></div>
+          <div class="tz"><b>3. Твои ресурсы</b><span>Стрелы показали, где у тебя уже есть сила…</span></div>
+          <div class="tz"><b>4. Практика на 30 дней</b><span>Неделя 1: … Неделя 2: …</span></div>
+          <div class="lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Откроется после оплаты</div>
+        </div>
+        <div class="astro">
+          <div class="astro-ic" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20"/><circle cx="24" cy="24" r="12"/><path d="M24 4v40M4 24h40M10 10l28 28M38 10L10 38"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg></div>
+          <div>
+            <b>+ Астрологическая подсказка от Шива Вакья Сиддха Бабы</b>
+            <p>Астролог разберёт твою натальную карту по дате, времени и месту рождения — и посмотрит именно на те темы, о которых ты писала в ответах: что в карте стоит за этой ситуацией, какой период сейчас и как пройти его бережнее.</p>
+          </div>
+        </div>
+        <div class="plans">
+          <button class="plan" type="button" data-buy="game"><span class="pn">Разбор игры</span><span class="pp">$19</span><span class="pd">Весь путь, ответы, сценарий и практика на 30 дней</span></button>
+          <button class="plan best" type="button" data-buy="astro"><span class="tag">Рекомендуем</span><span class="pn">Разбор + астрология</span><span class="pp">$39</span><span class="pd">Всё из разбора игры + подсказка от Шива Вакья Сиддха Бабы по твоей натальной карте</span></button>
+        </div>
+        <p class="muted" style="margin:10px 0 0;text-align:center">Разбор придёт в Telegram и в раздел «Профиль» в течение 48 часов</p>
+      </div>
+
+      <div class="btns">
+        <button class="btn btn-brown" type="button" id="newPaid">Новая игра — $15</button>
+        <button class="btn btn-line" type="button" data-go="tasks">Задания</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ TASKS ============ -->
+  <section id="tTasks" class="stack" hidden>
+    <div class="glass card">
+      <div class="row-between"><h2 class="h-serif sec-title" style="margin:0">Задания дня</h2><span class="muted">обновятся через <span class="timer" id="resetTimer"></span></span></div>
+      <p class="muted" style="margin:6px 0 12px">Выполняй задания и собирай лепестки лотоса — они поднимают твой уровень.</p>
+      <ul class="tasks" id="dailyList"></ul>
+    </div>
+    <div class="glass card">
+      <div class="row-between"><h2 class="h-serif sec-title" style="margin:0">Серия дней</h2><span class="reward-pill" id="streakTxt"></span></div>
+      <div class="streak" id="streakRow"></div>
+      <p class="muted" style="margin:10px 0 0">Заходи каждый день: за каждый день серии — бонус, на 7-й день — +50 лепестков.</p>
+    </div>
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Большие задания</h2>
+      <ul class="tasks" id="bigList"></ul>
+    </div>
+  </section>
+
+  <!-- ============ LEVEL ============ -->
+  <section id="tLevel" class="stack" hidden>
+    <div class="glass card lvl-card" id="lvlCard"></div>
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Путь Шакти к Шиве</h2>
+      <p style="margin:0 0 12px;color:var(--ink2);font-size:14px">Парвати прошла путь от земной девушки до супруги Шивы, поднимая свою энергию ступень за ступенью. В игре этот путь — семь уровней по семи чакрам: от корня до макушки, где случается слияние — союз Шивы и Шакти внутри тебя.</p>
+      <ul class="ladder" id="ladder"></ul>
+    </div>
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Как собирать лепестки</h2>
+      <div class="earn">
+        <span>Пройти игру до клетки 68</span><span>+100</span>
+        <span>Пригласить друга (за каждого)</span><span>+30</span>
+        <span>Подняться по стреле</span><span>+5</span>
+        <span>Встретить змею — это урок</span><span>+3</span>
+        <span>Задания дня</span><span>+5…30</span>
+        <span>Большие задания</span><span>+10…100</span>
+        <span>Серия дней</span><span>до +50</span>
+      </div>
+    </div>
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Достижения</h2>
+      <div class="ach" id="achList"></div>
+    </div>
+  </section>
+
+  <!-- ============ PROFILE ============ -->
+  <section id="tProfile" class="stack" hidden>
+    <div class="glass card">
+      <div class="me">
+        <div class="avatar" aria-hidden="true"></div>
+        <div style="flex:1;min-width:0">
+          <label for="myName" class="eyebrow">Мой аккаунт</label>
+          <input id="myName" maxlength="30" placeholder="Как тебя зовут?">
+          <div class="muted" id="myEmail" style="margin-top:4px"></div>
+          <div class="muted" id="myId" style="margin-top:4px"></div>
+        </div>
+      </div>
+      <div class="stats" id="profStats" style="margin-top:14px"></div>
+    </div>
+
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Пригласи друзей</h2>
+      <p style="margin:0;color:var(--ink2);font-size:14px">Это твоя личная ссылка с кодом <span class="codechip" id="myCode"></span>. Каждый, кто зарегистрируется по ней, появится ниже и принесёт тебе +30 лепестков.</p>
+      <div class="ref">
+        <input id="refLink" readonly aria-label="Моя реферальная ссылка">
+        <button class="btn btn-line btn-sm" type="button" id="copyBtn">Копировать</button>
+      </div>
+      <label for="inviteMsg" class="eyebrow" style="display:block;margin-top:10px">Послание для нового игрока</label>
+      <textarea id="inviteMsg" maxlength="500"></textarea>
+      <div class="share-grid">
+        <a id="shareWa" target="_blank" rel="noopener" href="https://wa.me/"><span class="ic wa"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1112 20a8 8 0 01-3.9-1z"/><path d="M9 9c0 3 3 6 6 6l1.2-1.4-2-1-1 .8c-1-.5-2-1.5-2.5-2.5l.8-1-1-2z"/></svg></span>WhatsApp</a>
+        <a id="shareTg" target="_blank" rel="noopener" href="https://t.me/"><span class="ic tg"><svg viewBox="0 0 24 24"><path d="M3 11l17-7-3 16-5-5-3 3v-5l8-7"/></svg></span>Telegram</a>
+        <a id="shareSms" href="sms:"><span class="ic sms"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></span>Сообщение</a>
+        <button type="button" id="copyMsg"><span class="ic cp"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></svg></span>Скопировать</button>
+      </div>
+      <p class="muted" style="margin:8px 0 0">«Скопировать» копирует послание вместе со ссылкой — вставь его в любой мессенджер.</p>
+      <div class="reward" style="margin-top:16px">
+        <div class="row-between"><b style="font-size:14px">Игра в подарок</b><span class="muted" id="rewardTxt"></span></div>
+        <div class="bar"><i id="rewardBar"></i></div>
+        <div class="muted">За каждых 3 друзей — бесплатная новая игра.</div>
+      </div>
+    </div>
+
+    <div class="glass card">
+      <div class="row-between" style="margin-bottom:10px"><h2 class="h-serif sec-title" style="margin:0">Мои друзья</h2><span class="muted" id="friendsCount"></span></div>
+      <ul class="friends" id="friends"></ul>
+      <button class="link" type="button" id="simFriend" style="margin-top:8px">Демо: друг зарегистрировался</button>
+    </div>
+
+    <div class="glass card">
+      <h2 class="h-serif sec-title">История игр</h2>
+      <ul class="hist" id="hist"></ul>
+    </div>
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Мои разборы</h2>
+      <ul class="orders" id="orders"></ul>
+    </div>
+    <div class="glass card">
+      <h2 class="h-serif sec-title">Дневник осознаний</h2>
+      <ul class="journal" id="journal"></ul>
+    </div>
+    <div class="row-between"><button class="link" type="button" id="wipeBtn">Начать демо заново</button><span class="muted">Демо-версия</span></div>
+  </section>
+</div>
+
+<!-- TAB BAR -->
+<nav class="tabbar" aria-label="Разделы">
+  <div class="in">
+    <button class="tab" type="button" data-tab="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Главная</button>
+    <button class="tab" type="button" data-tab="tasks"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 9l2 2 4-4"/><path d="M8 15h8"/></svg>Задания<span class="dot" id="taskDot" hidden></span></button>
+    <button class="tab center" type="button" data-tab="game"><span class="orb"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="15" r="1.2" fill="currentColor"/><circle cx="15" cy="9" r="1.2" fill="currentColor"/><circle cx="9" cy="15" r="1.2" fill="currentColor"/></svg></span>Игра</button>
+    <button class="tab" type="button" data-tab="level"><svg viewBox="0 0 24 24"><path d="M12 20c-3-2-5-5-5-8 0-3 2-6 5-8 3 2 5 5 5 8 0 3-2 6-5 8z"/><path d="M12 20c-4 0-8-2-9-6 3-1 6 0 9 2 3-2 6-3 9-2-1 4-5 6-9 6z"/></svg>Уровень</button>
+    <button class="tab" type="button" data-tab="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Профиль<span class="dot" id="profDot" hidden></span></button>
+  </div>
+</nav>
+
+<!-- modals -->
+<div class="modal" id="mGate" hidden role="dialog" aria-modal="true" aria-labelledby="gateT">
+  <div class="glass">
+    <div class="eyebrow">Шаг 3 · приглашение</div>
+    <h3 class="h-serif" id="gateT" style="margin-top:6px">Пригласи друзей в игру</h3>
+    <p>Ты сделала первые шаги. Чтобы путь продолжился, пригласи хотя бы одного друга — как только он зарегистрируется по твоей ссылке, игра откроется дальше. Это бесплатно для вас обоих.</p>
+    <div class="ref"><input id="gateLink" readonly aria-label="Ссылка-приглашение"><button class="btn btn-line btn-sm" type="button" id="gateCopy">Копировать</button></div>
+    <div class="btns">
+      <a class="btn btn-tg" id="gateTg" target="_blank" rel="noopener" href="https://t.me/">Отправить в Telegram</a>
+    </div>
+    <div id="gateWait" class="muted" style="margin-top:12px" hidden>Ждём, когда друг откроет ссылку…</div>
+    <div class="row-between" style="margin-top:10px">
+      <button class="link" type="button" id="gateSim">Демо: друг зарегистрировался</button>
+      <button class="link" type="button" data-close>Позже</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="mLevel" hidden role="dialog" aria-modal="true" aria-labelledby="lvlUpT">
+  <div class="glass lvlup">
+    <div class="eyebrow">Новый уровень</div>
+    <div id="lvlUpBody"></div>
+    <button class="btn btn-brown btn-block" type="button" data-close style="margin-top:14px">Продолжить путь</button>
+  </div>
+</div>
+<div class="modal" id="mNote" hidden role="dialog" aria-modal="true" aria-labelledby="noteT">
+  <div class="glass">
+    <div class="eyebrow" id="noteCell"></div>
+    <h3 class="h-serif" id="noteT" style="margin-top:6px;font-size:24px">Запиши свой ответ</h3>
+    <p id="noteQ" style="font-family:var(--serif);font-weight:700;font-size:19px;color:var(--ink);margin:6px 0 10px"></p>
+    <textarea id="noteText" maxlength="600" placeholder="Первое, что приходит в голову — самое честное"></textarea>
+    <div class="btns" style="margin-top:10px">
+      <button class="btn btn-brown" type="button" id="noteSave">Сохранить в дневник</button>
+      <button class="btn btn-line" type="button" data-close>Отмена</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="mBuy" hidden role="dialog" aria-modal="true" aria-labelledby="buyT">
+  <div class="glass">
+    <div class="eyebrow" id="buyEyebrow">Полный разбор</div>
+    <h3 class="h-serif" id="buyT" style="margin-top:6px;font-size:26px"></h3>
+    <p id="buyDesc" style="margin:4px 0 12px"></p>
+    <form id="buyForm" class="bform" novalidate>
+      <label for="bName">Как к тебе обращаться</label>
+      <input id="bName" autocomplete="given-name" required>
+      <div id="astroFields">
+        <div class="two">
+          <div><label for="bDate">Дата рождения</label><input id="bDate" type="date"></div>
+          <div><label for="bTime">Время рождения</label><input id="bTime" type="time"></div>
+        </div>
+        <label class="chk"><input type="checkbox" id="bNoTime"> Не знаю точное время</label>
+        <label for="bPlace">Место рождения (город)</label>
+        <input id="bPlace" placeholder="Например, Екатеринбург">
+      </div>
+      <label for="bContact">Куда прислать разбор (Telegram или e-mail)</label>
+      <input id="bContact" placeholder="@username или почта" required>
+      <div class="err" id="bErr"></div>
+      <button class="btn btn-brown btn-block" type="submit" id="bPay"></button>
+      <p class="muted" style="margin:8px 0 0;text-align:center">Демо-версия: оплата не проводится, данные остаются в этом браузере.</p>
+    </form>
+    <div id="buyDone" hidden style="text-align:center">
+      <div class="okmark" aria-hidden="true">✓</div>
+      <h3 class="h-serif" style="font-size:24px">Заявка принята</h3>
+      <p id="buyDoneTxt"></p>
+      <button class="btn btn-brown btn-block" type="button" data-close>Хорошо</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="mPay" hidden role="dialog" aria-modal="true" aria-labelledby="payT">
+  <div class="glass">
+    <h3 class="h-serif" id="payT">Новая игра — $15</h3>
+    <p>В готовой версии здесь откроется оплата картой или через Telegram Stars, а после неё — новая игра с новым вопросом.</p>
+    <p class="muted">В демо оплата не подключена, поэтому новую игру можно начать бесплатно.</p>
+    <div class="btns" style="margin-top:12px">
+      <button class="btn btn-brown" type="button" id="newGameBtn">Начать новую игру</button>
+      <button class="btn btn-line" type="button" data-close>Отмена</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+(function(){
+"use strict";
+let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
+const L=(ru,en)=>LANG==="en"?en:ru;
+const DICT={
+"Трансформационная игра":"Transformational game",
+"Слияние Шивы и Шакти":"Union of Shiva & Shakti",
+"Игра о любви и союзе — с собой и с другим. Зарегистрируйся, чтобы начать свой путь по 72 клеткам. Первая игра — бесплатно.":"A game about love and union — with yourself and with another. Sign up to begin your path across 72 cells. Your first game is free.",
+"Регистрация":"Sign up",
+"Вход":"Log in",
+"Как тебя зовут":"Your name",
+"Пароль":"Password",
+"Показать":"Show",
+"Повтори пароль":"Repeat password",
+"Дата и время рождения помогут нашему астрологу":"Your date and time of birth will help our astrologer",
+"Шива Вакья Сиддха Бабе":"Shiva Vakya Siddha Baba",
+"увидеть твою игру глубже: по натальной карте он подскажет, что стоит за твоим вопросом и какой период у тебя сейчас.":"see your game more deeply: from your birth chart he will show what stands behind your question and what period you are in now.",
+"Дата рождения":"Date of birth",
+"Время рождения":"Time of birth",
+"Не знаю точное время":"I don't know the exact time",
+"Начать путь":"Begin the path",
+"Забыла пароль?":"Forgot your password?",
+"Без подтверждения почты. Нажимая кнопку, ты соглашаешься с правилами игры и политикой конфиденциальности.":"No email confirmation needed. By tapping the button you agree to the game rules and the privacy policy.",
+"Твой путь, ответы, лепестки и уровень сохранены в аккаунте — продолжишь с того же места.":"Your path, answers, petals and level are saved in your account — you'll continue from the same place.",
+"Голос проводника":"Guide's voice",
+"Игра о любви и союзе — с собой и с другим. Задай вопрос, брось кубик и пройди свой путь по 72 клеткам с голосом проводника.":"A game about love and union — with yourself and with another. Ask your question, roll the die and walk your path across 72 cells with the guide's voice.",
+"Начать игру":"Start the game",
+"Как играть":"How to play",
+"Задай вопрос":"Ask your question",
+"О нём, о вас или о себе — то, что сейчас болит или требует ясности.":"About him, about the two of you or about yourself — whatever hurts right now or needs clarity.",
+"Дождись шестёрки":"Wait for a six",
+"В игру входят только с шестёркой. До этого ты в пространстве подготовки.":"You enter the game only with a six. Until then you are in the space of preparation.",
+"Отвечай на вопросы":"Answer the questions",
+"На каждой клетке — толкование и вопрос. Напиши свой ответ, и только после этого можно бросать кубик дальше.":"Every cell has an interpretation and a question. Write your answer — only then can you roll again.",
+"Слушай клетки":"Listen to the cells",
+"Стрелы поднимают, змеи возвращают. На каждой клетке — толкование и вопрос для осознания.":"Arrows lift you up, snakes bring you back. Every cell has an interpretation and a question for reflection.",
+"Правила и ответы":"Rules & answers",
+"Правила игры":"Game rules",
+"Вопрос задаётся в начале и остаётся с тобой всю игру.":"You ask your question at the start, and it stays with you for the whole game.",
+"Вход в игру — только с шестёркой: она ставит тебя на клетку 1, «Рождение».":"You enter the game only with a six: it places you on cell 1, “Birth”.",
+"Шестёрка даёт ещё один бросок.":"A six gives you another roll.",
+"Стрела поднимает выше, змея возвращает назад — туда, где осталось что-то важное.":"An arrow lifts you higher, a snake takes you back — to where something important was left behind.",
+"Если бросок уводит за 72-ю клетку, ты отскакиваешь назад на лишние шаги.":"If a roll takes you past cell 72, you bounce back by the extra steps.",
+"Игра завершается на клетке 68 — «Космическое сознание».":"The game ends on cell 68 — “Cosmic Consciousness”.",
+"Сколько длится игра?":"How long does a game take?",
+"Обычно 30–60 минут. Можно прерваться: прогресс сохранится, и ты продолжишь с той же клетки.":"Usually 30–60 minutes. You can take a break: your progress is saved and you'll continue from the same cell.",
+"Сколько стоит?":"How much does it cost?",
+"Первая игра бесплатна. Каждая следующая игра — $15. Приглашай друзей через задания: за каждого — лепестки, а за трёх друзей — игра в подарок.":"Your first game is free. Each next game is $15. Invite friends through tasks: you get petals for each one, and a free game for three friends.",
+"Что такое уровни и лепестки?":"What are levels and petals?",
+"За игры, приглашения и задания ты собираешь лепестки лотоса. Они поднимают тебя по семи уровням — семи чакрам, от «Ростка» до «Союза». На каждом уровне открывается подарок: медитация, скидка, игра в подарок.":"For games, invitations and tasks you collect lotus petals. They raise you through seven levels — seven chakras, from “Sprout” to “Union”. Each level unlocks a gift: a meditation, a discount, a free game.",
+"Это гадание?":"Is this fortune-telling?",
+"Нет. Игра не предсказывает будущее — она помогает посмотреть на свою ситуацию со стороны и услышать собственные ответы.":"No. The game doesn't predict the future — it helps you look at your situation from the outside and hear your own answers.",
+"Как слушать клетки?":"How do I listen to the cells?",
+"На каждой клетке есть запись голосом проводника. Нажми на кнопку воспроизведения, послушай и ответь себе на вопрос с карточки.":"Every cell has a recording in the guide's voice. Tap play, listen, and answer the question on the card for yourself.",
+"С чем приходят":"What people come with",
+"Уйти или остаться":"Stay or leave",
+"Почему я одна":"Why am I alone",
+"Ревность":"Jealousy",
+"Остыли чувства":"Feelings have cooled",
+"Отпустить после расставания":"Letting go after a breakup",
+"Женская энергия":"Feminine energy",
+"Доверие":"Trust",
+"Любовь к себе":"Self-love",
+"Демо-версия · аудио и оплата имитируются · прогресс хранится в этом браузере":"Demo version · audio and payments are simulated · progress is stored in this browser",
+"Вход в игру":"Entering the game",
+"О чём твоя игра?":"What is your game about?",
+"Выбери тему и сформулируй вопрос своими словами. Чем честнее вопрос, тем точнее игра.":"Choose a topic and put your question in your own words. The more honest the question, the more precise the game.",
+"Твой вопрос":"Your question",
+"Войти в игру":"Enter the game",
+"Вопрос":"Question",
+"Брось кубик":"Roll the die",
+"Игровое поле откроется, когда выпадет":"The game board opens when you roll a",
+"шестёрка":"six",
+". До этого ты в пространстве подготовки — держи свой вопрос в сердце.":". Until then you are in the space of preparation — hold your question in your heart.",
+"Бросить кубик":"Roll the die",
+"стрела — подъём":"arrow — up",
+"змея — возврат":"snake — back",
+"нажми на клетку, чтобы прочитать её":"tap a cell to read it",
+"Твой путь":"Your path",
+"Демо: перейти к финалу":"Demo: jump to the finale",
+"Начать заново":"Start over",
+"Финальное послание":"Final message",
+"Твой путь завершён":"Your path is complete",
+"Короткий ответ игры":"The game's short answer",
+"Полный разбор твоей игры":"Full reading of your game",
+"Что на самом деле показала игра":"What the game really showed",
+"Короткий ответ — только верхушка. В полном разборе мы соберём весь твой путь: каждую клетку, каждую змею и стрелу и все твои ответы (":"The short answer is just the tip. In the full reading we bring together your whole path: every cell, every snake and arrow and all your answers (",
+") — и покажем, что за ними стоит.":") — and show what stands behind them.",
+"1. Твой главный сценарий в отношениях":"1. Your main script in relationships",
+"Судя по твоим ответам на клетках «…», ты снова и снова выбираешь…":"Judging by your answers on the cells “…”, you choose again and again…",
+"2. Что держит тебя на месте":"2. What keeps you stuck",
+"Змеи вернули тебя трижды — и каждый раз к теме…":"The snakes brought you back three times — each time to the theme of…",
+"3. Твои ресурсы":"3. Your resources",
+"Стрелы показали, где у тебя уже есть сила…":"The arrows showed where you already have strength…",
+"4. Практика на 30 дней":"4. A 30-day practice",
+"Неделя 1: … Неделя 2: …":"Week 1: … Week 2: …",
+"Откроется после оплаты":"Unlocks after payment",
+"+ Астрологическая подсказка от Шива Вакья Сиддха Бабы":"+ An astrological hint from Shiva Vakya Siddha Baba",
+"Астролог разберёт твою натальную карту по дате, времени и месту рождения — и посмотрит именно на те темы, о которых ты писала в ответах: что в карте стоит за этой ситуацией, какой период сейчас и как пройти его бережнее.":"The astrologer will read your birth chart from your date, time and place of birth — looking at exactly the themes you wrote about in your answers: what in the chart stands behind this situation, what period you are in, and how to go through it more gently.",
+"Разбор игры":"Game reading",
+"Весь путь, ответы, сценарий и практика на 30 дней":"Your whole path, answers, script and a 30-day practice",
+"Рекомендуем":"Recommended",
+"Разбор + астрология":"Reading + astrology",
+"Всё из разбора игры + подсказка от Шива Вакья Сиддха Бабы по твоей натальной карте":"Everything in the game reading + a hint from Shiva Vakya Siddha Baba based on your birth chart",
+"Разбор придёт в Telegram и в раздел «Профиль» в течение 48 часов":"Your reading arrives in Telegram and in your “Profile” within 48 hours",
+"Новая игра — $15":"New game — $15",
+"Задания":"Tasks",
+"Задания дня":"Daily tasks",
+"обновятся через":"refresh in",
+"Выполняй задания и собирай лепестки лотоса — они поднимают твой уровень.":"Complete tasks and collect lotus petals — they raise your level.",
+"Серия дней":"Day streak",
+"Заходи каждый день: за каждый день серии — бонус, на 7-й день — +50 лепестков.":"Come back every day: each day of the streak gives a bonus, and day 7 gives +50 petals.",
+"Большие задания":"Big tasks",
+"Путь Шакти к Шиве":"Shakti's path to Shiva",
+"Парвати прошла путь от земной девушки до супруги Шивы, поднимая свою энергию ступень за ступенью. В игре этот путь — семь уровней по семи чакрам: от корня до макушки, где случается слияние — союз Шивы и Шакти внутри тебя.":"Parvati went from an earthly girl to the consort of Shiva, raising her energy step by step. In the game this path is seven levels along the seven chakras: from the root to the crown, where the union happens — the merging of Shiva and Shakti within you.",
+"Как собирать лепестки":"How to collect petals",
+"Пройти игру до клетки 68":"Finish a game at cell 68",
+"Пригласить друга (за каждого)":"Invite a friend (each)",
+"Подняться по стреле":"Climb an arrow",
+"Встретить змею — это урок":"Meet a snake — it's a lesson",
+"до +50":"up to +50",
+"Достижения":"Achievements",
+"Мой аккаунт":"My account",
+"Пригласи друзей":"Invite friends",
+"Это твоя личная ссылка с кодом":"This is your personal link with the code",
+". Каждый, кто зарегистрируется по ней, появится ниже и принесёт тебе +30 лепестков.":". Everyone who signs up with it will appear below and bring you +30 petals.",
+"Копировать":"Copy",
+"Послание для нового игрока":"Message for a new player",
+"Сообщение":"Message",
+"Скопировать":"Copy",
+"«Скопировать» копирует послание вместе со ссылкой — вставь его в любой мессенджер.":"“Copy” copies the message together with the link — paste it into any messenger.",
+"Игра в подарок":"A free game",
+"За каждых 3 друзей — бесплатная новая игра.":"Every 3 friends give you a free new game.",
+"Мои друзья":"My friends",
+"Демо: друг зарегистрировался":"Demo: a friend signed up",
+"История игр":"Game history",
+"Мои разборы":"My readings",
+"Дневник осознаний":"Insight journal",
+"Начать демо заново":"Restart the demo",
+"Демо-версия":"Demo version",
+"Главная":"Home",
+"Игра":"Game",
+"Уровень":"Level",
+"Профиль":"Profile",
+"Шаг 3 · приглашение":"Step 3 · invitation",
+"Пригласи друзей в игру":"Invite friends to the game",
+"Ты сделала первые шаги. Чтобы путь продолжился, пригласи хотя бы одного друга — как только он зарегистрируется по твоей ссылке, игра откроется дальше. Это бесплатно для вас обоих.":"You've taken your first steps. To continue the path, invite at least one friend — as soon as they sign up with your link, the game opens further. It's free for both of you.",
+"Отправить в Telegram":"Send via Telegram",
+"Ждём, когда друг откроет ссылку…":"Waiting for your friend to open the link…",
+"Позже":"Later",
+"Новый уровень":"New level",
+"Продолжить путь":"Continue the path",
+"Запиши свой ответ":"Write your answer",
+"Сохранить в дневник":"Save to journal",
+"Отмена":"Cancel",
+"Полный разбор":"Full reading",
+"Как к тебе обращаться":"What should we call you",
+"Место рождения (город)":"Place of birth (city)",
+"Куда прислать разбор (Telegram или e-mail)":"Where to send the reading (Telegram or email)",
+"Демо-версия: оплата не проводится, данные остаются в этом браузере.":"Demo version: no payment is made, the data stays in this browser.",
+"Заявка принята":"Request received",
+"Хорошо":"OK",
+"В готовой версии здесь откроется оплата картой или через Telegram Stars, а после неё — новая игра с новым вопросом.":"In the full version, card or Telegram Stars payment opens here, followed by a new game with a new question.",
+"В демо оплата не подключена, поэтому новую игру можно начать бесплатно.":"Payments aren't connected in the demo, so you can start a new game for free.",
+"Начать новую игру":"Start a new game",
+"Имя":"Name",
+"Не меньше 6 символов":"At least 6 characters",
+"Показать пароль":"Show password",
+"Слушать голос проводника":"Listen to the guide's voice",
+"Тема запроса":"Topic",
+"Например: почему мне страшно подпускать мужчину близко?":"For example: why am I afraid to let a man get close?",
+"Броски":"Rolls",
+"Как тебя зовут?":"What's your name?",
+"Моя реферальная ссылка":"My referral link",
+"Разделы":"Sections",
+"Ссылка-приглашение":"Invitation link",
+"Первое, что приходит в голову — самое честное":"The first thing that comes to mind is the most honest",
+"Например, Екатеринбург":"For example, London",
+"@username или почта":"@username or email",
+"Задания и лепестки":"Tasks & petals"
+};
+
+const C_EN=[null,
+["Birth","You enter the game. Every love story begins with an admission: I am here, and this matters to me. You don't need to be ready — it's enough to be honest.","What really stands behind your question once you strip away the pretty words?"],
+["Illusion / Reset","You fall in love not with a person but with a picture you finished drawing yourself. Sometimes you need to reset your expectations to see the living person beside you.","How did you imagine him — and how does he actually show himself?"],
+["Anger","Anger is a boundary you didn't dare to say out loud. It doesn't destroy love if it is heard rather than swallowed.","Where did you say “it's fine” when it wasn't fine?"],
+["Desire / Greed","The wish to get more attention, more proof, more guarantees. A hunger that no other person can satisfy.","What do you lack so badly that you expect it only from your partner?"],
+["Physical Plane / Lineage","Your body and your lineage remember everything: how your mother and grandmother loved, where you feel calm and where you tense up. Relationships live not only in words.","Which love script did you inherit from your family?"],
+["Delusion","An attachment that holds tighter than love. You stay not because it's good, but because letting go is frightening.","If there were no fear, would you stay?"],
+["Vanity","What matters is how it looks from the outside: a beautiful couple, the right status. But a facade doesn't keep you warm inside.","Who are you trying to prove to that everything is fine?"],
+["Discontent","Everything is wrong: he's not right, you're not right, life's not right. Discontent is a signal of a need you haven't named.","What do you really want when you feel discontent?"],
+["Sensual Plane","Desire is the energy of Shakti. But you choose the pleasant over the real, because the real takes courage.","What do you truly want — not the comfortable, but the alive?"],
+["Purification","An honest look at yourself burns, but it frees you. Being ready to see the truth is already a movement upward.","Which illusion about yourself are you ready to give up?"],
+["Entertainment","Lightness and play are needed in love. But if everything is only a game, it never reaches depth.","Where is joy in your relationship, and where is escape from a serious conversation?"],
+["Jealousy","Jealousy is the fear that there won't be enough love for you. It says more about your wound than about his actions.","What is jealousy trying to protect in you?"],
+["Self-Devaluation","The feeling that you are “not enough”: not beautiful, smart or loved enough. An emptiness no one else's love can fill.","When did you decide that you could be passed over?"],
+["Astral Plane","Dreams, visions, premonitions. You live a lot in your imagination — there, relationships are perfect and safe.","Which part of this relationship do you live only in your head?"],
+["Plane of Fantasy","Fantasy gives strength when it becomes a plan, and takes strength when it replaces life.","Which fantasy about love is it time to turn into action — or let go?"],
+["Rejection / Aversion","You push away first so that you won't be pushed away. Aversion often covers an old pain of rejection.","Whom or what do you reject so as not to feel your vulnerability?"],
+["Compassion","Compassion for yourself and for him opens what neither resentment nor being right can open.","Can you look at the situation through the eyes of the person beside you?"],
+["Plane of Joy","Joy without a reason is a sign that you are returning to yourself. With the right person there is more of it.","When did you last truly laugh together with him?"],
+["Action / Plane of Karma","You repeat the same script with different people. It's not a punishment — it's a lesson not yet learned.","Which story in your relationships repeats again and again?"],
+["Charity","Giving without keeping score. A generous heart makes a union equal and alive.","What can you give without expecting anything in return?"],
+["Atonement","You can repair what happened. Not through guilt, but through an honest act and words.","Whom should you apologize to — perhaps yourself?"],
+["Path of the Soul","The soul has its own route, and relationships are part of it. When you walk your own path, your own people appear beside you.","Is this relationship leading you towards yourself or away from yourself?"],
+["Heavenly Plane","The feeling that everything is falling into place. Love as grace, not as a struggle.","Where do you allow yourself to receive rather than earn?"],
+["Bad Company","Those around you whisper that you ask for too much or settle for too little.","Whose voices speak in your head when you make decisions about this relationship?"],
+["Good Company","People around you who see the real you and believe in you. You can trust them with your question.","Which of your close ones reminds you who you really are?"],
+["Sorrow","Grief for what didn't happen. It needs space and time — unlived sorrow turns into coldness.","What haven't you mourned yet in this story?"],
+["Higher Purpose","A union of two grows stronger when it serves something bigger than the two of them.","What are you together for — besides not being alone?"],
+["Maturity of the Heart","Mature love doesn't demand proof every day. It chooses — and takes responsibility for its choice.","Where has your heart already grown up, and where is it still waiting to be rescued?"],
+["Immorality","You act against your own truth — for peace in the couple, for calm, or for someone else's approval.","Where did you betray yourself to keep the relationship?"],
+["Good Tendencies","You wish good things — for yourself and for him. The intention already changes the direction of the path.","What one kind act can you do today?"],
+["Meeting the Teacher","The teacher comes in many forms: a person, a book, a crisis. Sometimes the main teacher is the one who hurt you most.","What is the person your question is about teaching you?"],
+["Plane of Balance","Shiva and Shakti in balance: giving and receiving, speaking and listening, being together and being yourself.","Where is the balance broken in your union?"],
+["Plane of Fragrance","Subtle signals: a look, a scent, a tone of voice. Love speaks a language that needs no explanations.","Which quiet signs do you notice — and ignore?"],
+["Plane of Taste","The taste of life and of relationships. You begin to tell what you truly like.","What in this relationship nourishes you, and what leaves you hungry?"],
+["Purgatory","You go through pain in order to be freed from it. It is not the end — it is a passage.","Which pain are you finally ready to live through to the end?"],
+["Clarity of Consciousness","The fog clears. You see the situation as it is, without excuses.","What has become obvious right now?"],
+["Wisdom","Knowledge born of experience. Wisdom doesn't argue — it simply knows.","What do you already know about your question but are afraid to admit?"],
+["Energy","Your energy returns. The relationships that suit you fill you up rather than drain you.","Does this relationship give you strength or take it away?"],
+["Letting Go","Time to release what is extra: old resentments, other people's expectations, bonds that keep you stuck.","What is it time to let go of to make room?"],
+["Return to Wholeness","You gather yourself back together — all the parts you gave away to others. You can be whole both alone and as a couple.","Which part of yourself did you give away in the relationship and want back?"],
+["Human Plane","You accept yourself and him as ordinary people — without idealization and without contempt.","Can you love him imperfect? And yourself?"],
+["Plane of Fire","The fire of passion and the fire of transformation. It warms if you tend it, and burns if you abandon it.","What kindles the fire between you — and what puts it out?"],
+["Birth of Human Consciousness","You are born anew — in a new role, with a new view of love.","Who do you want to be in your next relationship?"],
+["Ignorance","You don't want to know the truth, because it will require change.","What are you closing your eyes to?"],
+["True Knowledge","You understand how love works — and this knowledge lifts you higher.","Which understanding changed your view of relationships?"],
+["Intuition","A quiet inner voice knew the answer before the mind did. You are learning to trust it.","What does your intuition tell you when you stop arguing with it?"],
+["Neutrality","Calm without indifference. You no longer swing from delight to despair.","What are you like when you are calm beside him?"],
+["Solar Channel","The energy of Shiva: action, clarity, direction. You take responsibility for your life.","Which decision is waiting for your resolve?"],
+["Lunar Plane","The energy of Shakti: sensitivity, acceptance, soft strength. You allow yourself to feel.","Where do you need not resolve, but tenderness towards yourself?"],
+["Overcoming / Austerity","A conscious refusal of what harms you. Not a punishment, but a choice for your own sake.","What are you ready to give up for the sake of your wholeness?"],
+["Earth","Support. You stand on your own feet, and the relationship stops being a matter of survival.","What do you lean on besides him?"],
+["Plane of Violence","Harshness towards yourself or another: words, silence, punishing with coldness.","How do you punish — yourself or him?"],
+["Plane of Water","Emotions are like water: they flow, change, cleanse. You stop holding back tears and tenderness.","Which feelings are asking to come out?"],
+["Spiritual Devotion","Love without conditions and fear. Devotion to your path lifts you above any doubts.","What are you truly devoted to in life?"],
+["Egoism","The wish to be right is stronger than the wish to be happy. The ego protects, but it doesn't warm.","In which argument is winning more important to you than understanding?"],
+["Primordial Vibration","A silence in which the essential can be heard. The sound with which the universe began — and every meeting.","What do you hear when the thoughts about him fall silent?"],
+["Plane of Air","Lightness and freedom. Love that doesn't suffocate but lets you breathe.","Do you have air to breathe in this relationship?"],
+["Expansion of Consciousness","You see more than before: yourself, him, your story — as part of a larger pattern.","What becomes visible if you look at the situation from above?"],
+["Plane of Reality","You speak the truth and can bear the truth in return.","Which truth is it time to say out loud?"],
+["Positive Intellect","A mind that serves the heart. You make decisions clearly and gently.","What decision does your clear mind suggest?"],
+["Negative Intellect","A mind that justifies pain and doubt. It can prove that there is nothing to love you for.","Which thoughts about yourself do you take for the truth?"],
+["Happiness","A calm happiness that doesn't depend on messages and calls.","What makes you happy even when he isn't around?"],
+["Inertia","Heaviness, apathy, “I'll deal with it later”. A missed step brings you back to old illusions.","What are you putting off, hoping it will resolve itself?"],
+["Connection with Earth","Lofty feelings gain meaning when they take shape in simple life: in everyday care and deeds.","What does your love look like in actions?"],
+["Inner Space","You become vast — there is room in you both for yourself and for another.","How much room do you leave for yourself in this relationship?"],
+["Plane of Bliss","Peace and joy simply because you exist. Love as a state, not as an event.","What is it like to expect nothing and feel full?"],
+["Plane of Cosmic Good","You see how your story is connected to something bigger — your lineage, the world, life.","What is this story teaching you on the scale of your whole life?"],
+["Cosmic Consciousness","The goal of the game. The union of Shiva and Shakti within you: strength and tenderness, action and acceptance come together.","What answer to your question do you already know?"],
+["Plane of the Absolute","Beyond goals and questions. Yet even from here you can slip down if you mistake height for victory.","What remains when there is nothing left to prove?"],
+["Guna of Goodness","Sattva: clarity, purity, light. Everything is in its place.","What would harmony in your life look like right now?"],
+["Guna of Motion","Rajas: desire, restlessness, action. An energy to be directed, not suppressed.","Where is your passion directed — towards life or towards struggle?"],
+["Guna of Inertia","Tamas: the very edge of the board. Even from the top you can fall into inertia if you stop being aware.","Where did you stop noticing yourself?"]
+];
+const PLANES_EN=["Muladhara · plane of foundation","Svadhisthana · plane of desire","Manipura · plane of will","Anahata · plane of the heart","Vishuddha · plane of voice","Ajna · plane of vision","Sahasrara · plane of unity","Plane of the Absolute"];
+const INTENTS_EN=[["rel","Relationships"],["self","Self-love"],["choice","A choice"],["state","My state"],["free","My own question"]];
+const ENTRY_FAIL_EN=["You rolled {d}. To enter the game you need a six.\nYou're not on the board yet — keep rolling.","You rolled {d}. Remember, we need a 6?\nYou are in the space of preparation. That's okay.","You rolled {d}. The game begins when the right moment comes.\nBreathe and roll again."];
+const FRIEND_NAMES_EN=[["Maria","f"],["Alex","m"],["Olivia","f"],["Daniel","m"],["Kate","f"],["Andrew","m"],["Sophie","f"],["Michael","m"],["Emma","f"],["Max","m"],["Julia","f"],["Sam","m"]];
+const LEVELS_EN=[
+ {name:"Sprout",chakra:"Muladhara",desc:"You stand on the earth and ask your first honest question. The root is your support: everything that grows later grows from here.",reward:"Access to the game and tasks"},
+ {name:"Flow",chakra:"Svadhisthana",desc:"Desire stops being frightening and becomes energy. You allow yourself to want — and to feel.",reward:"“Water” meditation voiced by the guide"},
+ {name:"Flame",chakra:"Manipura",desc:"The fire of will. You make your own choice and stop waiting for someone to choose for you.",reward:"20% off your next game"},
+ {name:"Heart",chakra:"Anahata",desc:"The middle of the path. The heart opens both to another and to yourself — without conditions and without losing yourself.",reward:"One game as a gift"},
+ {name:"Voice",chakra:"Vishuddha",desc:"You speak the truth about your feelings — and can bear the truth in return.",reward:"Extended final message"},
+ {name:"Vision",chakra:"Ajna",desc:"The third eye of Shiva. You see the scripts of your relationships from the outside — and can change them.",reward:"Group game with a facilitator"},
+ {name:"Union",chakra:"Sahasrara",desc:"The Union of Shiva and Shakti. Strength and tenderness, action and acceptance have merged within you.",reward:"“Shakti” status and a personal game with the author"}
+];
+const DAILY_EN={login:"Visit the game today",rolls:"Roll the die 5 times",listen:"Listen to a cell's interpretation to the end",note:"Write an answer to a cell's question",invite:"Invite a friend with your link"};
+const BIG_EN={channel:"Subscribe to the game's Telegram channel",name:"Introduce yourself in your profile",first:"Finish your first game",three:"Invite three friends",streak3:"Visit 3 days in a row"};
+const ACH_EN=["First six","Three arrows","Five snakes","First game","Three friends","Five entries"];
+const PLANS_EN={game:{t:"Game reading",d:"A reading of your whole path: cells, snakes and arrows, your answers, your main script and a 30-day practice."},
+                astro:{t:"Reading + astrology",d:"The full game reading plus an astrological hint from Shiva Vakya Siddha Baba based on your birth chart — focused on the themes of your answers."}};
+
+const C_RU=[null,
+["Рождение","Ты входишь в игру. Любая история любви начинается с признания: я здесь, и мне это важно. Не нужно быть готовой — достаточно быть честной.","Что на самом деле стоит за твоим вопросом, если убрать красивые слова?"],
+["Иллюзия / Обнуление","Ты влюбляешься не в человека, а в картинку, которую сама дорисовала. Иногда нужно обнулить ожидания, чтобы увидеть живого человека рядом.","Каким ты его придумала — и каким он показывает себя на деле?"],
+["Гнев","Гнев — это граница, которую ты не решилась назвать вслух. Он не разрушает любовь, если его услышать, а не проглотить.","Где ты сказала «всё нормально», когда было не нормально?"],
+["Желание / Жадность","Желание получить больше внимания, больше доказательств, больше гарантий. Голод, который не утоляется другим человеком.","Чего тебе не хватает так сильно, что ты ждёшь этого только от партнёра?"],
+["Физический план / Род","Тело и род помнят всё: как любили твои мама и бабушка, где тебе спокойно, а где ты сжимаешься. Отношения живут не только в словах.","Какой сценарий любви ты унаследовала от своей семьи?"],
+["Заблуждение","Привязанность, которая держит крепче, чем любовь. Ты остаёшься не потому, что хорошо, а потому, что страшно отпустить.","Если бы не было страха, ты бы осталась?"],
+["Тщеславие","Важно, как это выглядит со стороны: красивая пара, правильный статус. Но фасад не согревает изнутри.","Кому ты доказываешь, что у тебя всё хорошо?"],
+["Недовольство","Всё не так: он не такой, ты не такая, жизнь не такая. Недовольство — это сигнал о потребности, которую ты не называешь.","Чего ты хочешь на самом деле, когда недовольна?"],
+["Чувственный план","Желание — это энергия Шакти. Но ты выбираешь приятное вместо настоящего, потому что настоящее требует смелости.","Чего ты хочешь на самом деле — не удобного, а живого?"],
+["Очищение","Честный взгляд на себя обжигает, но освобождает. Готовность увидеть правду — это уже движение вверх.","От какой иллюзии о себе ты готова отказаться?"],
+["Развлечения","Лёгкость и игра нужны любви. Но если всё — только игра, до глубины так и не доходит.","Где в ваших отношениях радость, а где бегство от серьёзного разговора?"],
+["Ревность","Ревность — это страх, что любви не хватит на тебя. Он говорит о твоей ране больше, чем о его поступках.","Что ревность пытается защитить в тебе?"],
+["Обесценивание себя","Чувство, что ты «недостаточно»: недостаточно красивая, умная, любимая. Пустота, которую невозможно заполнить чужой любовью.","В какой момент ты решила, что тебя можно не выбрать?"],
+["Астральный план","Мечты, сны, предчувствия. Ты много живёшь в воображении — там отношения идеальны и безопасны.","Какую часть этих отношений ты проживаешь только в голове?"],
+["План фантазии","Фантазия даёт силу, если становится замыслом, и отнимает силу, если заменяет жизнь.","Какую фантазию о любви пора превратить в действие — или отпустить?"],
+["Отвержение / Неприязнь","Ты отталкиваешь первой, чтобы не оттолкнули тебя. Неприязнь часто прикрывает старую боль отвержения.","Кого или что ты отвергаешь, чтобы не почувствовать свою уязвимость?"],
+["Сострадание","Сострадание к себе и к нему открывает то, что не откроют ни обиды, ни правота.","Можешь ли ты посмотреть на ситуацию глазами того, кто рядом?"],
+["План радости","Радость без причины — признак того, что ты возвращаешься к себе. Рядом с правильным человеком её становится больше.","Когда ты в последний раз смеялась рядом с ним по-настоящему?"],
+["Действия / План кармы","Ты повторяешь один и тот же сценарий с разными людьми. Это не наказание — это урок, который ещё не пройден.","Какая история в твоих отношениях повторяется снова и снова?"],
+["Благотворительность","Отдавать, не ведя счёт. Щедрость сердца делает союз равным и живым.","Что ты можешь подарить, не ожидая ничего взамен?"],
+["Искупление","Ты можешь исправить то, что было. Не чувством вины, а честным поступком и словами.","Перед кем тебе стоит извиниться — возможно, перед собой?"],
+["Путь души","У души свой маршрут, и отношения — его часть. Когда ты идёшь своим путём, рядом оказываются свои люди.","Эти отношения ведут тебя к себе или уводят от себя?"],
+["Небесный план","Ощущение, что всё складывается. Любовь как благодать, а не как борьба.","Где ты позволяешь себе принимать, а не заслуживать?"],
+["Плохая компания","Окружение шепчет, что ты требуешь слишком многого или соглашаешься на слишком мало.","Чьи голоса звучат в твоей голове, когда ты решаешь про эти отношения?"],
+["Хорошая компания","Люди рядом, которые видят тебя настоящей и верят в тебя. Им можно доверить свой вопрос.","Кто из близких напоминает тебе, какая ты на самом деле?"],
+["Печаль","Грусть по тому, что не случилось. Ей нужно место и время — непрожитая печаль превращается в холод.","Что ты ещё не оплакала в этой истории?"],
+["Высшая цель","Союз двоих становится сильнее, когда служит чему-то большему, чем они сами.","Ради чего вы вместе — кроме того, чтобы не быть одним?"],
+["Зрелость сердца","Зрелая любовь не требует доказательств каждый день. Она выбирает — и отвечает за свой выбор.","Где твоё сердце уже повзрослело, а где ещё ждёт спасения?"],
+["Аморальность","Ты действуешь против своей правды — ради мира в паре, ради спокойствия или ради чужого одобрения.","Где ты предала себя, чтобы сохранить отношения?"],
+["Благие тенденции","Ты хочешь хорошего — для себя и для него. Намерение уже меняет направление пути.","Какое одно доброе действие ты можешь сделать сегодня?"],
+["Встреча с учителем","Учитель приходит в разных обличьях: человек, книга, кризис. Иногда главный учитель — тот, кто сделал больнее всех.","Чему тебя учит человек, о котором твой вопрос?"],
+["План равновесия","Шива и Шакти в равновесии: давать и получать, говорить и слушать, быть вместе и быть собой.","Где в вашем союзе нарушен баланс?"],
+["План ароматов","Тонкие сигналы: взгляд, запах, интонация. Любовь говорит на языке, который не нуждается в объяснениях.","Какие тихие знаки ты замечаешь — и игнорируешь?"],
+["План вкусов","Вкус жизни и отношений. Ты начинаешь различать, что тебе по-настоящему по вкусу.","Что в этих отношениях питает тебя, а что оставляет голодной?"],
+["Чистилище","Ты проходишь через боль, чтобы освободиться от неё. Это не конец — это переход.","Какую боль ты готова наконец прожить до конца?"],
+["Ясность сознания","Туман рассеивается. Ты видишь ситуацию такой, какая она есть, без оправданий.","Что стало очевидным именно сейчас?"],
+["Мудрость","Знание, пришедшее из опыта. Мудрость не спорит — она просто знает.","Что ты уже знаешь о своём вопросе, но боишься признать?"],
+["Энергия","Энергия возвращается. Отношения, которые тебе подходят, наполняют, а не истощают.","Эти отношения дают тебе силы или забирают их?"],
+["Отпускание","Время отпустить лишнее: старые обиды, чужие ожидания, связи, которые держат на месте.","Что пора отпустить, чтобы освободить место?"],
+["Возвращение в целостность","Ты собираешь себя обратно — все части, которые раздала другим. Целой можно быть и одной, и вдвоём.","Какую часть себя ты отдала в отношениях и хочешь вернуть?"],
+["Человеческий план","Ты принимаешь себя и его обычными людьми — без идеализации и без презрения.","Можешь ли ты любить его несовершенным? А себя?"],
+["План огня","Огонь страсти и огонь преображения. Он согревает, если за ним ухаживать, и сжигает, если его бросить.","Что разжигает огонь между вами — и что его гасит?"],
+["Рождение сознания человека","Ты рождаешься заново — в новой роли, с новым взглядом на любовь.","Какой ты хочешь быть в следующих отношениях?"],
+["Неведение","Ты не хочешь знать правду, потому что она потребует перемен.","На что ты закрываешь глаза?"],
+["Верное знание","Ты понимаешь, как устроена любовь, — и это знание поднимает тебя выше.","Какое понимание изменило твой взгляд на отношения?"],
+["Интуиция","Тихий внутренний голос знал ответ раньше ума. Ты учишься ему доверять.","Что подсказывает тебе интуиция, когда ты перестаёшь спорить с ней?"],
+["Нейтральность","Спокойствие без равнодушия. Ты больше не качаешься от восторга к отчаянию.","Какой ты бываешь, когда спокойна рядом с ним?"],
+["Солнечный канал","Энергия Шивы: действие, ясность, направление. Ты берёшь ответственность за свою жизнь.","Какое решение ждёт твоей решимости?"],
+["Лунный план","Энергия Шакти: чувствительность, принятие, мягкая сила. Ты разрешаешь себе чувствовать.","Где тебе нужна не решимость, а нежность к себе?"],
+["Преодоление / Аскеза","Сознательный отказ от того, что тебе вредит. Не наказание, а выбор ради себя.","От чего ты готова отказаться ради своей целостности?"],
+["Земля","Опора. Ты стоишь на своих ногах, и отношения перестают быть вопросом выживания.","На что ты опираешься, кроме него?"],
+["План насилия","Жёсткость к себе или к другому: слова, молчание, наказание холодом.","Как ты наказываешь — себя или его?"],
+["План воды","Эмоции как вода: текут, меняются, очищают. Ты перестаёшь сдерживать слёзы и нежность.","Какие чувства просятся наружу?"],
+["Духовная преданность","Любовь без условий и страха. Преданность своему пути поднимает выше любых сомнений.","Чему ты по-настоящему предана в жизни?"],
+["Эгоист","Желание быть правой сильнее желания быть счастливой. Эго защищает, но не согревает.","В каком споре тебе важнее победить, чем понять?"],
+["Первичная вибрация","Тишина, в которой слышно главное. Звук, с которого началась вселенная — и любая встреча.","Что ты слышишь, когда замолкают мысли о нём?"],
+["План воздуха","Лёгкость и свобода. Любовь, которая не душит, а даёт дышать.","Есть ли у тебя в этих отношениях воздух?"],
+["Расширение сознания","Ты видишь больше, чем раньше: себя, его, вашу историю — как часть большого узора.","Что становится видно, если посмотреть на ситуацию с высоты?"],
+["План реальности","Ты говоришь правду и выдерживаешь правду в ответ.","Какую правду пора сказать вслух?"],
+["Позитивный интеллект","Ум, который служит сердцу. Ты принимаешь решения ясно и бережно.","Какое решение подсказывает тебе светлый разум?"],
+["Негативный интеллект","Ум, который оправдывает боль и сомнение. Он умеет доказать, что тебя не за что любить.","Какие мысли о себе ты принимаешь за правду?"],
+["Счастье","Спокойное счастье, которое не зависит от сообщений и звонков.","Что делает тебя счастливой, даже когда его нет рядом?"],
+["Инерция","Тяжесть, апатия, «потом разберусь». Пропущенный шаг возвращает к старым иллюзиям.","Что ты откладываешь, надеясь, что всё решится само?"],
+["Связь с Землёй","Высокие чувства обретают смысл, когда воплощаются в простой жизни: в быте, в заботе, в делах.","Как твоя любовь выглядит в поступках?"],
+["Внутреннее пространство","Ты становишься большой — в тебе хватает места и для себя, и для другого.","Сколько места ты оставляешь себе в этих отношениях?"],
+["План блаженства","Покой и радость просто оттого, что ты есть. Любовь как состояние, а не как событие.","Каково это — ничего не ждать и быть наполненной?"],
+["План космического блага","Ты видишь, как твоя история связана с чем-то большим — родом, миром, жизнью.","Чему учит тебя эта история в масштабе всей жизни?"],
+["Космическое сознание","Цель игры. Союз Шивы и Шакти внутри тебя: сила и нежность, действие и принятие соединяются.","Какой ответ на свой вопрос ты уже знаешь?"],
+["План Абсолюта","За пределами целей и вопросов. Но и отсюда можно соскользнуть, если принять высоту за победу.","Что остаётся, когда нечего доказывать?"],
+["Гуна благости","Саттва: ясность, чистота, свет. Всё на своих местах.","Какой была бы гармония в твоей жизни прямо сейчас?"],
+["Гуна движения","Раджас: желание, беспокойство, действие. Энергия, которую важно направить, а не подавить.","Куда направлена твоя страсть — к жизни или к борьбе?"],
+["Гуна инерции","Тамас: самый край доски. Даже с вершины можно упасть в инерцию, если перестать осознавать.","Где ты перестала замечать себя?"]
+];
+let C=C_RU;
+const ARROWS={10:23,22:32,24:42,39:51,45:67,54:68};
+const SNAKES={12:8,29:13,31:16,44:9,69:51,72:21};
+
+const GOAL=68, GATE_MOVE=3, REWARD_EVERY=3;
+const PLANES_RU=["Муладхара · план основания","Свадхистхана · план желания","Манипура · план воли","Анахата · план сердца","Вишудха · план голоса","Аджна · план видения","Сахасрара · план единства","План Абсолюта"];
+const INTENTS_RU=[["rel","Отношения"],["self","Любовь к себе"],["choice","Выбор"],["state","Моё состояние"],["free","Свой вопрос"]];
+const ENTRY_FAIL_RU=["Выпало {d}. Чтобы войти в игру, нужна шестёрка.\nПока ты ещё не на поле — продолжай бросать.","Выпало {d}. Помнишь, нам нужна 6?\nТы в пространстве подготовки. Это нормально.","Выпало {d}. Игра начинается тогда, когда приходит нужный момент.\nПодыши и брось снова."];
+const FRIEND_NAMES_RU=[["Марина","f"],["Алексей","m"],["Ольга","f"],["Дмитрий","m"],["Катя","f"],["Андрей","m"],["Света","f"],["Игорь","m"],["Лена","f"],["Максим","m"],["Юля","f"],["Сергей","m"]];
+
+let PLANES=PLANES_RU,INTENTS=INTENTS_RU,ENTRY_FAIL=ENTRY_FAIL_RU,FRIEND_NAMES=FRIEND_NAMES_RU;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function rc(n){const rb=Math.floor((n-1)/9),p=(n-1)%9;return {row:7-rb,col:rb%2===0?p:8-p};}
+const planeOf=n=>PLANES[Math.floor((n-1)/9)];
+const dur=n=>85+((n*37)%120);
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,3200);}
+function today(){return new Date().toLocaleDateString(LANG==="en"?"en-GB":"ru-RU",{day:"numeric",month:"long"});}
+
+/* ---------- state ---------- */
+const KEY="shivaShakti.app.v1";
+const code=()=>Math.random().toString(36).slice(2,8);
+function freshGame(){return {view:"intent",intent:"rel",question:"",pos:0,history:[],tries:0,moves:0,playMoves:0,snakes:0,arrows:0};}
+function fresh(){return {tab:"home",name:"",refCode:code(),friends:[],games:[],unread:0,g:freshGame(),points:0,lvlSeen:0,daily:{},big:{},streak:{last:"",count:0,claimed:""},journal:[],channel:false,stats:{arrows:0,snakes:0,listened:0,sixes:0}};}
+/* accounts: every registered e-mail keeps its own saved state (this browser) */
+const ACC="shivaShakti.accounts.v1",CUR="shivaShakti.current.v1";
+const acctKey=e=>String(e||"").trim().toLowerCase();
+function loadAll(){try{return JSON.parse(localStorage.getItem(ACC))||{};}catch(e){return {};}}
+function normalize(o){o=o||{};const f=fresh(),n=Object.assign(f,o);n.g=Object.assign(freshGame(),o.g||{});n.stats=Object.assign(fresh().stats,o.stats||{});n.streak=Object.assign(fresh().streak,o.streak||{});
+  ["friends","games","journal","orders"].forEach(k=>{if(!Array.isArray(n[k]))n[k]=[];});["daily","big"].forEach(k=>{if(!n[k]||typeof n[k]!=="object")n[k]={};});return n;}
+let S=fresh();
+(function initState(){
+  const all=loadAll();
+  try{const old=JSON.parse(localStorage.getItem(KEY)||"null");if(old&&old.user&&old.user.email&&!all[acctKey(old.user.email)]){all[acctKey(old.user.email)]=old;localStorage.setItem(ACC,JSON.stringify(all));}}catch(e){}
+  let cur=null;try{cur=localStorage.getItem(CUR);}catch(e){}
+  if(cur&&all[cur])S=normalize(all[cur]);
+})();
+let saveFailed=false;
+function save(){
+  if(!S.user||!S.user.email)return;
+  try{const all=loadAll();all[acctKey(S.user.email)]=S;localStorage.setItem(ACC,JSON.stringify(all));localStorage.setItem(CUR,acctKey(S.user.email));saveFailed=false;}
+  catch(e){if(!saveFailed){saveFailed=true;setTimeout(()=>toast(L("Не получилось сохранить прогресс в этом браузере","Couldn't save progress in this browser")),0);}}
+}
+const G=()=>S.g;
+const SITE="https://shiva-shakti.app";
+const TR={а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"y",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"c",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya"};
+function makeCode(name){const base=(name||"").toLowerCase().split("").map(c=>TR[c]!==undefined?TR[c]:c).join("").replace(/[^a-z0-9]/g,"").slice(0,8)||"friend";return (base+"-"+Math.random().toString(36).slice(2,6)).toUpperCase();}
+const refLink=()=>`${SITE}/?ref=${S.refCode}`;
+function defaultMsg(){const n=(S.user&&S.user.name)||S.name||"";return L(`Привет!${n?" Это "+n+".":""} Я прохожу «Слияние Шивы и Шакти» — игру о любви и отношениях: задаёшь свой вопрос, бросаешь кубик и по 72 клеткам находишь ответы внутри себя. Мне откликнулось — попробуй и ты, первая игра бесплатно 🤍`,`Hi!${n?" It's "+n+".":""} I'm playing “Union of Shiva & Shakti” — a game about love and relationships: you ask your question, roll the die and find the answers within yourself across 72 cells. It really resonated with me — try it too, your first game is free 🤍`);}
+function fullMsg(){return (S.inviteMsg||defaultMsg()).trim()+"\n\n"+refLink();}
+const tgShare=()=>"https://t.me/share/url?url="+encodeURIComponent(refLink())+"&text="+encodeURIComponent((S.inviteMsg||defaultMsg()).trim());
+
+/* ---------- simulated audio ---------- */
+let active=null;
+/* temporary: one track for every voice recording */
+const TRACK=183;
+const player=new Audio("voice.mp3");player.preload="metadata";
+const playIcon='<svg width="13" height="15" viewBox="0 0 14 16"><path d="M1 1l12 7-12 7z" fill="currentColor"/></svg>';
+const pauseIcon='<svg width="13" height="15" viewBox="0 0 14 16"><path d="M2 1h3v14H2zM9 1h3v14H9z" fill="currentColor"/></svg>';
+const SPEEDS=[1,1.25,1.5,2];
+function speedsHTML(){const cur=S.speed||1;return `<div class="speeds" role="group" aria-label="${L("Скорость голоса","Voice speed")}"><span>${L("Скорость","Speed")}</span>${SPEEDS.map(v=>`<button type="button" data-speed="${v}" aria-pressed="${v===cur}">${LANG==="en"?String(v):String(v).replace(".",",")}×</button>`).join("")}</div>`;}
+function audioHTML(label,secs,cell){return `<div class="aud-wrap"><div class="audio" data-dur="${TRACK}" data-t="0"${cell?` data-cell="${cell}"`:""}><button class="play" type="button" aria-label="${L("Слушать","Listen")}: ${esc(label)}">${playIcon}</button><div class="meta"><div class="rw"><b>${esc(label)}</b><span class="tm">0:00 / ${fmt(TRACK)}</span></div><div class="bar"><i></i></div></div><div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>${speedsHTML()}</div>`;}
+function applySpeed(){const v=S.speed||1;player.playbackRate=v;player.defaultPlaybackRate=v;try{player.preservesPitch=true;}catch(e){}}
+function stopAudio(){if(!active)return;try{player.pause();}catch(e){}active.el.dataset.t=player.currentTime||active.el.dataset.t;active.el.classList.remove("on");const p=active.el.querySelector(".play");if(p)p.innerHTML=playIcon;active=null;syncTop();}
+function paint(el){const d=+el.dataset.dur,t=+el.dataset.t;el.querySelector(".bar i").style.width=Math.min(100,t/d*100)+"%";el.querySelector(".tm").textContent=fmt(t)+" / "+fmt(d);if(el===mainAudio())syncTop();}
+player.addEventListener("timeupdate",()=>{if(!active)return;active.el.dataset.t=player.currentTime;paint(active.el);});
+player.addEventListener("ended",()=>{
+  if(!active)return;const el=active.el;el.dataset.t=el.dataset.dur;paint(el);stopAudio();
+  if(el.dataset.cell){bump("listened");S.stats.listened++;save();toast(L("Толкование дослушано — задание дня выполнено","Interpretation finished — daily task complete"));}
+});
+function startAudio(el){
+  stopAudio();
+  const b=el.querySelector(".play");el.classList.add("on");b.innerHTML=pauseIcon;
+  let t=+el.dataset.t||0;if(t>=(+el.dataset.dur)-.5)t=0;
+  try{player.currentTime=t;}catch(e){}
+  active={el};syncTop();applySpeed();
+  const p=player.play();
+  if(p&&p.catch)p.catch(()=>{if(active&&active.el===el){el.classList.remove("on");b.innerHTML=playIcon;active=null;syncTop();}toast(L("Нажми ▶, чтобы включить голос","Tap ▶ to play the voice"));});
+}
+/* unlock audio on the first tap so later automatic playback is allowed (iOS) */
+document.addEventListener("pointerdown",()=>{if(active)return;player.muted=true;const p=player.play();if(p&&p.then)p.then(()=>{if(!active)player.pause();player.muted=false;}).catch(()=>{player.muted=false;});else player.muted=false;},{once:true,capture:true});
+document.addEventListener("click",e=>{
+  const sp=e.target.closest("[data-speed]");
+  if(sp){S.speed=+sp.dataset.speed;save();applySpeed();document.querySelectorAll("[data-speed]").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.speed===S.speed));toast(L("Скорость голоса: ","Voice speed: ")+(LANG==="en"?String(S.speed):String(S.speed).replace(".",","))+"×");return;}
+  const bar=e.target.closest(".audio .bar");
+  if(bar){const el=bar.closest(".audio"),r=bar.getBoundingClientRect();const t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*(+el.dataset.dur);el.dataset.t=t;paint(el);if(active&&active.el===el){try{player.currentTime=t;}catch(err){}}return;}
+  const b=e.target.closest(".audio .play");if(!b)return;
+  const el=b.closest(".audio");
+  if(active&&active.el===el){stopAudio();return;}
+  startAudio(el);
+});
+
+/* ---------- top voice bar ---------- */
+function mainAudio(){
+  const g=G();if(S.tab!=="game")return null;
+  if(g.view==="entry")return document.querySelector("#entryCard .audio");
+  if(g.view==="play")return document.querySelector("#cellCard .audio");
+  if(g.view==="final")return document.querySelector("#finalAudio .audio");
+  return null;
+}
+function mainContainer(){const g=G();return g.view==="entry"?$("#entryCard"):g.view==="play"?$("#cellCard"):$("#finalAudio");}
+function syncTop(){
+  const el=mainAudio(),bar=$("#topBar");
+  bar.hidden=true;return;
+  if(!el){bar.hidden=true;return;}
+  bar.hidden=false;
+  const g=G(),on=!!(active&&active.el===el),d=+el.dataset.dur,t=+el.dataset.t;
+  $("#topPlay").classList.toggle("on",on);
+  $("#topIcon").innerHTML=on?pauseIcon:playIcon;
+  $("#topSmall").textContent=on?"Сейчас звучит":"Голос проводника";
+  const cn=+el.dataset.cell;$("#topTitle").textContent=g.view==="entry"?"Вступление перед игрой":g.view==="final"?"Финальное послание":cn?`Клетка ${cn} — ${C[cn][0]}`:"Голос проводника";
+  $("#topProg").style.width=(t/d*100)+"%";
+  $("#topTime").textContent=t>0?fmt(t)+" / "+fmt(d):fmt(d);
+}
+const _mo=new MutationObserver(()=>syncTop());["#cellCard","#entryCard","#finalAudio"].forEach(q=>_mo.observe($(q),{childList:true}));
+$("#topPlay").addEventListener("click",()=>{
+  const el=mainAudio();if(!el)return;
+  const c=mainContainer();
+  const y=c.getBoundingClientRect().top+window.scrollY-84;
+  window.scrollTo({top:Math.max(0,y),behavior:"smooth"});
+  el.querySelector(".play").click();
+});
+
+/* ---------- cell card ---------- */
+function cellCardHTML(n,jump,extra){
+  const c=C[n];let j="";
+  if(jump&&jump.type==="arrow")j=`<div class="tagline arrow">↑ ${L("Стрела","Arrow")}: ${jump.from} → ${jump.to}</div>`;
+  if(jump&&jump.type==="snake")j=`<div class="tagline snake">↓ ${L("Змея","Snake")}: ${jump.from} → ${jump.to}</div>`;
+  return `${extra||""}${j}<div class="head"><div class="badge">${n}</div><div><div class="lvl">${esc(planeOf(n))}</div><h3>${L("Клетка №","Cell ")}${n} — ${esc(c[0])}</h3></div></div>
+  ${audioHTML(L("Голос проводника · клетка ","Guide's voice · cell ")+n,dur(n),n)}
+  <p>${esc(c[1])}</p>
+  <div class="qbox"><div class="t">${L("Вопрос для осознания","Question for reflection")}</div><div class="q">${esc(c[2])}</div>${answerBlock(n,extra)}</div>`;
+}
+function answerBlock(n,extra){
+  const g=G();
+  if(!extra&&g.view==="play"&&g.needAnswer===n){
+    return `<div class="answer"><label for="ansText">${L("Твой ответ","Your answer")}</label><textarea id="ansText" maxlength="600" placeholder="${L("Напиши, что откликается. Первое, что приходит — самое честное","Write what resonates. The first thing that comes is the most honest")}">${esc(g.draft||"")}</textarea><div class="row-between"><span class="hint">${L("Ответ сохранится в дневник осознаний","Your answer is saved to the insight journal")}</span><button class="btn btn-brown btn-sm" type="button" id="ansSend">${L("Отправить ответ","Send answer")}</button></div></div>`;
+  }
+  const a=(g.answers||{})[n];
+  if(!extra&&a)return `<div class="answered"><b>${L("Твой ответ ✓","Your answer ✓")}</b>${esc(a)}</div>`;
+  return `<button class="btn btn-line btn-sm note-btn" type="button" data-note="${n}">${L("Записать ответ в дневник","Write an answer in the journal")}</button>`;
+}
+
+/* ---------- board ---------- */
+function buildBoard(){
+  const cells=[];for(let n=1;n<=72;n++){const {row,col}=rc(n);cells.push({n,row,col});}
+  cells.sort((a,b)=>a.row-b.row||a.col-b.col);
+  $("#board").innerHTML=cells.map(c=>{const odd=Math.floor((c.n-1)/9)%2===1;return `<button type="button" class="cell${odd?" row-odd":""}${c.n===GOAL?" goal":""}" data-n="${c.n}" aria-label="${L("Клетка","Cell")} ${c.n}: ${esc(C[c.n][0])}"><span class="no">${c.n}</span><span class="nm">${esc(C[c.n][0])}</span></button>`;}).join("");
+  // overlay: arrows & snakes (soft style, matches the painted board)
+  const ctr=n=>{const {row,col}=rc(n);return [col*100+50,row*100+50];};
+  let svg=`<defs>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="2.2" flood-color="#5a2a3c" flood-opacity=".28"/></filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#b8893a" flood-opacity=".55"/></filter>
+  </defs>`;
+  let snakes="",arrows="";
+  for(const [f,t] of Object.entries(SNAKES)){
+    const [x1,y1]=ctr(+f),[x2,y2]=ctr(t);
+    const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;
+    const waves=Math.max(1,Math.round(L/230*2)/2),amp=Math.min(26,12+L/45),N=90,pts=[];
+    for(let i=0;i<=N;i++){const k=i/N,env=Math.sin(Math.PI*Math.min(1,.12+k*.95)),off=Math.sin(k*Math.PI*2*waves+.6)*amp*env;pts.push([x1+dx*k+nx*off,y1+dy*k+ny*off]);}
+    const L1=[],R1=[];
+    for(let i=0;i<=N;i++){
+      const p=pts[i],q=pts[Math.min(N,i+1)],o=pts[Math.max(0,i-1)];
+      let tx=q[0]-o[0],ty=q[1]-o[1];const tl=Math.hypot(tx,ty)||1;tx/=tl;ty/=tl;
+      const k=i/N,w=k<.05?6+k/.05*3:9*Math.pow(1-k,.8)+.8;
+      L1.push([p[0]-ty*w,p[1]+tx*w]);R1.push([p[0]+ty*w,p[1]-tx*w]);
+    }
+    const f2=p=>p[0].toFixed(1)+" "+p[1].toFixed(1);
+    const body="M"+L1.map(f2).join(" L")+" L"+R1.reverse().map(f2).join(" L")+"Z";
+    const spine="M"+pts.slice(4,N-8).map(f2).join(" L");
+    const hd=Math.atan2(pts[0][1]-pts[3][1],pts[0][0]-pts[3][0])*180/Math.PI;
+    snakes+=`<g filter="url(#soft)" opacity=".9">
+      <path d="${body}" fill="#f2c3cf" stroke="#c98398" stroke-width="1.2" stroke-opacity=".6" stroke-linejoin="round"/>
+      <path d="${spine}" fill="none" stroke="#fbe3ea" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+      <path d="${spine}" fill="none" stroke="#c98398" stroke-width="2" stroke-dasharray="1.5 7" stroke-linecap="round" opacity=".55"/>
+      <g transform="translate(${f2(pts[0]).replace(" ",",")}) rotate(${hd.toFixed(1)})">
+        <path d="M-6 -9 C6 -11 16 -5 16 0 C16 5 6 11 -6 9 Z" fill="#f2c3cf" stroke="#c98398" stroke-width="1.2" stroke-opacity=".6"/>
+        <circle cx="6" cy="-4.2" r="1.7" fill="#5a2a3c"/><circle cx="6" cy="4.2" r="1.7" fill="#5a2a3c"/>
+      </g>
+    </g>`;
+  }
+  for(const [f,t] of Object.entries(ARROWS)){
+    const [x1,y1]=ctr(+f),[x2,y2]=ctr(t);
+    const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,nx=-uy,ny=ux;
+    const hx=x2-ux*14,hy=y2-uy*14,tipx=x2+ux*4,tipy=y2+uy*4;
+    const head=`M${tipx.toFixed(1)} ${tipy.toFixed(1)} L${(hx-ux*6+nx*9).toFixed(1)} ${(hy-uy*6+ny*9).toFixed(1)} Q${hx.toFixed(1)} ${hy.toFixed(1)} ${(hx-ux*6-nx*9).toFixed(1)} ${(hy-uy*6-ny*9).toFixed(1)} Z`;
+    arrows+=`<g>
+      <line x1="${x1}" y1="${y1}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#fffaf0" stroke-width="8" stroke-linecap="round" opacity=".85"/>
+      <circle cx="${x1}" cy="${y1}" r="9.5" fill="#fffaf0" opacity=".9"/>
+      <path d="${head}" fill="#fffaf0" stroke="#fffaf0" stroke-width="5" stroke-linejoin="round" opacity=".9"/>
+      <line x1="${x1}" y1="${y1}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#b98a3e" stroke-width="3.4" stroke-linecap="round"/>
+      <circle cx="${x1}" cy="${y1}" r="6" fill="#b98a3e"/>
+      <path d="${head}" fill="#b98a3e"/>
+    </g>`;
+  }
+  svg+=snakes+arrows;
+
+  $("#overlay").innerHTML=svg;
+}
+function placeToken(n,slow){
+  const t=$("#token");if(!n){t.hidden=true;return;}
+  t.hidden=false;t.classList.toggle("slow",!!slow);
+  const {row,col}=rc(n);
+  t.style.left=`calc(3px + (100% - 6px) * ${(col+.5)/9})`;t.style.top=`calc(3px + (100% - 6px) * ${(row+.5)/8})`;
+  document.querySelectorAll(".cell.here").forEach(c=>c.classList.remove("here"));
+  const cell=document.querySelector(`.cell[data-n="${n}"]`);if(cell)cell.classList.add("here");
+}
+function markVisited(){document.querySelectorAll(".cell.visited").forEach(c=>c.classList.remove("visited"));for(const h of G().history){const c=document.querySelector(`.cell[data-n="${h.n}"]`);if(c)c.classList.add("visited");}}
+
+
+/* ---------- levels, petals, tasks ---------- */
+const LEVELS=[
+ {n:1,name:"Росток",chakra:"Муладхара",petals:4,color:"#c8574f",need:0,desc:"Ты стоишь на земле и задаёшь первый честный вопрос. Корень — это опора: всё, что вырастет дальше, растёт отсюда.",reward:"Доступ к игре и заданиям"},
+ {n:2,name:"Поток",chakra:"Свадхистхана",petals:6,color:"#e08a4a",need:100,desc:"Желание перестаёт пугать и становится энергией. Ты позволяешь себе хотеть — и чувствовать.",reward:"Медитация «Вода» голосом проводника"},
+ {n:3,name:"Пламя",chakra:"Манипура",petals:10,color:"#d9a93a",need:250,desc:"Огонь воли. Ты делаешь выбор сама и перестаёшь ждать, что кто-то выберет за тебя.",reward:"Скидка 20% на следующую игру"},
+ {n:4,name:"Сердце",chakra:"Анахата",petals:12,color:"#5f9f73",need:450,desc:"Середина пути. Сердце открывается и для другого, и для себя — без условий и без потери себя.",reward:"Одна игра в подарок"},
+ {n:5,name:"Голос",chakra:"Вишудха",petals:16,color:"#4d8fc0",need:700,desc:"Ты говоришь правду о своих чувствах — и выдерживаешь правду в ответ.",reward:"Расширенное финальное послание"},
+ {n:6,name:"Взор",chakra:"Аджна",petals:2,color:"#5b56b0",need:1000,desc:"Третий глаз Шивы. Ты видишь сценарии своих отношений со стороны — и можешь их менять.",reward:"Групповая игра с ведущей"},
+ {n:7,name:"Союз",chakra:"Сахасрара",petals:24,color:"#9a5bb0",need:1400,desc:"Слияние Шивы и Шакти. Сила и нежность, действие и принятие соединились внутри тебя.",reward:"Статус «Шакти» и личная игра с автором"}
+];
+function levelOf(p){let L=LEVELS[0];for(const l of LEVELS)if(p>=l.need)L=l;return L;}
+function nextOf(L){return LEVELS[L.n]||null;}
+function lotus(L,size,dim){
+  const k=Math.min(L.petals,24),r=size/2,parts=[];
+  for(let i=0;i<k;i++){const a=360/k*i;parts.push(`<path d="M${r} ${r} C ${r-r*.22} ${r-r*.35}, ${r-r*.14} ${r-r*.78}, ${r} ${r-r*.92} C ${r+r*.14} ${r-r*.78}, ${r+r*.22} ${r-r*.35}, ${r} ${r}Z" transform="rotate(${a} ${r} ${r})" fill="${L.color}" fill-opacity="${dim?.25:.28+.5*((i%2))}" stroke="${L.color}" stroke-width="${size/90}"/>`);}
+  return `<svg viewBox="0 0 ${size} ${size}" class="lvl-emblem" style="width:${size}px;height:${size}px" aria-hidden="true">${parts.join("")}<circle cx="${r}" cy="${r}" r="${r*.3}" fill="#fff" stroke="${L.color}" stroke-width="${size/60}"/><text x="${r}" y="${r+r*.11}" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-weight="700" font-size="${r*.34}" fill="${L.color}">${L.n}</text></svg>`;
+}
+const petalIcon='<svg viewBox="0 0 16 16"><path d="M8 15C4 12 3 8 8 1c5 7 4 11 0 14z" fill="#e7a9b9" stroke="#c98398"/></svg>';
+function addPoints(n,why){
+  const before=levelOf(S.points);S.points+=n;save();
+  toast(`+${n} ${L("лепестков","petals")} · ${why}`);
+  const after=levelOf(S.points);
+  if(after.n>before.n){setTimeout(()=>showLevelUp(after),900);}
+  renderBadges();
+  if(S.tab==="level")renderLevel();if(S.tab==="home")renderHome();
+}
+function showLevelUp(L){
+  $("#lvlUpBody").innerHTML=`${lotus(L,150)}<h3 class="h-serif" style="font-size:34px">${LANG==="en"?"Level "+L.n:L.n+" уровень"} · ${L.name}</h3><div class="muted" style="font-size:15px;font-style:italic;font-family:var(--serif)">${L.chakra}</div><p>${L.desc}</p><p style="font-weight:800;color:#8f4b62">${LANG==="en"?"Unlocked":"Открыто"}: ${L.reward}</p>`;
+  $("#mLevel").hidden=false;S.lvlSeen=L.n;save();
+}
+function dayKey(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
+function D(){const k=dayKey();if(S.daily.key!==k)S.daily={key:k,c:{login:1,rolls:0,listened:0,notes:0,invites:0},claimed:{}};return S.daily;}
+function bump(counter,by){const d=D();d.c[counter]=(d.c[counter]||0)+(by||1);save();renderBadges();if(S.tab==="tasks")renderTasks();}
+const DAILY=[
+ {id:"login",t:"Загляни в игру сегодня",goal:1,c:"login",pts:5,ic:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/>'},
+ {id:"rolls",t:"Сделай 5 бросков кубика",goal:5,c:"rolls",pts:15,ic:'<rect x="5" y="5" width="14" height="14" rx="3"/><circle cx="9.5" cy="9.5" r="1" fill="currentColor"/><circle cx="14.5" cy="14.5" r="1" fill="currentColor"/>',go:"game"},
+ {id:"listen",t:"Дослушай толкование клетки до конца",goal:1,c:"listened",pts:10,ic:'<path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>',go:"game"},
+ {id:"note",t:"Запиши ответ на вопрос клетки",goal:1,c:"notes",pts:15,ic:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>',go:"game"},
+ {id:"invite",t:"Пригласи друга по своей ссылке",goal:1,c:"invites",pts:30,ic:'<circle cx="9" cy="8" r="3.5"/><path d="M3 20c1-3.5 3.5-5 6-5s5 1.5 6 5"/><path d="M18 8v6M15 11h6"/>',go:"profile"}
+];
+const BIG=[
+ {id:"channel",t:"Подпишись на Telegram-канал игры",pts:20,prog:()=>[S.channel?1:0,1],ic:'<path d="M3 11l17-7-3 16-5-5-3 3v-5l8-7"/>',action:"channel"},
+ {id:"name",t:"Представься в профиле",pts:10,prog:()=>[(S.name||"").trim()?1:0,1],ic:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',go:"profile"},
+ {id:"first",t:"Пройди первую игру до конца",pts:50,prog:()=>[Math.min(1,S.games.length),1],ic:'<path d="M5 21V4h11l-2 4 2 4H5"/>',go:"game"},
+ {id:"three",t:"Пригласи трёх друзей",pts:100,prog:()=>[Math.min(3,S.friends.length),3],ic:'<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c1-3 3-4.5 6-4.5M22 20c-1-3-3-4.5-6-4.5M8 20c1-3 2.5-4 4-4s3 1 4 4"/>',go:"profile"},
+ {id:"streak3",t:"Заходи 3 дня подряд",pts:40,prog:()=>[Math.min(3,S.streak.count),3],ic:'<path d="M12 3c2 4 6 5 6 10a6 6 0 01-12 0c0-3 2-4 3-6 1 2 2 2 3 2 0-2-1-4 0-6z"/>'}
+];
+function touchStreak(){
+  const k=dayKey();if(S.streak.last===k)return;
+  const y=new Date();y.setDate(y.getDate()-1);
+  S.streak.count=(S.streak.last===dayKey(y))?S.streak.count+1:1;S.streak.last=k;save();
+}
+function claimableCount(){
+  const d=D();let n=0;
+  for(const t of DAILY)if((d.c[t.c]||0)>=t.goal&&!d.claimed[t.id])n++;
+  for(const t of BIG){const [a,b]=t.prog();if(a>=b&&!S.big[t.id])n++;}
+  if(S.streak.claimed!==dayKey())n++;
+  return n;
+}
+function renderBadges(){const n=claimableCount(),d=$("#taskDot");d.hidden=!n;d.textContent=n;}
+function taskLI(t,cur,goal,claimed,kind){
+  const done=cur>=goal;
+  const btn=claimed?`<span class="reward-pill">${L("Получено ✓","Claimed ✓")}</span>`:done?`<button class="btn btn-claim btn-sm" type="button" data-claim="${kind}:${t.id}">+${t.pts}</button>`:(t.action==="channel"?`<a class="btn btn-tg btn-sm" href="https://t.me/" target="_blank" rel="noopener" data-channel>${L("Открыть","Open")}</a>`:(t.go?`<button class="btn btn-line btn-sm" type="button" data-go="${t.go}">${L("Перейти","Go")}</button>`:`<span class="reward-pill">+${t.pts}</span>`));
+  return `<li class="${claimed?"done":done?"ready":""}"><div class="tk"><svg viewBox="0 0 24 24">${t.ic}</svg></div><div class="tb"><b>${esc(t.t)}</b>${goal>1?`<div class="mini"><i style="width:${Math.min(100,cur/goal*100)}%"></i></div><span>${Math.min(cur,goal)} ${L("из","of")} ${goal} · +${t.pts} ${L("лепестков","petals")}</span>`:`<span>+${t.pts} ${L("лепестков","petals")}</span>`}</div><div class="go">${btn}</div></li>`;
+}
+function renderTasks(){
+  const d=D();
+  $("#dailyList").innerHTML=DAILY.map(t=>taskLI(t,d.c[t.c]||0,t.goal,!!d.claimed[t.id],"d")).join("");
+  $("#bigList").innerHTML=BIG.map(t=>{const [a,b]=t.prog();return taskLI(t,a,b,!!S.big[t.id],"b");}).join("");
+  const c=S.streak.count;const bonus=Math.min(50,c>=7?50:c*5);
+  $("#streakTxt").innerHTML=S.streak.claimed===dayKey()?L("бонус получен ✓","bonus claimed ✓"):`<button class="btn btn-claim btn-sm" type="button" data-claim="s:streak">${L("Забрать","Claim")} +${bonus}</button>`;
+  let row="";for(let i=1;i<=7;i++)row+=`<div class="${i<=((c-1)%7)+1?"on":""}"><i>${i}</i>${L("день","day")}</div>`;
+  $("#streakRow").innerHTML=row;
+  tickTimer();
+}
+function tickTimer(){const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.floor((m-n)/1000);$("#resetTimer").textContent=String(Math.floor(s/3600)).padStart(2,"0")+":"+String(Math.floor(s%3600/60)).padStart(2,"0");}
+setInterval(()=>{if(S.tab==="tasks")tickTimer();},30000);
+function claim(key){
+  const [kind,id]=key.split(":");
+  if(kind==="d"){const t=DAILY.find(x=>x.id===id),d=D();if(d.claimed[id])return;d.claimed[id]=1;save();addPoints(t.pts,L("задание дня","daily task"));}
+  if(kind==="b"){const t=BIG.find(x=>x.id===id);if(S.big[id])return;S.big[id]=1;save();addPoints(t.pts,L("большое задание","big task"));}
+  if(kind==="s"){if(S.streak.claimed===dayKey())return;const c=S.streak.count;S.streak.claimed=dayKey();save();addPoints(c>=7?50:c*5,LANG==="en"?`${c}-day streak`:`серия ${c} ${c===1?"день":c<5?"дня":"дней"}`);}
+  renderTasks();
+}
+const ACH=[
+ {em:"6",t:"Первая шестёрка",ok:()=>S.stats.sixes>0},
+ {em:"↑",t:"Три стрелы",ok:()=>S.stats.arrows>=3},
+ {em:"∿",t:"Пять змей",ok:()=>S.stats.snakes>=5},
+ {em:"✦",t:"Первая игра",ok:()=>S.games.length>=1},
+ {em:"3",t:"Три друга",ok:()=>S.friends.length>=3},
+ {em:"✎",t:"Пять записей",ok:()=>S.journal.length>=5}
+];
+function renderLevel(){
+  const L=levelOf(S.points),N=nextOf(L);
+  const pct=N?Math.round((S.points-L.need)/(N.need-L.need)*100):100;
+  $("#lvlCard").innerHTML=`<div class="lvl-no">${LANG==="en"?`Level ${L.n} of 7`:`Уровень ${L.n} из 7`}</div>${lotus(L,132)}<h2 class="h-serif">${L.name}</h2><div class="chak">${L.chakra} · ${LANG==="en"?`a lotus of ${L.petals===24?"a thousand":L.petals} petals`:`лотос из ${L.petals===24?"тысячи":L.petals} лепестков`}</div><p class="desc">${L.desc}</p>
+   <div class="pbar"><i style="width:${pct}%;background:linear-gradient(90deg,${L.color}99,${L.color})"></i></div>
+   <div class="row-between"><span class="petals">${petalIcon}${S.points} ${LANG==="en"?"petals":"лепестков"}</span><span class="muted">${N?(LANG==="en"?`${N.need-S.points} to “${N.name}”`:`до уровня «${N.name}» — ${N.need-S.points}`):(LANG==="en"?"the whole path is complete":"весь путь пройден")}</span></div>`;
+  $("#ladder").innerHTML=LEVELS.map(l=>{const st=S.points>=l.need?(l.n===L.n?"cur":"open"):"lock";return `<li class="${st}" style="--c:${l.color}"><div class="ic">${lotus(l,30,st==="lock").replace('class="lvl-emblem" style="width:30px;height:30px"','style="width:30px;height:30px"')}</div><div><b>${l.n}. ${l.name}</b><div class="sub">${l.chakra}</div><div class="rw">${st==="lock"?(LANG==="en"?"Unlocks: ":"Откроется: "):(LANG==="en"?"Unlocked: ":"Открыто: ")}${l.reward}</div></div><div class="need">${l.need?`<span class="petals">${petalIcon}${l.need}</span>`:(LANG==="en"?"start":"старт")}</div></li>`;}).join("");
+  $("#achList").innerHTML=ACH.map(a=>`<div class="${a.ok()?"":"off"}"><div class="em">${a.em}</div><b>${a.t}</b></div>`).join("");
+}
+function miniLevelHTML(){
+  const L=levelOf(S.points),N=nextOf(L);const pct=N?Math.round((S.points-L.need)/(N.need-L.need)*100):100;
+  return `${lotus(L,52).replace('class="lvl-emblem" ','')}<div style="flex:1;min-width:0"><div class="eyebrow">${LANG==="en"?"Level":"Уровень"} ${L.n} · ${L.chakra}</div><b style="font-size:17px">${L.name}</b><div class="pbar"><i style="width:${pct}%;background:${L.color}"></i></div><span class="muted">${S.points} ${LANG==="en"?"petals":"лепестков"}${N?(LANG==="en"?` · ${N.need-S.points} to “${N.name}”`:` · до «${N.name}» ${N.need-S.points}`):""}</span></div>`;
+}
+
+/* ---------- tabs ---------- */
+function setTab(tab){
+  S.tab=tab;if(tab==="profile")S.unread=0;save();stopAudio();
+  $("#tHome").hidden=tab!=="home";$("#tGame").hidden=tab!=="game";$("#tProfile").hidden=tab!=="profile";$("#tTasks").hidden=tab!=="tasks";$("#tLevel").hidden=tab!=="level";
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-current",b.dataset.tab===tab?"page":"false"));
+  if(tab==="home")renderHome();
+  if(tab==="game"){renderGame();if(G().view==="entry"&&!G().tries)setTimeout(playIntro,250);}
+  if(tab==="profile")renderProfile();
+  if(tab==="tasks")renderTasks();
+  if(tab==="level")renderLevel();
+  renderDot();renderBadges();syncTop();
+  window.scrollTo({top:0});
+}
+function renderDot(){const d=$("#profDot");d.hidden=!S.unread;d.textContent=S.unread;}
+
+/* ---------- home ---------- */
+function renderHome(){
+  $("#homeLvl").innerHTML=miniLevelHTML();
+  const g=G();
+  const inGame=g.view==="entry"||g.view==="play";
+  $("#heroCta").textContent=inGame&&g.pos?L(`Продолжить игру · клетка ${g.pos}`,`Continue the game · cell ${g.pos}`):(inGame?L("Продолжить игру","Continue the game"):L("Начать игру","Start the game"));
+  const pc=$("#homeProgress");
+  if(inGame){
+    pc.hidden=false;
+    const pct=Math.round((g.pos||0)/GOAL*100);
+    pc.innerHTML=`<div class="row-between"><div class="eyebrow">${L("Текущая игра","Current game")}</div><span class="muted">${g.pos?L("клетка "+g.pos+" из 72","cell "+g.pos+" of 72"):L("у входа","at the entrance")}</span></div>
+      <div style="font-weight:800;text-transform:uppercase;font-size:14px;margin-top:6px">«${esc(g.question)}»</div>
+      <div class="bar"><i style="width:${Math.min(100,pct)}%"></i></div>
+      <div class="muted">${L("До цели — клетки 68 «Космическое сознание»","Goal — cell 68 “Cosmic Consciousness”")}${g.pos?L(": осталось "+Math.max(0,GOAL-g.pos)+" клеток",": "+Math.max(0,GOAL-g.pos)+" cells to go"):""}</div>`;
+  }else pc.hidden=true;
+  $("#homeStats").innerHTML=statsHTML();
+}
+function statsHTML(){return `<div><b>${S.games.length}</b><span>${L("игр пройдено","games played")}</span></div><div><b>${S.friends.length}</b><span>${L("друзей","friends")}</span></div><div><b>${G().moves}</b><span>${L("бросков","rolls")}</span></div>`;}
+
+/* ---------- game views ---------- */
+function renderGame(){
+  const g=G();
+  $("#vIntent").hidden=g.view!=="intent";
+  $("#vEntry").hidden=g.view!=="entry";
+  $("#vPlay").hidden=g.view!=="play";
+  $("#vFinal").hidden=g.view!=="final";
+  if(g.view==="intent"){
+    $("#intentChips").innerHTML=INTENTS.map(([k,l])=>`<button class="chip" type="button" data-intent="${k}" aria-pressed="${g.intent===k}">${l}</button>`).join("");
+    $("#qText").value=g.question||"";$("#qErr").textContent="";
+  }
+  if(g.view==="entry")renderEntry();
+  if(g.view==="play")renderPlay();
+  if(g.view==="final")renderFinal();
+  syncTop();
+}
+function renderEntry(){
+  const g=G();$("#rollBtn2").classList.toggle("shine",!rolling);
+  $("#qType2").textContent=(INTENTS.find(i=>i[0]===g.intent)||INTENTS[0])[1];
+  $("#qShow2").textContent="«"+g.question+"»";
+  $("#bigDie").classList.remove("six");
+  $("#tries").innerHTML=(g.entryRolls||[]).map(d=>`<span class="${d===6?"w":""}">${d}</span>`).join("");
+  if(!g.tries)$("#status2").textContent="";
+  const started=!!g.introDone;
+  $("#splash").hidden=!started;$("#introStart").hidden=started;
+  $("#entryCard").innerHTML=`<div class="head"><div class="badge">0</div><div><div class="lvl">${L("Пространство подготовки","Space of preparation")}</div><h3>${L("Вступление проводника","The guide's introduction")}</h3></div></div>${audioHTML(L("Вступление проводника","The guide's introduction"),142)}<p>${L("Сделай вдох. Держи свой вопрос в сердце, а не в голове. Игра начнётся, когда выпадет шестёрка — не раньше и не позже, чем нужно.","Take a breath. Hold your question in your heart, not in your head. The game begins when a six comes up — not earlier and not later than it should.")}</p><div class="qbox"><div class="t">${L("Вопрос для осознания","Question for reflection")}</div><div class="q">${L("Что ты почувствуешь, если ответ окажется не тем, которого ты ждёшь?","How will you feel if the answer turns out to be different from the one you expect?")}</div></div>`;
+}
+function gateActive(){return false;}
+function renderRoller(){
+  const btn=$("#rollBtn");
+  const need=G().view==="play"&&G().needAnswer;
+  btn.classList.toggle("need",!!need);
+  btn.classList.toggle("shine",!need&&!rolling&&G().view==="play");
+  btn.textContent=need?L("Сначала ответь на вопрос клетки","Answer the cell's question first"):L("Бросить кубик","Roll the die");
+  $("#rollBtn2").classList.toggle("shine",!rolling);
+}
+function renderPlay(){
+  const g=G();
+  $("#qType").textContent=(INTENTS.find(i=>i[0]===g.intent)||INTENTS[0])[1];
+  $("#qShow").textContent="«"+g.question+"»";
+  placeToken(g.pos,false);markVisited();renderPath();renderRoller();
+  $("#skipBtn").hidden=g.view!=="play";
+  if(false){
+    $("#cellCard").innerHTML=`<div class="head"><div class="badge">0</div><div><div class="lvl">Пространство подготовки</div><h3>Ты у входа</h3></div></div>${audioHTML("Вступление проводника",142)}<p>Сделай вдох. Держи свой вопрос в сердце, а не в голове. Игра начнётся, когда выпадет шестёрка — не раньше и не позже, чем нужно.</p><div class="qbox"><div class="t">Вопрос для осознания</div><div class="q">Что ты почувствуешь, если ответ окажется не тем, которого ты ждёшь?</div></div>`;
+  }else{
+    const last=g.history[g.history.length-1];
+    $("#cellCard").innerHTML=cellCardHTML(g.pos,last&&last.jump);
+    if(gateActive()&&!$("#status").textContent)$("#status").innerHTML="Ты прошла первые шаги. Пригласи друга, чтобы продолжить путь.";
+  }
+}
+function renderPath(){
+  const g=G();
+  $("#path").innerHTML=g.history.length?g.history.map(h=>h.jump?`<span class="p ${h.jump.type==="snake"?"s":"a"}">${h.jump.from}${h.jump.type==="snake"?"↓":"↑"}${h.jump.to}</span>`:`<span class="p">${h.n}</span>`).join(""):`<span class="muted">${L("Путь начнётся с первой шестёрки.","Your path begins with the first six.")}</span>`;
+  $("#moves").textContent=g.moves?(L("бросков: ","rolls: ")+g.moves):"";
+}
+function renderFinal(){
+  const g=G();
+  $("#finalAudio").innerHTML=audioHTML(L("Финальное послание","Final message"),252);
+  $("#stats").innerHTML=`<div><b>${g.moves}</b><span>${L("бросков","rolls")}</span></div><div><b>${g.arrows}</b><span>${L("стрел","arrows")}</span></div><div><b>${g.snakes}</b><span>${L("змей","snakes")}</span></div>`;
+  $("#finalQ").textContent="«"+g.question+"»";
+  const sn=g.history.filter(h=>h.jump&&h.jump.type==="snake").map(h=>h.jump.from);
+  const ar=g.history.filter(h=>h.jump&&h.jump.type==="arrow").map(h=>h.jump.from);
+  let t=L("Ты пришла в игру с вопросом и прошла весь путь до союза Шивы и Шакти внутри себя. ","You came to the game with a question and walked the whole path to the union of Shiva and Shakti within you. ");
+  t+=sn.length?L(`Змеи возвращали тебя с клеток «${sn.map(n=>C[n][0]).join("», «")}» — там живут темы, которые просят внимания в первую очередь. `,`Snakes brought you back from the cells “${sn.map(n=>C[n][0]).join("”, “")}” — that's where the themes live that ask for your attention first. `):L("Змеи ни разу не остановили тебя — ответ ближе, чем кажется. ","No snake ever stopped you — the answer is closer than it seems. ");
+  if(ar.length)t+=L(`Стрелы поднимали тебя через «${ar.map(n=>C[n][0]).join("», «")}» — это твои ресурсы, на которые можно опереться. `,`Arrows lifted you through “${ar.map(n=>C[n][0]).join("”, “")}” — these are your resources to lean on. `);
+  t+=L("Послушай финальное послание, запиши три мысли, которые откликнулись, и вернись к ним через неделю.","Listen to the final message, write down three thoughts that resonated, and come back to them in a week.");
+  $("#finalText").textContent=t;
+  const ans=Object.entries(g.answers||{}).map(([n,v])=>({n:+n,v})).filter(x=>x.v);
+  $("#ansCount").textContent=ans.length;
+  const top=ans.slice().sort((a,b)=>b.v.length-a.v.length).slice(0,2);
+  $("#finalQuotes").innerHTML=top.length?`<div class="quotes">${top.map(a=>`<blockquote><small>${L("Клетка","Cell")} ${a.n} · ${esc(C[a.n][0])}</small>«${esc(a.v.length>160?a.v.slice(0,157)+"…":a.v)}»</blockquote>`).join("")}</div><p class="muted" style="margin:8px 0 0">${L("Эти ответы стоит перечитать: в них самое важное из твоего пути.","These answers are worth rereading: they hold the most important part of your path.")}</p>`:"";
+}
+
+/* ---------- auto focus on landed cell ---------- */
+async function focusCell(play){
+  const card=$("#cellCard"),q=document.querySelector("#vPlay .qpill");
+  const off=(q?q.getBoundingClientRect().height:0)+22;
+  const y=card.getBoundingClientRect().top+window.scrollY-off;
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({top:Math.max(0,y),behavior:reduce?"auto":"smooth"});
+  await sleep(reduce?50:750);
+  card.classList.remove("flash");void card.offsetWidth;card.classList.add("flash");
+  if(play){const b=card.querySelector(".audio .play");if(b&&!(active&&active.el===b.closest(".audio")))b.click();}
+}
+
+/* ---------- intro → "Начать игру" → dice ---------- */
+$("#introStart").addEventListener("click",()=>{
+  const g=G();g.introDone=true;save();
+  $("#introStart").hidden=true;const sp=$("#splash");sp.hidden=false;sp.classList.remove("appear");void sp.offsetWidth;sp.classList.add("appear");
+  $("#rollBtn2").classList.add("shine");
+  const q=document.querySelector("#vEntry .qpill"),off=(q?q.getBoundingClientRect().height:0)+20;
+  window.scrollTo({top:Math.max(0,sp.getBoundingClientRect().top+window.scrollY-off),behavior:"smooth"});
+});
+
+/* ---------- intro autoplay ---------- */
+function playIntro(){
+  const el=document.querySelector("#entryCard .audio");
+  if(el&&!(active&&active.el===el))startAudio(el);
+}
+
+/* ---------- full reading purchase (demo) ---------- */
+let buyPlan="game";
+const PLANS={game:{t:"Разбор игры",price:"$19",d:"Разбор всего пути: клетки, змеи и стрелы, твои ответы, главный сценарий и практика на 30 дней."},
+             astro:{t:"Разбор + астрология",price:"$39",d:"Полный разбор игры и астрологическая подсказка от Шива Вакья Сиддха Бабы по твоей натальной карте — именно по темам из твоих ответов."}};
+function openBuy(plan){
+  buyPlan=plan;const P=PLANS[plan];
+  $("#buyT").textContent=P.t+" — "+P.price;$("#buyDesc").textContent=P.d;
+  $("#astroFields").hidden=plan!=="astro";
+  $("#bPay").textContent=L("Оплатить ","Pay ")+P.price;
+  $("#bName").value=S.name||"";$("#bErr").textContent="";
+  const u=S.user||{};if(u.birthDate&&!$("#bDate").value)$("#bDate").value=u.birthDate;if(u.birthTime&&!$("#bTime").value)$("#bTime").value=u.birthTime;if(u.noTime){$("#bNoTime").checked=true;$("#bTime").disabled=true;}if(u.email&&!$("#bContact").value)$("#bContact").value=u.email;
+  $("#buyForm").hidden=false;$("#buyDone").hidden=true;$("#mBuy").hidden=false;
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-buy]");if(b)openBuy(b.dataset.buy);});
+$("#bNoTime").addEventListener("change",e=>{$("#bTime").disabled=e.target.checked;});
+$("#buyForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=$("#bName").value.trim(),contact=$("#bContact").value.trim();
+  if(!name){$("#bErr").textContent=L("Напиши, как к тебе обращаться.","Tell us what to call you.");$("#bName").focus();return;}
+  if(buyPlan==="astro"){
+    if(!$("#bDate").value){$("#bErr").textContent=L("Для астрологической подсказки нужна дата рождения.","The astrological hint needs your date of birth.");$("#bDate").focus();return;}
+    if(!$("#bTime").value&&!$("#bNoTime").checked){$("#bErr").textContent=L("Укажи время рождения или отметь «Не знаю точное время».","Enter your time of birth or tick “I don't know the exact time”.");$("#bTime").focus();return;}
+    if(!$("#bPlace").value.trim()){$("#bErr").textContent=L("Укажи город рождения.","Enter your city of birth.");$("#bPlace").focus();return;}
+  }
+  if(contact.length<3){$("#bErr").textContent=L("Укажи Telegram или e-mail, куда прислать разбор.","Enter the Telegram or email where we should send the reading.");$("#bContact").focus();return;}
+  const g=G();
+  S.orders=S.orders||[];S.orders.unshift({plan:buyPlan,q:(S.games[0]&&S.games[0].q)||g.question,date:today(),status:"Готовится"});
+  if(!S.name)S.name=name;save();
+  $("#buyForm").hidden=true;$("#buyDone").hidden=false;
+  $("#buyDoneTxt").textContent=buyPlan==="astro"?L("Мы передали твой путь, ответы и данные рождения Шива Вакья Сиддха Бабе. Разбор с астрологической подсказкой придёт в течение 48 часов.","We have passed your path, answers and birth data to Shiva Vakya Siddha Baba. Your reading with the astrological hint will arrive within 48 hours."):L("Разбор твоей игры придёт в течение 48 часов — в Telegram и в раздел «Профиль».","Your game reading will arrive within 48 hours — in Telegram and in your “Profile”.");
+});
+
+/* ---------- answers ---------- */
+async function askAnswer(){
+  await focusCell(false);
+  const t=$("#ansText");if(t){t.focus({preventScroll:true});}
+  toast(L("Сначала напиши ответ на вопрос клетки","First write your answer to the cell's question"));
+}
+document.addEventListener("input",e=>{if(e.target.id==="ansText"){G().draft=e.target.value;save();}});
+document.addEventListener("click",e=>{
+  if(!e.target.closest("#ansSend"))return;
+  const g=G(),t=$("#ansText"),v=(t&&t.value||"").trim();
+  if(v.length<2){t.focus();toast(L("Напиши хотя бы пару слов","Write at least a couple of words"));return;}
+  const n=g.needAnswer;
+  g.answers=g.answers||{};g.answers[n]=v;g.needAnswer=0;g.draft="";
+  S.journal.unshift({n,q:C[n][2],text:v,date:today()});save();bump("notes");
+  const box=document.querySelector("#cellCard .answer");
+  if(box)box.outerHTML=`<div class="answered"><b>${L("Твой ответ ✓","Your answer ✓")}</b>${esc(v)}</div>`;
+  renderRoller();
+  $("#status").innerHTML=L("Ответ принят и сохранён в дневник. <b>Бросай кубик.</b>","Answer saved to your journal. <b>Roll the die.</b>");
+  toast(L("Ответ сохранён — можно бросать кубик","Answer saved — you can roll the die"));
+  window.scrollTo({top:0,behavior:(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)?"auto":"smooth"});
+});
+
+/* ---------- dice & moves ---------- */
+const PIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+function face(d,el){[...(el||$("#die")).children].forEach((p,i)=>p.classList.toggle("on",PIPS[d].includes(i)));}
+face(6);face(6,$("#bigDie"));
+let rolling=false;
+async function roll(){
+  if(rolling)return;
+  if(G().view==="play"&&G().needAnswer){askAnswer();return;}
+  const g=G();rolling=true;$("#rollBtn").disabled=true;$("#rollBtn2").disabled=true;$("#rollBtn").classList.remove("shine");$("#rollBtn2").classList.remove("shine");if(g.view!=="entry")stopAudio();
+  const entry=g.view==="entry";
+  const die=entry?$("#bigDie"):$("#die");die.classList.add("rolling");
+  for(let i=0;i<(entry?12:8);i++){face(1+Math.floor(Math.random()*6),die);await sleep(70);}
+  const d=1+Math.floor(Math.random()*6);face(d,die);die.classList.remove("rolling");
+  g.moves++;bump("rolls");if(d===6)S.stats.sixes++;
+  if(g.view==="entry"){
+    g.entryRolls=(g.entryRolls||[]).concat(d);
+    $("#tries").innerHTML=g.entryRolls.map(x=>`<span class="${x===6?"w":""}">${x}</span>`).join("");
+    if(d!==6){g.tries++;$("#status2").textContent=ENTRY_FAIL[Math.min(g.tries-1,2)].replace("{d}",d);save();setTimeout(()=>{if(!rolling)$("#rollBtn2").classList.add("shine");},50);}
+    else{
+      $("#bigDie").classList.add("six");
+      $("#status2").innerHTML=L("Выпала <b>6</b>! Поле открывается…","You rolled a <b>6</b>! The board is opening…");
+      g.pos=1;g.history.push({n:1,d:6});g.view="play";g.needAnswer=1;g.draft="";save();
+      await sleep(1300);
+      renderGame();window.scrollTo({top:0});
+      const vp=$("#vPlay");vp.classList.remove("reveal");void vp.offsetWidth;vp.classList.add("reveal");
+      $("#status").innerHTML=L("Ты входишь в игру — клетка 1, «Рождение».\nОтветь на вопрос клетки — и бросай снова.","You enter the game — cell 1, “Birth”.\nAnswer the cell's question — then roll again.");renderRoller();
+      rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;await sleep(1600);if(G().view==="play")focusCell(true);return;
+    }
+    rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;return;
+  }
+  let target=g.pos+d,bounced=false;const steps=[];
+  if(target>72){bounced=true;for(let n=g.pos+1;n<=72;n++)steps.push(n);const back=target-72;for(let n=71;n>=72-back;n--)steps.push(n);target=72-back;}
+  else for(let n=g.pos+1;n<=target;n++)steps.push(n);
+  for(const n of steps){placeToken(n,false);await sleep(170);}
+  let jump=null,fin=target;
+  if(ARROWS[target]){jump={type:"arrow",from:target,to:ARROWS[target]};fin=ARROWS[target];g.arrows++;S.stats.arrows++;}
+  else if(SNAKES[target]){jump={type:"snake",from:target,to:SNAKES[target]};fin=SNAKES[target];g.snakes++;S.stats.snakes++;}
+  if(jump){await sleep(350);placeToken(fin,true);await sleep(950);}
+  g.pos=fin;g.playMoves++;g.history.push({n:fin,d,jump});if(fin!==GOAL){g.needAnswer=fin;g.draft="";}save();
+  markVisited();renderPath();$("#cellCard").innerHTML=cellCardHTML(fin,jump);
+  let st=L(`Выпало <b>${d}</b>. `,`You rolled <b>${d}</b>. `);
+  if(bounced)st+=L("Перелёт! Ты отскочила назад от границы 72. ","Overshoot! You bounced back from cell 72. ");
+  st+=jump?(jump.type==="arrow"?L(`Стрела поднимает тебя на клетку ${fin}. `,`An arrow lifts you to cell ${fin}. `):L(`Змея возвращает тебя на клетку ${fin}. `,`A snake takes you back to cell ${fin}. `)):L(`Ты на клетке ${fin}. `,`You are on cell ${fin}. `);
+  if(fin!==GOAL)st+=d===6?L("\nШестёрка даёт ещё бросок — но сначала ответь на вопрос клетки.","\nA six gives another roll — but first answer the cell's question."):L("\nОтветь на вопрос клетки, чтобы бросить дальше.","\nAnswer the cell's question to roll again.");
+  if(jump)st+=jump.type==="arrow"?L(" <b>+5 лепестков</b>"," <b>+5 petals</b>"):L(" <b>+3 лепестка</b> за урок"," <b>+3 petals</b> for the lesson");
+  $("#status").innerHTML=st;
+  if(jump){S.points+=jump.type==="arrow"?5:3;const L0=levelOf(S.points-(jump.type==="arrow"?5:3)),L1=levelOf(S.points);save();if(L1.n>L0.n)setTimeout(()=>showLevelUp(L1),600);}
+  rolling=false;$("#rollBtn").disabled=false;renderRoller();
+  if(fin===GOAL){await sleep(1300);finishGame();return;}
+  await sleep(450);await focusCell(true);
+}
+function finishGame(){
+  const g=G();g.view="final";
+  S.games.unshift({q:g.question,intent:g.intent,date:today(),moves:g.moves,snakes:g.snakes,arrows:g.arrows,path:g.history.map(h=>h.jump?{n:h.n,j:h.jump.type,f:h.jump.from}:{n:h.n}),answers:Object.assign({},g.answers||{})});
+  if(S.friends.length)S.friends.forEach((f,i)=>{if(i===0&&f.status==="play")f.status="done";});
+  save();renderGame();window.scrollTo({top:0});
+  {const ow=S.user&&S.user.email;setTimeout(()=>{if(S.user&&S.user.email===ow)addPoints(100,L("игра пройдена","game completed"));},700);}
+}
+
+/* ---------- referral ---------- */
+let pendingTimer=null;
+function addFriend(auto){
+  clearTimeout(pendingTimer);pendingTimer=null;
+  const used=new Set(S.friends.map(f=>f.name));
+  const pick=FRIEND_NAMES.find(n=>!used.has(n[0]))||[L("Друг ","Friend ")+(S.friends.length+1),"m"];const name=pick[0],sex=pick[1];
+  S.friends.unshift({name,sex,date:today(),status:"reg",isNew:true});
+  if(S.tab!=="profile")S.unread++;
+  save();renderDot();bump("invites");{const ow=S.user&&S.user.email;setTimeout(()=>{if(S.user&&S.user.email===ow)addPoints(30,L(`${name} с тобой в игре`,`${name} joined you`));},3400);}
+  toast(LANG==="en"?`${name} signed up with your link`:`${name} ${sex==="f"?"зарегистрировалась":"зарегистрировался"} по твоей ссылке`);
+  if(S.tab==="profile")renderProfile();
+  renderRoller();
+  if(!$("#mGate").hidden){closeModals();$("#status").innerHTML=`<b>${esc(name)}</b> ${sex==="f"?"присоединилась":"присоединился"} — путь открыт. Бросай кубик.`;}
+  // friend starts playing a bit later (simulated)
+  const owner=S.user&&S.user.email;setTimeout(()=>{if(!S.user||S.user.email!==owner)return;const f=S.friends.find(x=>x.name===name);if(f&&f.status==="reg"){f.status="play";save();if(S.tab==="profile")renderProfile();}},15000);
+}
+function schedulePending(){
+  if(pendingTimer)return;
+  $("#gateWait").hidden=false;
+  pendingTimer=setTimeout(()=>addFriend(true),7000);
+}
+function openGate(){
+  $("#gateLink").value=refLink();$("#gateTg").href=tgShare();$("#gateWait").hidden=!pendingTimer;
+  $("#mGate").hidden=false;
+}
+function copy(input){
+  const v=input.value;
+  const ok=()=>toast(L("Ссылка скопирована — отправь её друзьям","Link copied — send it to your friends"));
+  const fb=()=>{input.select();toast(L("Выдели ссылку и скопируй вручную","Select the link and copy it manually"));};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok).catch(fb);else fb();
+  schedulePending();
+}
+const ST={reg:["reg",f=>LANG==="en"?"Signed up":f.sex==="m"?"Зарегистрировался":"Зарегистрировалась"],play:["play",()=>L("Играет","Playing")],done:["done",f=>LANG==="en"?"Finished a game":f.sex==="m"?"Прошёл игру":"Прошла игру"]};
+function renderProfile(){
+  $("#myName").value=S.name||"";
+  const u=S.user||{};
+  const bdt=u.birthDate?new Date(u.birthDate+"T12:00").toLocaleDateString(LANG==="en"?"en-GB":"ru-RU",{day:"numeric",month:"long",year:"numeric"}):"";
+  $("#myEmail").textContent=(u.demo?L("Демо-аккаунт","Demo account"):(u.email||""))+(bdt?` · ${L("дата рождения","born")}: ${bdt}${u.birthTime?", "+u.birthTime:u.noTime?L(", время неизвестно",", time unknown"):""}`:"");
+  $("#myId").innerHTML=`${L("Мой код","My code")}: <span class="codechip">${esc(S.refCode)}</span>`+(u.demo?"":` · <button class="link" type="button" id="logoutBtn" style="padding:0">${L("Выйти","Log out")}</button>`);
+  $("#myCode").textContent=S.refCode;
+  if(document.activeElement!==$("#inviteMsg"))$("#inviteMsg").value=S.inviteMsg||defaultMsg();
+  updateShare();
+  $("#profStats").innerHTML=statsHTML();
+  $("#refLink").value=refLink();$("#shareTg").href=tgShare();
+  const n=S.friends.length,left=REWARD_EVERY-(n%REWARD_EVERY);
+  $("#rewardBar").style.width=((n%REWARD_EVERY)/REWARD_EVERY*100)+"%";
+  $("#rewardTxt").textContent=`${n%REWARD_EVERY} ${L("из","of")} ${REWARD_EVERY}`+(Math.floor(n/REWARD_EVERY)?` · ${L("подарков","gifts")}: ${Math.floor(n/REWARD_EVERY)}`:"");
+  $("#friendsCount").textContent=n?(L("всего: ","total: ")+n):"";
+  $("#friends").innerHTML=n?S.friends.map(f=>`<li class="${f.isNew?"new":""}"><div class="fa">${esc(f.name[0])}</div><div class="fn"><b>${esc(f.name)}</b><span>${L("по твоей ссылке","via your link")} · ${esc(f.date)}</span></div><span class="st ${ST[f.status][0]}">${ST[f.status][1](f)}</span></li>`).join(""):`<li class="empty" style="display:block;border:0;background:none">${L("Пока никого. Отправь ссылку — друзья появятся здесь, как только зарегистрируются.","No one yet. Send your link — friends will appear here as soon as they sign up.")}</li>`;
+  S.friends.forEach(f=>f.isNew=false);save();
+  $("#journal").innerHTML=S.journal.length?S.journal.map(j=>`<li><b>${L("Клетка","Cell")} ${j.n} · ${esc(j.date)}</b><div style="font-family:var(--serif);font-weight:700;font-size:16px;color:var(--ink);margin:2px 0 4px">${esc(C[j.n]?C[j.n][2]:j.q)}</div>${esc(j.text)}</li>`).join(""):`<li class="empty" style="border:0;background:none">${L("Записывай ответы на вопросы клеток — они сохранятся здесь.","Write your answers to the cells' questions — they will be saved here.")}</li>`;
+  $("#orders").innerHTML=(S.orders||[]).length?S.orders.map(o=>`<li><b>${esc(PLANS[o.plan].t)}</b><span class="muted">«${esc(o.q)}» · ${esc(o.date)}</span><div style="margin-top:4px"><span class="st play">${L("Готовится","In progress")} · ${L("до 48 часов","up to 48 hours")}</span></div></li>`).join(""):`<li class="empty" style="border:0;background:none">${L("После игры здесь появятся твои полные разборы.","Your full readings will appear here after a game.")}</li>`;
+  $("#hist").innerHTML=S.games.length?S.games.map(h=>{
+    const ans=Object.entries(h.answers||{});
+    const path=(h.path||[]).map(p=>p.j?`<span class="p ${p.j==="snake"?"s":"a"}">${p.f}${p.j==="snake"?"↓":"↑"}${p.n}</span>`:`<span class="p">${p.n}</span>`).join("");
+    return `<li><details><summary><b>«${esc(h.q)}»</b><span class="muted">${esc(h.date)} · ${L("бросков","rolls")}: ${h.moves}${h.path?` · ${L("стрел","arrows")}: ${h.arrows||0} · ${L("змей","snakes")}: ${h.snakes||0}`:""}</span></summary>
+      ${path?`<div class="eyebrow" style="margin-top:10px">${L("Путь","Path")}</div><div class="path" style="margin-top:6px">${path}</div>`:""}
+      ${ans.length?`<div class="eyebrow" style="margin-top:10px">${L("Ответы","Answers")} (${ans.length})</div>${ans.map(([n,v])=>`<div class="hans"><b>${L("Клетка","Cell")} ${n} · ${esc(C[n][0])}</b>${esc(v)}</div>`).join("")}`:""}
+    </details></li>`;}).join(""):`<li class="empty" style="border:0;background:none">${L("Здесь появятся твои пройденные игры.","Your finished games will appear here.")}</li>`;
+}
+
+/* ---------- cell preview ---------- */
+function previewCell(n){
+  const g=G();
+  const extra=(g.view==="play"&&n===g.pos)?"":`<div class="tagline view">${L("Просмотр клетки","Viewing a cell")}</div>`;
+  let jump="";
+  if(ARROWS[n])jump=`<p class="muted" style="margin-top:10px">${L(`Отсюда стрела поднимает на клетку ${ARROWS[n]} — «${esc(C[ARROWS[n]][0])}».`,`From here an arrow lifts you to cell ${ARROWS[n]} — “${esc(C[ARROWS[n]][0])}”.`)}</p>`;
+  if(SNAKES[n])jump=`<p class="muted" style="margin-top:10px">${L(`Отсюда змея возвращает на клетку ${SNAKES[n]} — «${esc(C[SNAKES[n]][0])}».`,`From here a snake takes you back to cell ${SNAKES[n]} — “${esc(C[SNAKES[n]][0])}”.`)}</p>`;
+  const back=(g.view==="play"&&n!==g.pos)?`<button class="link" type="button" id="backToCur" style="margin-top:10px">← ${L("Вернуться к текущей клетке","Back to your current cell")} ${g.pos}</button>`:"";
+  stopAudio();$("#cellCard").innerHTML=cellCardHTML(n,null,extra)+jump+back;
+  $("#cellCard").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ---------- events ---------- */
+function closeModals(){document.querySelectorAll(".modal").forEach(m=>m.hidden=true);}
+document.addEventListener("click",e=>{
+  const t=e.target;
+  const tab=t.closest("[data-tab]");if(tab){setTab(tab.dataset.tab);return;}
+  const go=t.closest("[data-go]");if(go){setTab(go.dataset.go);return;}
+  const c=t.closest(".cell");if(c&&!rolling){previewCell(+c.dataset.n);return;}
+  if(t.closest("#backToCur")){const g=G(),last=g.history[g.history.length-1];$("#cellCard").innerHTML=cellCardHTML(g.pos,last&&last.jump);return;}
+  const ic=t.closest("[data-intent]");if(ic){G().intent=ic.dataset.intent;save();document.querySelectorAll("[data-intent]").forEach(b=>b.setAttribute("aria-pressed",b===ic));return;}
+  if(t.closest("[data-close]")||t.classList.contains("modal")){closeModals();return;}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModals();});
+let noteCell=0;
+document.addEventListener("click",e=>{
+  const cl=e.target.closest("[data-claim]");if(cl){claim(cl.dataset.claim);return;}
+  const nb=e.target.closest("[data-note]");if(nb){noteCell=+nb.dataset.note;$("#noteCell").textContent=L("Клетка ","Cell ")+noteCell+" · "+C[noteCell][0];$("#noteQ").textContent=C[noteCell][2];$("#noteText").value="";$("#mNote").hidden=false;setTimeout(()=>$("#noteText").focus(),50);return;}
+  if(e.target.closest("[data-channel]")){setTimeout(()=>{S.channel=true;save();renderTasks();renderBadges();toast(L("Подписка засчитана — забери лепестки","Subscription counted — claim your petals"));},2500);}
+});
+$("#noteSave").addEventListener("click",()=>{
+  const v=$("#noteText").value.trim();if(!v){$("#noteText").focus();return;}
+  S.journal.unshift({n:noteCell,q:C[noteCell][2],text:v,date:today()});save();closeModals();bump("notes");toast(L("Записано в дневник осознаний","Saved to your insight journal"));
+});
+$("#startBtn").addEventListener("click",()=>{
+  const q=$("#qText").value.trim();
+  if(q.length<5){$("#qErr").textContent=L("Сформулируй вопрос хотя бы в несколько слов — так игра будет точнее.","Put your question in at least a few words — the game will be more precise.");$("#qText").focus();return;}
+  const i=G().intent;S.g=freshGame();S.g.intent=i;S.g.question=q;S.g.view="entry";save();$("#status").textContent="";$("#status2").textContent="";renderGame();window.scrollTo({top:0});playIntro();
+});
+$("#qText").addEventListener("input",e=>{G().question=e.target.value;save();});
+$("#rollBtn").addEventListener("click",roll);
+$("#rollBtn2").addEventListener("click",roll);
+$("#bigDie").addEventListener("click",roll);
+$("#bigDie").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();roll();}});
+$("#resetBtn").addEventListener("click",()=>{const g=G();S.g=freshGame();S.g.question=g.question;S.g.intent=g.intent;save();$("#status").textContent="";$("#status2").textContent="";renderGame();});
+$("#skipBtn").addEventListener("click",async()=>{
+  const g=G();if(rolling||g.view!=="play")return;rolling=true;
+  g.pos=54;g.history.push({n:54,d:0});placeToken(54,true);await sleep(950);
+  g.history.push({n:68,d:0,jump:{type:"arrow",from:54,to:68}});g.arrows++;g.pos=68;save();
+  placeToken(68,true);await sleep(950);markVisited();renderPath();
+  $("#cellCard").innerHTML=cellCardHTML(68,{type:"arrow",from:54,to:68});
+  $("#status").innerHTML=L("Демо-переход: стрела «Духовная преданность» поднимает тебя на клетку <b>68</b>.","Demo jump: the “Spiritual Devotion” arrow lifts you to cell <b>68</b>.");
+  rolling=false;await sleep(1300);finishGame();
+});
+$("#newPaid").addEventListener("click",()=>{$("#mPay").hidden=false;});
+$("#newGameBtn").addEventListener("click",()=>{closeModals();const i=G().intent;S.g=freshGame();S.g.intent=i;save();setTab("game");});
+$("#copyBtn").addEventListener("click",()=>copy($("#refLink")));
+$("#gateCopy").addEventListener("click",()=>copy($("#gateLink")));
+$("#shareTg").addEventListener("click",()=>schedulePending());
+$("#gateTg").addEventListener("click",()=>schedulePending());
+$("#gateSim").addEventListener("click",()=>addFriend(false));
+$("#simFriend").addEventListener("click",()=>addFriend(false));
+$("#myName").addEventListener("input",e=>{S.name=e.target.value;if(S.user)S.user.name=e.target.value;save();renderBadges();if(!S.inviteMsg&&document.activeElement!==$("#inviteMsg"))$("#inviteMsg").value=defaultMsg();updateShare();});
+$("#wipeBtn").addEventListener("click",()=>{if(!AUTH_ENABLED){stopAudio();try{const all=loadAll();delete all["demo@shiva-shakti.app"];localStorage.setItem(ACC,JSON.stringify(all));}catch(e){}ensureDemoUser();touchStreak();D();save();setTab("home");toast(L("Демо начато заново","The demo has been restarted"));return;}const k=S.user&&acctKey(S.user.email);try{const all=loadAll();if(k)delete all[k];localStorage.setItem(ACC,JSON.stringify(all));}catch(e){}S.user=null;logout();toast("Данные аккаунта удалены из этого браузера");});
+
+/* ---------- sharing ---------- */
+function updateShare(){
+  const m=fullMsg();
+  $("#shareWa").href="https://wa.me/?text="+encodeURIComponent(m);
+  $("#shareTg").href="https://t.me/share/url?url="+encodeURIComponent(refLink())+"&text="+encodeURIComponent((S.inviteMsg||defaultMsg()).trim());
+  $("#shareSms").href="sms:?&body="+encodeURIComponent(m);
+}
+$("#inviteMsg").addEventListener("input",e=>{S.inviteMsg=e.target.value;save();updateShare();});
+$("#copyMsg").addEventListener("click",()=>{
+  const m=fullMsg();
+  const ok=()=>toast(L("Послание со ссылкой скопировано — вставь его в мессенджер","Message and link copied — paste them into a messenger"));
+  const fb=()=>{const t=$("#inviteMsg");t.value=m;t.select();toast(L("Выдели текст и скопируй вручную","Select the text and copy it manually"));};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(m).then(ok).catch(fb);else fb();
+  schedulePending();
+});
+$("#shareWa").addEventListener("click",()=>schedulePending());
+$("#shareSms").addEventListener("click",()=>{schedulePending();toast(L("Если сообщения не открылись — нажми «Скопировать»","If Messages didn't open — tap “Copy”"));});
+
+/* ---------- registration (e-mail, no confirmation) ---------- */
+function logout(){
+  save();stopAudio();clearTimeout(pendingTimer);pendingTimer=null;closeModals();
+  try{localStorage.removeItem(CUR);}catch(e){}
+  S=fresh();
+  ["#aName","#aEmail","#aDate","#aTime","#aPass","#aPass2"].forEach(q=>$(q).value="");setAuthMode("log");$("#aNoTime").checked=false;$("#aTime").disabled=false;$("#aErr").textContent="";
+  $("#status").textContent="";$("#status2").textContent="";
+  showAuth();
+}
+$("#aNoTime").addEventListener("change",e=>{$("#aTime").disabled=e.target.checked;if(e.target.checked)$("#aTime").value="";});
+function showAuth(){
+  document.body.classList.add("locked");$("#auth").hidden=false;stopAudio();
+  const m=(location.hash||"").match(/^#ref-?([A-Za-z0-9._~-]+)/);
+  if(m){$("#invitedBox").hidden=false;$("#invitedTxt").textContent=L(`Тебя пригласили в игру по коду ${m[1].toUpperCase()} — первая игра бесплатно`,`You were invited with the code ${m[1].toUpperCase()} — your first game is free`);S.invitedBy=m[1].toUpperCase();save();}
+  setTimeout(()=>{try{$("#aName").focus({preventScroll:true});}catch(e){}},300);
+}
+function hideAuth(){document.body.classList.remove("locked");$("#auth").hidden=true;}
+/* password: stored only as salted SHA-256 hash, never as plain text */
+function sha256hex(str){
+  const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const bytes=new TextEncoder().encode(str),l=bytes.length,withPad=((l+9+63)>>6)<<6,m=new Uint8Array(withPad);
+  m.set(bytes);m[l]=0x80;const bl=l*8;for(let i=0;i<4;i++)m[withPad-1-i]=(bl>>>(8*i))&255;m[withPad-5]=Math.floor(l/0x20000000)&255;
+  let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const W=new Uint32Array(64),r=(x,n)=>(x>>>n)|(x<<(32-n));
+  for(let o=0;o<withPad;o+=64){
+    for(let i=0;i<16;i++)W[i]=(m[o+4*i]<<24)|(m[o+4*i+1]<<16)|(m[o+4*i+2]<<8)|m[o+4*i+3];
+    for(let i=16;i<64;i++){const s0=r(W[i-15],7)^r(W[i-15],18)^(W[i-15]>>>3),s1=r(W[i-2],17)^r(W[i-2],19)^(W[i-2]>>>10);W[i]=(W[i-16]+s0+W[i-7]+s1)|0;}
+    let [a,b,c,d,e,f,g,h]=H;
+    for(let i=0;i<64;i++){const S1=r(e,6)^r(e,11)^r(e,25),ch=(e&f)^(~e&g),t1=(h+S1+ch+K[i]+W[i])|0,S0=r(a,2)^r(a,13)^r(a,22),mj=(a&b)^(a&c)^(b&c),t2=(S0+mj)|0;h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0;}
+    H=[(H[0]+a)|0,(H[1]+b)|0,(H[2]+c)|0,(H[3]+d)|0,(H[4]+e)|0,(H[5]+f)|0,(H[6]+g)|0,(H[7]+h)|0];
+  }
+  return H.map(x=>(x>>>0).toString(16).padStart(8,"0")).join("");
+}
+function hashPass(pass,salt){let h=salt+":"+pass;for(let i=0;i<1000;i++)h=sha256hex(salt+h);return h;}
+function newSalt(){const a=new Uint8Array(16);(window.crypto||{}).getRandomValues?crypto.getRandomValues(a):a.forEach((_,i)=>a[i]=Math.random()*256|0);return Array.from(a,x=>x.toString(16).padStart(2,"0")).join("");}
+
+let authMode="reg";
+function setAuthMode(m){
+  authMode=m;
+  $("#modeReg").setAttribute("aria-selected",m==="reg");$("#modeLog").setAttribute("aria-selected",m==="log");
+  document.querySelectorAll("#authForm .reg-only").forEach(el=>el.hidden=m!=="reg");
+  document.querySelectorAll("#authForm .log-only").forEach(el=>el.hidden=m!=="log");
+  $("#aSubmit").textContent=m==="reg"?L("Начать путь","Begin the path"):L("Войти","Log in");
+  $("#aPass").setAttribute("autocomplete",m==="reg"?"new-password":"current-password");
+  $("#aErr").textContent="";
+}
+$("#modeReg").addEventListener("click",()=>setAuthMode("reg"));
+$("#modeLog").addEventListener("click",()=>setAuthMode("log"));
+$("#aShow").addEventListener("click",()=>{const p=$("#aPass"),show=p.type==="password";p.type=show?"text":"password";$("#aShow").textContent=show?L("Скрыть","Hide"):L("Показать","Show");$("#aShow").setAttribute("aria-label",show?L("Скрыть пароль","Hide password"):L("Показать пароль","Show password"));});
+$("#aForgot").addEventListener("click",()=>toast(L("В рабочей версии пришлём ссылку для нового пароля на e-mail","In the full version we'll email you a link to set a new password")));
+$("#authForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const err=t=>{$("#aErr").textContent=t;};
+  const email=$("#aEmail").value.trim(),pass=$("#aPass").value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){err(L("Проверь e-mail — похоже, в нём ошибка.","Check your email — it looks like there's a typo."));$("#aEmail").focus();return;}
+  const all=loadAll(),key=acctKey(email),acc=all[key];
+  if(authMode==="log"){
+    if(!acc){err(L("Аккаунт с таким e-mail не найден. Зарегистрируйся — это минута.","No account with this email. Sign up — it takes a minute."));return;}
+    if(!pass){err(L("Введи пароль.","Enter your password."));$("#aPass").focus();return;}
+    const p=acc.user&&acc.user.pass;
+    if(p&&hashPass(pass,p.salt)!==p.hash){err(L("Неверный пароль. Попробуй ещё раз.","Wrong password. Try again."));$("#aPass").focus();$("#aPass").select();return;}
+    S=normalize(acc);
+    if(!p){if(pass.length<6){err(L("Придумай пароль не короче 6 символов.","Choose a password of at least 6 characters."));return;}const salt=newSalt();S.user.pass={salt,hash:hashPass(pass,salt)};}
+    finishAuth(true);return;
+  }
+  const name=$("#aName").value.trim();
+  if(name.length<2){err(L("Напиши своё имя.","Enter your name."));$("#aName").focus();return;}
+  if(acc){err(L("Этот e-mail уже зарегистрирован. Перейди во «Вход».","This email is already registered. Switch to “Log in”."));return;}
+  if(pass.length<6){err(L("Пароль должен быть не короче 6 символов.","The password must be at least 6 characters."));$("#aPass").focus();return;}
+  if(pass!==$("#aPass2").value){err(L("Пароли не совпадают.","The passwords don't match."));$("#aPass2").focus();return;}
+  const bd=$("#aDate").value,bt=$("#aNoTime").checked?"":$("#aTime").value;
+  if(bd){const y=+bd.slice(0,4);if(y<1920||y>2020){err(L("Проверь дату рождения.","Check your date of birth."));$("#aDate").focus();return;}}
+  if(bd&&!bt&&!$("#aNoTime").checked){err(L("Укажи время рождения или отметь «Не знаю точное время» — так астролог будет точнее.","Enter your time of birth or tick “I don't know the exact time” — it makes the astrologer more precise."));$("#aTime").focus();return;}
+  const salt=newSalt();
+  S=fresh();S.user={name,email,date:today(),birthDate:bd,birthTime:bt,noTime:$("#aNoTime").checked,pass:{salt,hash:hashPass(pass,salt)}};
+  S.name=name;S.refCode=makeCode(name);S.inviteMsg="";
+  finishAuth(false);
+});
+function finishAuth(back){
+  save();touchStreak();D();save();
+  ["#aPass","#aPass2"].forEach(q=>$(q).value="");
+  hideAuth();buildBoard();setTab(back?(S.tab||"home"):"home");
+  toast(back?L(`С возвращением, ${S.name||""}! Твой путь сохранён`,`Welcome back, ${S.name||""}! Your path is saved`):L(`Добро пожаловать, ${S.name}!`,`Welcome, ${S.name}!`));
+}
+document.addEventListener("click",e=>{
+  if(e.target.closest("#logoutBtn"))logout();
+});
+
+/* ---------- language (RU / EN) ---------- */
+const LEVELS_RU=LEVELS.map(l=>({name:l.name,chakra:l.chakra,desc:l.desc,reward:l.reward}));
+DAILY.forEach(t=>t._ru=t.t);BIG.forEach(t=>t._ru=t.t);ACH.forEach(a=>a._ru=a.t);
+const PLANS_RU={game:{t:PLANS.game.t,d:PLANS.game.d},astro:{t:PLANS.astro.t,d:PLANS.astro.d}};
+const _orig=new WeakMap();
+function applyStatic(){
+  const en=LANG==="en";
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName))return NodeFilter.FILTER_REJECT;return n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}});
+  const nodes=[];let n;while((n=w.nextNode()))nodes.push(n);
+  for(const t of nodes){
+    let o=_orig.get(t);
+    if(o===undefined){o=t.nodeValue;_orig.set(t,o);}
+    const k=o.replace(/\s+/g," ").trim();
+    if(en&&DICT[k]){const lead=o.match(/^\s*/)[0],trail=o.match(/\s*$/)[0];t.nodeValue=lead+DICT[k]+trail;}
+    else if(!en&&t.nodeValue!==o&&Object.prototype.hasOwnProperty.call(DICT,k))t.nodeValue=o;
+  }
+  document.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el=>{["placeholder","aria-label","title"].forEach(a=>{
+    if(!el.hasAttribute(a))return;const key="data-ru-"+a;
+    if(!el.hasAttribute(key))el.setAttribute(key,el.getAttribute(a));
+    const o=el.getAttribute(key);
+    if(en&&DICT[o])el.setAttribute(a,DICT[o]);else if(!en&&DICT[o])el.setAttribute(a,o);
+  });});
+}
+function applyLang(){
+  const en=LANG==="en";
+  C=en?C_EN:C_RU;PLANES=en?PLANES_EN:PLANES_RU;INTENTS=en?INTENTS_EN:INTENTS_RU;ENTRY_FAIL=en?ENTRY_FAIL_EN:ENTRY_FAIL_RU;FRIEND_NAMES=en?FRIEND_NAMES_EN:FRIEND_NAMES_RU;
+  LEVELS.forEach((l,i)=>Object.assign(l,en?LEVELS_EN[i]:LEVELS_RU[i]));
+  DAILY.forEach(t=>t.t=en?DAILY_EN[t.id]:t._ru);BIG.forEach(t=>t.t=en?BIG_EN[t.id]:t._ru);ACH.forEach((a,i)=>a.t=en?ACH_EN[i]:a._ru);
+  ["game","astro"].forEach(k=>Object.assign(PLANS[k],en?PLANS_EN[k]:PLANS_RU[k]));
+  document.documentElement.lang=LANG;document.title=en?"Union of Shiva & Shakti":"Слияние Шивы и Шакти";
+  document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===LANG));
+  applyStatic();
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-lang]");if(!b||b.dataset.lang===LANG)return;
+  LANG=b.dataset.lang;try{localStorage.setItem("shivaShakti.lang",LANG);}catch(err){}
+  stopAudio();applyLang();buildBoard();
+  if(!$("#auth").hidden&&typeof setAuthMode==="function")setAuthMode(authMode);
+  if(!$("#mBuy").hidden)openBuy(buyPlan);
+  setTab(S.tab||"home");
+  if(document.activeElement!==$("#inviteMsg")&&S.tab==="profile")$("#inviteMsg").value=S.inviteMsg||defaultMsg();
+  toast(LANG==="en"?"English version":"Русская версия");
+});
+
+/* ---------- init ---------- */
+buildBoard();
+applyLang();
+/* DEMO: registration is switched off for the client presentation — a demo account is created automatically */
+const AUTH_ENABLED=false;
+function ensureDemoUser(){
+  const all=loadAll(),key="demo@shiva-shakti.app";
+  if(all[key])S=normalize(all[key]);
+  else{S=fresh();S.user={name:"",email:key,demo:true,date:today()};S.refCode=makeCode("demo");}
+  save();
+}
+if(!AUTH_ENABLED){
+  if(!(S.user&&S.user.demo))ensureDemoUser();
+  touchStreak();D();save();hideAuth();setTab(S.tab||"home");
+}else if(S.user&&S.user.email){touchStreak();D();save();hideAuth();setTab(S.tab||"home");}else{S=fresh();setTab("home");showAuth();}
+})();
+</script>
+
+</body>
+</html>
