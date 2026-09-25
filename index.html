@@ -1270,7 +1270,7 @@ function cloudInit(){
     const u=S.user;
     if(srv&&(srv.updatedAt||0)>=(S.updatedAt||0)){const keepTab=S.tab;S=normalize(srv);S.tab=keepTab;S.user=Object.assign({},srv.user||{},{email:u.email,demo:u.demo,tgId:u.tgId,tg:u.tg});if(!S.name)S.name=u.name||"";}
     S.refCode=r.player.refCode||S.refCode;S.cloudCode=true;
-    if(r.player.inviterName)S.invitedName=r.player.inviterName;
+    S.invitedName=r.player.inviterName||"";
     cloudReady=true;
     if(r.isNew&&r.player.inviterName)setTimeout(()=>toast(L(`Тебя пригласил(а) ${r.player.inviterName} — добро пожаловать 🤍`,`${r.player.inviterName} invited you — welcome 🤍`)),900);
     lastPush="";save();mergeRefs(r.referrals||[]);
