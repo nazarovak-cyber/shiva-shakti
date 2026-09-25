@@ -1268,7 +1268,7 @@ function cloudInit(){
     if(!r||!r.ok){console.warn("cloud load",r);return;}
     let srv=null;try{srv=r.state&&r.state.json?JSON.parse(r.state.json):null;}catch(e){}
     const u=S.user;
-    if(srv&&(srv.updatedAt||0)>=(S.updatedAt||0)){S=normalize(srv);S.user=Object.assign({},srv.user||{},{email:u.email,demo:u.demo,tgId:u.tgId,tg:u.tg});if(!S.name)S.name=u.name||"";}
+    if(srv&&(srv.updatedAt||0)>=(S.updatedAt||0)){const keepTab=S.tab;S=normalize(srv);S.tab=keepTab;S.user=Object.assign({},srv.user||{},{email:u.email,demo:u.demo,tgId:u.tgId,tg:u.tg});if(!S.name)S.name=u.name||"";}
     S.refCode=r.player.refCode||S.refCode;S.cloudCode=true;
     if(r.player.inviterName)S.invitedName=r.player.inviterName;
     cloudReady=true;
