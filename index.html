@@ -1247,7 +1247,7 @@ function doPush(){
 function refreshFriends(){if(CLOUD&&cloudReady)api("friends").then(r=>{if(r&&r.ok)mergeRefs(r.referrals);}).catch(()=>{});}
 function mergeRefs(list){
   if(!Array.isArray(list))return;let changed=false;
-  const before=S.friends.length;S.friends=S.friends.filter(f=>f.tgId);if(S.friends.length!==before)changed=true;
+  const ids=new Set(list.map(r=>String(r.id)));const before=S.friends.length;S.friends=S.friends.filter(f=>f.tgId&&ids.has(String(f.tgId)));if(S.friends.length!==before)changed=true;
   list.slice().reverse().forEach(r=>{
     const id=String(r.id),st=r.games>0?"done":r.rolls>0?"play":"reg";
     let f=S.friends.find(x=>String(x.tgId)===id);
@@ -1263,12 +1263,13 @@ function mergeRefs(list){
 function cloudInit(){
   if(!CLOUD)return;
   const sim=document.querySelectorAll("#simFriend,#gateSim");sim.forEach(b=>b.hidden=true);
+  document.addEventListener("click",e=>{if(cloudReady)return;const t=e.target.closest&&e.target.closest("#shareTg,#shareWa,#shareSms,#copyMsg,#copyBtn,#gateTg,#gateCopy");if(!t)return;e.preventDefault();e.stopImmediatePropagation();toast(L("Секунду — загружаем твой профиль, ссылка будет готова через пару секунд","One moment — loading your profile, your link will be ready in a few seconds"));},true);
   api("load",{refCode:S.refCode}).then(r=>{
     if(!r||!r.ok){console.warn("cloud load",r);return;}
     let srv=null;try{srv=r.state&&r.state.json?JSON.parse(r.state.json):null;}catch(e){}
     const u=S.user;
     if(srv&&(srv.updatedAt||0)>=(S.updatedAt||0)){S=normalize(srv);S.user=Object.assign({},srv.user||{},{email:u.email,demo:u.demo,tgId:u.tgId,tg:u.tg});if(!S.name)S.name=u.name||"";}
-    S.refCode=r.player.refCode||S.refCode;
+    S.refCode=r.player.refCode||S.refCode;S.cloudCode=true;
     if(r.player.inviterName)S.invitedName=r.player.inviterName;
     cloudReady=true;
     if(r.isNew&&r.player.inviterName)setTimeout(()=>toast(L(`Тебя пригласил(а) ${r.player.inviterName} — добро пожаловать 🤍`,`${r.player.inviterName} invited you — welcome 🤍`)),900);
@@ -1825,6 +1826,7 @@ function openGate(){
   $("#gateLink").value=refLink();$("#gateTg").href=tgShare();$("#gateWait").hidden=!pendingTimer;
   $("#mGate").hidden=false;
 }
+function tgCode(u){const base=((u.first_name||u.username||"")+"").toLowerCase().split("").map(c=>TR[c]!==undefined?TR[c]:c).join("").replace(/[^a-z0-9]/g,"").slice(0,8)||"friend";return (base+"-"+Number(u.id).toString(36).slice(-4)).toUpperCase();}
 function copy(input){
   const v=input.value;
   const ok=()=>toast(L("Ссылка скопирована — отправь её друзьям","Link copied — send it to your friends"));
@@ -2089,7 +2091,7 @@ function ensureDemoUser(){
 if(!AUTH_ENABLED){
   if(!(S.user&&S.user.demo))ensureDemoUser();
   if(TGU){const tk="tg:"+TGU.id;if(S.user.email!==tk){const all=loadAll();if(all[tk])S=normalize(all[tk]);else S.user=Object.assign({},S.user,{email:tk});}
-    if(!S.name&&TGU.first_name){S.name=TGU.first_name;S.user.name=TGU.first_name;}S.user.tgId=TGU.id;if(TGU.username)S.user.tg=TGU.username;if(/^DEMO-/.test(S.refCode||""))S.refCode=makeCode(TGU.username||TGU.first_name);if(TG_START&&!S.invitedBy&&TG_START!==S.refCode)S.invitedBy=TG_START;}
+    if(!S.name&&TGU.first_name){S.name=TGU.first_name;S.user.name=TGU.first_name;}S.user.tgId=TGU.id;if(TGU.username)S.user.tg=TGU.username;if(/^DEMO-/.test(S.refCode||"")||!S.cloudCode)S.refCode=tgCode(TGU);if(TG_START&&!S.invitedBy&&TG_START!==S.refCode)S.invitedBy=TG_START;}
   touchStreak();D();save();hideAuth();setTab("home");cloudInit();
 }else if(S.user&&S.user.email){touchStreak();D();save();hideAuth();setTab("home");}else{S=fresh();setTab("home");showAuth();}
 })();
