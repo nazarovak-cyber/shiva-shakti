@@ -826,7 +826,7 @@ const TG=(window.Telegram&&window.Telegram.WebApp&&window.Telegram.WebApp.initDa
 const TGU=(TG&&TG.initDataUnsafe&&TG.initDataUnsafe.user)||null;
 const TG_START=(TG&&TG.initDataUnsafe&&TG.initDataUnsafe.start_param)||"";
 const BOT=(new URLSearchParams(location.search).get("bot")||"").replace(/[^A-Za-z0-9_]/g,"");
-const TG_APP=(new URLSearchParams(location.search).get("app")||"").replace(/[^A-Za-z0-9_]/g,"");
+const TG_APP=(new URLSearchParams(location.search).get("app")||"play").replace(/[^A-Za-z0-9_]/g,"");
 if(TG){
   try{if(!localStorage.getItem("shivaShakti.lang")&&TGU&&TGU.language_code&&!/^(ru|uk|be|kk)/.test(TGU.language_code))LANG="en";}catch(e){}
   try{TG.ready();TG.expand();}catch(e){}
@@ -1264,7 +1264,7 @@ function cloudInit(){
   if(!CLOUD)return;
   const sim=document.querySelectorAll("#simFriend,#gateSim");sim.forEach(b=>b.hidden=true);
   document.addEventListener("click",e=>{if(cloudReady)return;const t=e.target.closest&&e.target.closest("#shareTg,#shareWa,#shareSms,#copyMsg,#copyBtn,#gateTg,#gateCopy");if(!t)return;e.preventDefault();e.stopImmediatePropagation();toast(L("Секунду — загружаем твой профиль, ссылка будет готова через пару секунд","One moment — loading your profile, your link will be ready in a few seconds"));},true);
-  api("load",{refCode:S.refCode}).then(r=>{
+  api("load",{refCode:S.refCode,platform:TG.platform||"",ver:TG.version||""}).then(r=>{
     if(!r||!r.ok){console.warn("cloud load",r);return;}
     let srv=null;try{srv=r.state&&r.state.json?JSON.parse(r.state.json):null;}catch(e){}
     const u=S.user;
