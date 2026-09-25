@@ -1226,10 +1226,60 @@ let S=fresh();
 let saveFailed=false;
 function save(){
   if(!S.user||!S.user.email)return;
+  pushState();
   try{const all=loadAll();all[acctKey(S.user.email)]=S;localStorage.setItem(ACC,JSON.stringify(all));localStorage.setItem(CUR,acctKey(S.user.email));saveFailed=false;}
   catch(e){if(!saveFailed){saveFailed=true;setTimeout(()=>toast(L("Не получилось сохранить прогресс в этом браузере","Couldn't save progress in this browser")),0);}}
 }
 const G=()=>S.g;
+/* ---------- cloud accounts: Telegram login + Google Sheets backend ---------- */
+const API="https://script.google.com/macros/s/AKfycbwNIxWFn4VuiwHsHbvyw_G0IYO-LhDDd73YdGQwuz7D4A-_cVR3eqbiz3ZajV2c9xGS/exec";
+const CLOUD=!!(TG&&TGU&&/^https:\/\//.test(API));
+let syncTimer=null,lastPush="",cloudReady=false;
+function api(action,extra){return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(Object.assign({action,initData:TG.initData},extra||{})),keepalive:action==="save"}).then(r=>r.json());}
+function cloudSummary(){const lv=levelOf(S.points||0);return {level:`${lv.n} · ${LEVELS_RU[lv.n-1]?LEVELS_RU[lv.n-1].name:lv.name}`,points:S.points||0,games:(S.games||[]).length,rolls:(S.games||[]).reduce((a,g)=>a+(g.moves||0),0)+((S.g&&S.g.moves)||0)};}
+function pushState(){if(!CLOUD||!cloudReady)return;clearTimeout(syncTimer);syncTimer=setTimeout(doPush,1500);}
+function doPush(){
+  if(!CLOUD||!cloudReady||!S.user)return;
+  const cmp=JSON.stringify(Object.assign({},S,{updatedAt:0}));if(cmp===lastPush)return;lastPush=cmp;
+  S.updatedAt=Date.now();try{const all=loadAll();all[acctKey(S.user.email)]=S;localStorage.setItem(ACC,JSON.stringify(all));}catch(e){}
+  api("save",{state:JSON.stringify(S),updatedAt:S.updatedAt,sum:cloudSummary()}).then(r=>{if(r&&r.ok)mergeRefs(r.referrals);else lastPush="";}).catch(()=>{lastPush="";});
+}
+function refreshFriends(){if(CLOUD&&cloudReady)api("friends").then(r=>{if(r&&r.ok)mergeRefs(r.referrals);}).catch(()=>{});}
+function mergeRefs(list){
+  if(!Array.isArray(list))return;let changed=false;
+  const before=S.friends.length;S.friends=S.friends.filter(f=>f.tgId);if(S.friends.length!==before)changed=true;
+  list.slice().reverse().forEach(r=>{
+    const id=String(r.id),st=r.games>0?"done":r.rolls>0?"play":"reg";
+    let f=S.friends.find(x=>String(x.tgId)===id);
+    const nm=r.name||(r.username||L("Друг","Friend"));
+    if(!f){
+      f={tgId:id,name:nm,user:r.username||"",sex:"",date:r.date||today(),status:st,isNew:true};S.friends.unshift(f);changed=true;
+      if(S.tab!=="profile")S.unread++;
+      bump("invites");addPoints(30,L(`${nm} с тобой в игре`,`${nm} joined you`));
+    }else{if(f.status!==st){f.status=st;changed=true;}if(f.name!==nm){f.name=nm;changed=true;}}
+  });
+  if(changed){save();renderDot();renderRoller();if(S.tab==="profile")renderProfile();}
+}
+function cloudInit(){
+  if(!CLOUD)return;
+  const sim=document.querySelectorAll("#simFriend,#gateSim");sim.forEach(b=>b.hidden=true);
+  api("load",{refCode:S.refCode}).then(r=>{
+    if(!r||!r.ok){console.warn("cloud load",r);return;}
+    let srv=null;try{srv=r.state&&r.state.json?JSON.parse(r.state.json):null;}catch(e){}
+    const u=S.user;
+    if(srv&&(srv.updatedAt||0)>=(S.updatedAt||0)){S=normalize(srv);S.user=Object.assign({},srv.user||{},{email:u.email,demo:u.demo,tgId:u.tgId,tg:u.tg});if(!S.name)S.name=u.name||"";}
+    S.refCode=r.player.refCode||S.refCode;
+    if(r.player.inviterName)S.invitedName=r.player.inviterName;
+    cloudReady=true;
+    if(r.isNew&&r.player.inviterName)setTimeout(()=>toast(L(`Тебя пригласил(а) ${r.player.inviterName} — добро пожаловать 🤍`,`${r.player.inviterName} invited you — welcome 🤍`)),900);
+    lastPush="";save();mergeRefs(r.referrals||[]);
+    if(["home","profile","tasks","level"].includes(S.tab))setTab(S.tab);
+    renderBadges();
+    if(!srv||(srv.updatedAt||0)<(S.updatedAt||0))doPush();else lastPush=JSON.stringify(Object.assign({},S,{updatedAt:0}));
+  }).catch(e=>console.warn("cloud",e));
+  setInterval(()=>{if(document.visibilityState==="visible")refreshFriends();},30000);
+  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){clearTimeout(syncTimer);doPush();}else refreshFriends();});
+}
 const SITE="https://shiva-shakti.app";
 const TR={а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"y",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"c",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya"};
 function makeCode(name){const base=(name||"").toLowerCase().split("").map(c=>TR[c]!==undefined?TR[c]:c).join("").replace(/[^a-z0-9]/g,"").slice(0,8)||"friend";return (base+"-"+Math.random().toString(36).slice(2,6)).toUpperCase();}
@@ -1766,6 +1816,7 @@ function addFriend(auto){
   const owner=S.user&&S.user.email;setTimeout(()=>{if(!S.user||S.user.email!==owner)return;const f=S.friends.find(x=>x.name===name);if(f&&f.status==="reg"){f.status="play";save();if(S.tab==="profile")renderProfile();}},15000);
 }
 function schedulePending(){
+  if(CLOUD){setTimeout(refreshFriends,15000);setTimeout(refreshFriends,45000);return;}
   if(pendingTimer)return;
   $("#gateWait").hidden=false;
   pendingTimer=setTimeout(()=>addFriend(true),7000);
@@ -1781,12 +1832,12 @@ function copy(input){
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok).catch(fb);else fb();
   schedulePending();
 }
-const ST={reg:["reg",f=>LANG==="en"?"Signed up":f.sex==="m"?"Зарегистрировался":"Зарегистрировалась"],play:["play",()=>L("Играет","Playing")],done:["done",f=>LANG==="en"?"Finished a game":f.sex==="m"?"Прошёл игру":"Прошла игру"]};
+const ST={reg:["reg",f=>LANG==="en"?"Signed up":!f.sex?"Зарегистрирован(а)":f.sex==="m"?"Зарегистрировался":"Зарегистрировалась"],play:["play",()=>L("Играет","Playing")],done:["done",f=>LANG==="en"?"Finished a game":!f.sex?"Прошёл(ла) игру":f.sex==="m"?"Прошёл игру":"Прошла игру"]};
 function renderProfile(){
   $("#myName").value=S.name||"";
   const u=S.user||{};
   const bdt=u.birthDate?new Date(u.birthDate+"T12:00").toLocaleDateString(LANG==="en"?"en-GB":"ru-RU",{day:"numeric",month:"long",year:"numeric"}):"";
-  $("#myEmail").textContent=(u.demo?L("Демо-аккаунт","Demo account"):(u.email||""))+(bdt?` · ${L("дата рождения","born")}: ${bdt}${u.birthTime?", "+u.birthTime:u.noTime?L(", время неизвестно",", time unknown"):""}`:"");
+  $("#myEmail").textContent=(u.tgId?("Telegram"+(u.tg?" · @"+u.tg:"")+(S.invitedName?" · "+L("пригласил(а): ","invited by: ")+S.invitedName:"")):u.demo?L("Демо-аккаунт","Demo account"):(u.email||""))+(bdt?` · ${L("дата рождения","born")}: ${bdt}${u.birthTime?", "+u.birthTime:u.noTime?L(", время неизвестно",", time unknown"):""}`:"");
   $("#myId").innerHTML=`${L("Мой код","My code")}: <span class="codechip">${esc(S.refCode)}</span>`+(u.demo?"":` · <button class="link" type="button" id="logoutBtn" style="padding:0">${L("Выйти","Log out")}</button>`);
   $("#myCode").textContent=S.refCode;
   if(document.activeElement!==$("#inviteMsg"))$("#inviteMsg").value=S.inviteMsg||defaultMsg();
@@ -2037,9 +2088,9 @@ function ensureDemoUser(){
 }
 if(!AUTH_ENABLED){
   if(!(S.user&&S.user.demo))ensureDemoUser();
-  if(TGU){if(!S.name&&TGU.first_name){S.name=TGU.first_name;S.user.name=TGU.first_name;}S.user.tgId=TGU.id;if(TGU.username)S.user.tg=TGU.username;}
-  if(TG_START&&!S.invitedBy&&TG_START!==S.refCode){S.invitedBy=TG_START;setTimeout(()=>toast(L("Тебя пригласил друг — добро пожаловать в игру 🤍","A friend invited you — welcome to the game 🤍")),600);}
-  touchStreak();D();save();hideAuth();setTab("home");
+  if(TGU){const tk="tg:"+TGU.id;if(S.user.email!==tk){const all=loadAll();if(all[tk])S=normalize(all[tk]);else S.user=Object.assign({},S.user,{email:tk});}
+    if(!S.name&&TGU.first_name){S.name=TGU.first_name;S.user.name=TGU.first_name;}S.user.tgId=TGU.id;if(TGU.username)S.user.tg=TGU.username;if(/^DEMO-/.test(S.refCode||""))S.refCode=makeCode(TGU.username||TGU.first_name);if(TG_START&&!S.invitedBy&&TG_START!==S.refCode)S.invitedBy=TG_START;}
+  touchStreak();D();save();hideAuth();setTab("home");cloudInit();
 }else if(S.user&&S.user.email){touchStreak();D();save();hideAuth();setTab("home");}else{S=fresh();setTab("home");showAuth();}
 })();
 </script>
