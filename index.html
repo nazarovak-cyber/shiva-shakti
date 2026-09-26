@@ -431,6 +431,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 @keyframes cardin{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
 .guideq{margin:12px 0 0;padding:10px 14px;border-left:3px solid #d9a441;background:rgba(243,215,160,.18);border-radius:0 10px 10px 0;font-family:var(--serif);font-size:16.5px;font-style:italic;color:var(--ink)}
 .practice{margin:12px 0 0;padding:12px 14px;border-radius:12px;background:rgba(133,147,187,.12);border:1px dashed rgba(55,67,112,.25);font-size:14.5px;color:var(--ink2)}.practice .t{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--indigo);margin-bottom:4px}
+.readtxt{margin:8px 0 0;padding:6px 12px;border:1px solid rgba(55,67,112,.25);border-radius:999px;background:rgba(255,255,255,.7);color:var(--indigo2);font:inherit;font-size:13px;font-weight:700;cursor:pointer}.voicetext{margin:10px 0 2px;padding:12px 14px;border-left:3px solid #d9a441;background:rgba(243,215,160,.16);border-radius:0 12px 12px 0;font-size:14.5px;color:var(--ink2);animation:cardin .35s ease both}.voicetext p{margin:0 0 8px}.voicetext p:last-child{margin:0}.voicetext .vt-h{font-weight:800;color:var(--ink)}.voicetext .vt-g{font-family:var(--serif);font-style:italic;font-size:16.5px;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1388,6 +1389,18 @@ $("#topPlay").addEventListener("click",()=>{
 });
 
 /* ---------- cell card ---------- */
+function voiceScript(n){
+  const c=C[n];if(!c)return "";
+  const q=c[2]||"",g=c[3]||"",m=c[1]||"";
+  const parts=[`<p class="vt-h">${L("Клетка","Cell")} ${n}. ${esc(c[0])}${c[4]?` — <i>${esc(c[4])}</i>`:""}</p>`];
+  if(m)parts.push(`<p>${esc(m)}</p>`);
+  if(g)parts.push(`<p class="vt-g">«${esc(g)}»</p>`);
+  const pr=(LANG==="en"?PRACTICE_EN:PRACTICE_RU)[n];
+  if(pr)parts.push(`<p>${L("Задание для тебя: ","A practice for you: ")}${esc(pr.charAt(0).toLowerCase()+pr.slice(1))}</p>`);
+  if(q)parts.push(`<p>${L("И вопрос, с которым стоит побыть: ","And a question to stay with: ")}<b>${esc(q)}</b></p>`);
+  return parts.join("");
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-read]");if(!b)return;const box=b.nextElementSibling;if(!box)return;const open=box.hidden;box.hidden=!open;b.setAttribute("aria-expanded",open);b.textContent=open?L("✕ Скрыть текст","✕ Hide text"):L("📖 Читать текстом","📖 Read as text");});
 function cellCardHTML(n,jump,extra){
   const c=C[n];let j="";
   if(jump&&jump.type==="arrow")j=`<div class="tagline arrow">↑ ${L("Стрела","Arrow")}: ${jump.from} → ${jump.to}</div>`;
@@ -1395,8 +1408,9 @@ function cellCardHTML(n,jump,extra){
   if(jump&&(jump.type==="arrow"||jump.type==="snake")){const lk=(LANG==="en"?LINKS_EN:LINKS_RU)[jump.from+"-"+jump.to];if(lk)j+=`<p class="muted" style="margin:-4px 0 10px">${L("Ты встала на клетку","You landed on cell")} ${jump.from} «${esc(C[jump.from][0])}». ${esc(lk)}</p>`;}
   return `${extra||""}${j}<div class="head"><div class="badge">${n}</div><div><div class="lvl">${esc(planeOf(n))}</div><h3>${L("Клетка №","Cell ")}${n} — ${esc(c[0])}</h3></div></div>
   ${audioHTML(L("Голос проводника · клетка ","Guide's voice · cell ")+n,dur(n),n)}
+  <button class="readtxt" type="button" data-read aria-expanded="false">${L("📖 Читать текстом","📖 Read as text")}</button>
+  <div class="voicetext" hidden>${voiceScript(n)}</div>
   <p>${esc(c[1])}</p>
-  ${c[3]?`<div class="guideq">«${esc(c[3])}»</div>`:""}
   ${(LANG==="en"?PRACTICE_EN:PRACTICE_RU)[n]?`<div class="practice"><div class="t">${L("Задание","Practice")}</div><div>${esc((LANG==="en"?PRACTICE_EN:PRACTICE_RU)[n])}</div></div>`:""}
   <div class="qbox"><div class="t">${L("Вопрос для осознания","Question for reflection")}</div><div class="q">${esc(c[2])}</div>${answerBlock(n,extra)}</div>`;
 }
