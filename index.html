@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Слияние Шивы и Шакти — трансформационная игра о любви и союзе. Демо-версия.">
-<meta property="og:title" content="Слияние Шивы и Шакти">
+<meta name="description" content="Лила — трансформационная игра о любви и союзе. Демо-версия.">
+<meta property="og:title" content="Лила">
 <meta property="og:description" content="Трансформационная игра о любви и союзе: 72 клетки, кубик и голос проводника.">
 <meta property="og:image" content="art.jpg">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Слияние Шивы и Шакти</title>
+<title>Лила</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preload" as="image" href="art.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -429,6 +429,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 #vPlay.cardmode #toBoard{display:inline-flex}
 .cell-card.enter{animation:cardin .55s cubic-bezier(.2,.8,.2,1) both}
 @keyframes cardin{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
+.guideq{margin:12px 0 0;padding:10px 14px;border-left:3px solid #d9a441;background:rgba(243,215,160,.18);border-radius:0 10px 10px 0;font-family:var(--serif);font-size:16.5px;font-style:italic;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -437,8 +438,8 @@ body.locked .app,body.locked .tabbar{display:none!important}
 <div class="langsw" role="group" aria-label="Язык / Language"><button type="button" data-lang="ru" aria-pressed="true">RU</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
 <section class="auth" id="auth" hidden>
   <div class="box">
-    <div class="eyebrow" style="color:#cedbe9">Трансформационная игра</div>
-    <h1 class="h-serif">Слияние Шивы и Шакти</h1>
+    <div class="eyebrow" style="color:#cedbe9">Трансформационная игра сознания</div>
+    <h1 class="h-serif">Лила</h1>
     <p class="lead">Игра о любви и союзе — с собой и с другим. Зарегистрируйся, чтобы начать свой путь по 72 клеткам. Первая игра — бесплатно.</p>
     <div class="invited" id="invitedBox" hidden><span aria-hidden="true">✦</span><span id="invitedTxt"></span></div>
     <form class="form" id="authForm" novalidate>
@@ -489,8 +490,8 @@ body.locked .app,body.locked .tabbar{display:none!important}
   <!-- ============ HOME / DASHBOARD ============ -->
   <section id="tHome" class="stack">
     <div class="hero">
-      <div class="eyebrow" style="color:#cedbe9">Трансформационная игра</div>
-      <h1 class="h-serif" style="margin-top:6px">Слияние Шивы и Шакти</h1>
+      <div class="eyebrow" style="color:#cedbe9">Трансформационная игра сознания</div>
+      <h1 class="h-serif" style="margin-top:6px">Лила</h1>
       <p>Игра о любви и союзе — с собой и с другим. Задай вопрос, брось кубик и пройди свой путь по 72 клеткам с голосом проводника.</p>
       <button class="btn btn-brown btn-block" type="button" data-go="game" id="heroCta">Начать игру</button>
     </div>
@@ -863,8 +864,8 @@ if(TG){
 const haptic=(t)=>{try{if(TG&&TG.HapticFeedback)TG.HapticFeedback.impactOccurred(t||"medium");}catch(e){}};
 const L=(ru,en)=>LANG==="en"?en:ru;
 const DICT={
-"Трансформационная игра":"Transformational game",
-"Слияние Шивы и Шакти":"Union of Shiva & Shakti",
+"Трансформационная игра сознания":"Transformational game of consciousness",
+"Лила":"Leela",
 "Игра о любви и союзе — с собой и с другим. Зарегистрируйся, чтобы начать свой путь по 72 клеткам. Первая игра — бесплатно.":"A game about love and union — with yourself and with another. Sign up to begin your path across 72 cells. Your first game is free.",
 "Регистрация":"Sign up",
 "Вход":"Log in",
@@ -1041,78 +1042,78 @@ const DICT={
 };
 
 const C_EN=[null,
-["Birth","You enter the game. Every love story begins with an admission: I am here, and this matters to me. You don't need to be ready — it's enough to be honest.","What really stands behind your question once you strip away the pretty words?"],
-["Illusion / Reset","You fall in love not with a person but with a picture you finished drawing yourself. Sometimes you need to reset your expectations to see the living person beside you.","How did you imagine him — and how does he actually show himself?"],
-["Anger","Anger is a boundary you didn't dare to say out loud. It doesn't destroy love if it is heard rather than swallowed.","Where did you say “it's fine” when it wasn't fine?"],
-["Desire / Greed","The wish to get more attention, more proof, more guarantees. A hunger that no other person can satisfy.","What do you lack so badly that you expect it only from your partner?"],
-["Physical Plane / Lineage","Your body and your lineage remember everything: how your mother and grandmother loved, where you feel calm and where you tense up. Relationships live not only in words.","Which love script did you inherit from your family?"],
-["Delusion","An attachment that holds tighter than love. You stay not because it's good, but because letting go is frightening.","If there were no fear, would you stay?"],
-["Vanity","What matters is how it looks from the outside: a beautiful couple, the right status. But a facade doesn't keep you warm inside.","Who are you trying to prove to that everything is fine?"],
-["Discontent","Everything is wrong: he's not right, you're not right, life's not right. Discontent is a signal of a need you haven't named.","What do you really want when you feel discontent?"],
-["Sensual Plane","Desire is the energy of Shakti. But you choose the pleasant over the real, because the real takes courage.","What do you truly want — not the comfortable, but the alive?"],
-["Purification","An honest look at yourself burns, but it frees you. Being ready to see the truth is already a movement upward.","Which illusion about yourself are you ready to give up?"],
-["Entertainment","Lightness and play are needed in love. But if everything is only a game, it never reaches depth.","Where is joy in your relationship, and where is escape from a serious conversation?"],
-["Jealousy","Jealousy is the fear that there won't be enough love for you. It says more about your wound than about his actions.","What is jealousy trying to protect in you?"],
-["Self-Devaluation","The feeling that you are “not enough”: not beautiful, smart or loved enough. An emptiness no one else's love can fill.","When did you decide that you could be passed over?"],
-["Astral Plane","Dreams, visions, premonitions. You live a lot in your imagination — there, relationships are perfect and safe.","Which part of this relationship do you live only in your head?"],
-["Plane of Fantasy","Fantasy gives strength when it becomes a plan, and takes strength when it replaces life.","Which fantasy about love is it time to turn into action — or let go?"],
-["Rejection / Aversion","You push away first so that you won't be pushed away. Aversion often covers an old pain of rejection.","Whom or what do you reject so as not to feel your vulnerability?"],
-["Compassion","Compassion for yourself and for him opens what neither resentment nor being right can open.","Can you look at the situation through the eyes of the person beside you?"],
-["Plane of Joy","Joy without a reason is a sign that you are returning to yourself. With the right person there is more of it.","When did you last truly laugh together with him?"],
-["Action / Plane of Karma","You repeat the same script with different people. It's not a punishment — it's a lesson not yet learned.","Which story in your relationships repeats again and again?"],
-["Charity","Giving without keeping score. A generous heart makes a union equal and alive.","What can you give without expecting anything in return?"],
-["Atonement","You can repair what happened. Not through guilt, but through an honest act and words.","Whom should you apologize to — perhaps yourself?"],
-["Path of the Soul","The soul has its own route, and relationships are part of it. When you walk your own path, your own people appear beside you.","Is this relationship leading you towards yourself or away from yourself?"],
-["Heavenly Plane","The feeling that everything is falling into place. Love as grace, not as a struggle.","Where do you allow yourself to receive rather than earn?"],
-["Bad Company","Those around you whisper that you ask for too much or settle for too little.","Whose voices speak in your head when you make decisions about this relationship?"],
-["Good Company","People around you who see the real you and believe in you. You can trust them with your question.","Which of your close ones reminds you who you really are?"],
-["Sorrow","Grief for what didn't happen. It needs space and time — unlived sorrow turns into coldness.","What haven't you mourned yet in this story?"],
-["Higher Purpose","A union of two grows stronger when it serves something bigger than the two of them.","What are you together for — besides not being alone?"],
-["Maturity of the Heart","Mature love doesn't demand proof every day. It chooses — and takes responsibility for its choice.","Where has your heart already grown up, and where is it still waiting to be rescued?"],
-["Immorality","You act against your own truth — for peace in the couple, for calm, or for someone else's approval.","Where did you betray yourself to keep the relationship?"],
-["Good Tendencies","You wish good things — for yourself and for him. The intention already changes the direction of the path.","What one kind act can you do today?"],
-["Meeting the Teacher","The teacher comes in many forms: a person, a book, a crisis. Sometimes the main teacher is the one who hurt you most.","What is the person your question is about teaching you?"],
-["Plane of Balance","Shiva and Shakti in balance: giving and receiving, speaking and listening, being together and being yourself.","Where is the balance broken in your union?"],
-["Plane of Fragrance","Subtle signals: a look, a scent, a tone of voice. Love speaks a language that needs no explanations.","Which quiet signs do you notice — and ignore?"],
-["Plane of Taste","The taste of life and of relationships. You begin to tell what you truly like.","What in this relationship nourishes you, and what leaves you hungry?"],
-["Purgatory","You go through pain in order to be freed from it. It is not the end — it is a passage.","Which pain are you finally ready to live through to the end?"],
-["Clarity of Consciousness","The fog clears. You see the situation as it is, without excuses.","What has become obvious right now?"],
-["Wisdom","Knowledge born of experience. Wisdom doesn't argue — it simply knows.","What do you already know about your question but are afraid to admit?"],
-["Energy","Your energy returns. The relationships that suit you fill you up rather than drain you.","Does this relationship give you strength or take it away?"],
-["Letting Go","Time to release what is extra: old resentments, other people's expectations, bonds that keep you stuck.","What is it time to let go of to make room?"],
-["Return to Wholeness","You gather yourself back together — all the parts you gave away to others. You can be whole both alone and as a couple.","Which part of yourself did you give away in the relationship and want back?"],
-["Human Plane","You accept yourself and him as ordinary people — without idealization and without contempt.","Can you love him imperfect? And yourself?"],
-["Plane of Fire","The fire of passion and the fire of transformation. It warms if you tend it, and burns if you abandon it.","What kindles the fire between you — and what puts it out?"],
-["Birth of Human Consciousness","You are born anew — in a new role, with a new view of love.","Who do you want to be in your next relationship?"],
-["Ignorance","You don't want to know the truth, because it will require change.","What are you closing your eyes to?"],
-["True Knowledge","You understand how love works — and this knowledge lifts you higher.","Which understanding changed your view of relationships?"],
-["Intuition","A quiet inner voice knew the answer before the mind did. You are learning to trust it.","What does your intuition tell you when you stop arguing with it?"],
-["Neutrality","Calm without indifference. You no longer swing from delight to despair.","What are you like when you are calm beside him?"],
-["Solar Channel","The energy of Shiva: action, clarity, direction. You take responsibility for your life.","Which decision is waiting for your resolve?"],
-["Lunar Plane","The energy of Shakti: sensitivity, acceptance, soft strength. You allow yourself to feel.","Where do you need not resolve, but tenderness towards yourself?"],
-["Overcoming / Austerity","A conscious refusal of what harms you. Not a punishment, but a choice for your own sake.","What are you ready to give up for the sake of your wholeness?"],
-["Earth","Support. You stand on your own feet, and the relationship stops being a matter of survival.","What do you lean on besides him?"],
-["Plane of Violence","Harshness towards yourself or another: words, silence, punishing with coldness.","How do you punish — yourself or him?"],
-["Plane of Water","Emotions are like water: they flow, change, cleanse. You stop holding back tears and tenderness.","Which feelings are asking to come out?"],
-["Spiritual Devotion","Love without conditions and fear. Devotion to your path lifts you above any doubts.","What are you truly devoted to in life?"],
-["Egoism","The wish to be right is stronger than the wish to be happy. The ego protects, but it doesn't warm.","In which argument is winning more important to you than understanding?"],
-["Primordial Vibration","A silence in which the essential can be heard. The sound with which the universe began — and every meeting.","What do you hear when the thoughts about him fall silent?"],
-["Plane of Air","Lightness and freedom. Love that doesn't suffocate but lets you breathe.","Do you have air to breathe in this relationship?"],
-["Expansion of Consciousness","You see more than before: yourself, him, your story — as part of a larger pattern.","What becomes visible if you look at the situation from above?"],
-["Plane of Reality","You speak the truth and can bear the truth in return.","Which truth is it time to say out loud?"],
-["Positive Intellect","A mind that serves the heart. You make decisions clearly and gently.","What decision does your clear mind suggest?"],
-["Negative Intellect","A mind that justifies pain and doubt. It can prove that there is nothing to love you for.","Which thoughts about yourself do you take for the truth?"],
-["Happiness","A calm happiness that doesn't depend on messages and calls.","What makes you happy even when he isn't around?"],
-["Inertia","Heaviness, apathy, “I'll deal with it later”. A missed step brings you back to old illusions.","What are you putting off, hoping it will resolve itself?"],
-["Connection with Earth","Lofty feelings gain meaning when they take shape in simple life: in everyday care and deeds.","What does your love look like in actions?"],
-["Inner Space","You become vast — there is room in you both for yourself and for another.","How much room do you leave for yourself in this relationship?"],
-["Plane of Bliss","Peace and joy simply because you exist. Love as a state, not as an event.","What is it like to expect nothing and feel full?"],
-["Plane of Cosmic Good","You see how your story is connected to something bigger — your lineage, the world, life.","What is this story teaching you on the scale of your whole life?"],
-["Cosmic Consciousness","The goal of the game. The union of Shiva and Shakti within you: strength and tenderness, action and acceptance come together.","What answer to your question do you already know?"],
-["Plane of the Absolute","Beyond goals and questions. Yet even from here you can slip down if you mistake height for victory.","What remains when there is nothing left to prove?"],
-["Guna of Goodness","Sattva: clarity, purity, light. Everything is in its place.","What would harmony in your life look like right now?"],
-["Guna of Motion","Rajas: desire, restlessness, action. An energy to be directed, not suppressed.","Where is your passion directed — towards life or towards struggle?"],
-["Guna of Inertia","Tamas: the very edge of the board. Even from the top you can fall into inertia if you stop being aware.","Where did you stop noticing yourself?"]
+["Birth", "The start of a new cycle and the fact of coming into the world.", "What in my request is only now being born?", "The beginning has already happened. Feel what you are bringing into this path.", "Janma"],
+["Illusion", "The difference between direct experience and the story about it.", "What do I know for sure, and what am I only assuming?", "Pause for a moment. Where does the fact end and your picture of it begin?", "Maya"],
+["Anger", "The energy of reacting when boundaries or expectations are crossed.", "What need or boundary does it point to?", "There is strength here. First hear what your anger is saying.", "Krodha"],
+["Greed", "Fear of lack; wanting to hold on to more than is needed.", "Where in my request am I acting out of lack?", "Notice the urge to hold on. What are you afraid of losing?", "Lobha"],
+["Physical plane", "The body, basic conditions and material facts.", "What practical fact am I ignoring?", "Come back to the ground under your feet. What is truly available to your body and your hands right now?", "Bhu-loka"],
+["Delusion", "Attachment to a version of events that blocks the view.", "Which familiar story am I holding on to?", "You have entered the game. Don't rush to answer: what are you not seeing yet?", "Moha"],
+["Conceit", "Dependence on a self-image and outside recognition.", "Whose approval am I trying to earn?", "Set aside the image you have to keep up. Who are you here without it?", "Mada"],
+["Avarice", "Comparison; measuring yourself by someone else's success.", "Which of my own desires does the comparison reveal?", "Another person's path takes nothing from yours. Notice what stings most in the comparison.", "Matsarya"],
+["Sensual plane", "Pleasure, desires and the impulses of the senses.", "Which desire supports my path, and which one distracts me?", "Desire is part of life. Give it a name before it chooses for you.", "Kama-loka"],
+["Purification", "Letting go of the excess for the sake of clarity.", "Which habit keeps me from hearing myself?", "Space is opening for a new view. What is it time to gently let go of?", "Shuddhi"],
+["Entertainment", "Imagination, music, play and shifting attention.", "What brings back my aliveness without running away from what matters?", "Let lightness come in. See whether this pleasure truly nourishes you.", "Gandharvas"],
+["Envy", "The pain of comparing your circumstances with other people's.", "What do I want for myself if I remove someone else's story?", "Comparison leads back to avarice again. But your own desire may stand behind it.", "Irshya"],
+["Nullity", "The pause between an old meaning and a new one not yet found.", "What do I feel when I don't know the answer?", "Emptiness doesn't need to be filled right away. Stay close to what hasn't taken shape yet.", "Antariksha"],
+["Astral plane", "Images, moods and inner representations.", "Which picture of the future is shaping my choice?", "Inner images can point the way. Check where the image touches reality.", "Bhuvar-loka"],
+["Plane of fantasy", "The possibilities of imagination and the risk of dissolving in them.", "How can I turn a fantasy into an action I can test?", "Imagine freely. Then ask yourself what first step is possible in real life.", "Naga-loka"],
+["Jealousy", "Anxiety about losing closeness, position or attention.", "What feeling can I name without blaming the other person?", "The snake leads back to the fear of lack. What would you like to ask for directly?", "Dvesha"],
+["Mercy", "Seeing another's vulnerability while keeping your own boundaries.", "Where in my request is there room for gentleness?", "Compassion widens the space. Let yourself see the whole person.", "Daya"],
+["Plane of joy", "Experiencing joy as something valuable in itself.", "What truly makes me glad today?", "Notice what already brings light. Joy can be a compass too.", "Harsha-loka"],
+["Plane of karma", "The consequences of actions and the ability to act.", "Which of my choices keeps repeating?", "What matters here is steps, not promises. What have you already done, and what are you ready to do?", "Karma-loka"],
+["Charity", "Free exchange and generosity without pressure.", "What can I share without draining myself?", "When you give by free choice, balance appears.", "Dana"],
+["Atonement", "Acknowledging consequences and the chance to make things right.", "What can I restore in practice?", "No need to get stuck in guilt. You can see the consequences and take a step toward repair.", "Saman Paap"],
+["Plane of dharma", "Aligning your actions with your deepest compass.", "What is right for me now, even if it's inconvenient?", "Notice where your actions and your values meet. Clarity comes from that agreement.", "Dharma-loka"],
+["Celestial plane", "A space of relief, reward and a wider view.", "How do I keep my footing once things get easier?", "Let yourself accept the respite. What can you see from this height?", "Swarga-loka"],
+["Bad company", "The influence of surroundings where borrowed roles and vanity grow.", "Which relationships pull me away from my own values?", "Notice the company in which you have to play someone else's role.", "Ku-sang-loka"],
+["Good company", "Supportive relationships and the quality of your surroundings.", "Where do I find honest support?", "Remember the people with whom you can be yourself.", "Su-sang-loka"],
+["Sorrow", "Meeting loss and unmet expectations.", "What truly mattered to me in this loss?", "Sorrow can be given room. You don't have to explain it too quickly.", "Duhkha"],
+["Selfless service", "Acting for another without erasing your own boundaries.", "How can I help while staying in touch with myself?", "Your action can connect you with people. What do you do from the heart?", "Parmartha"],
+["Own dharma", "Your own path, not a role prescribed by others.", "Which choice feels like mine?", "Hear your own measure. Staying true to it takes time and practice.", "Sudharma"],
+["Adharma", "Moving away from your inner compass and against your values.", "What small honest step will restore the direction?", "Losing your bearings leads back to delusion. Where did you stop trusting yourself?", "Adharma"],
+["Good tendencies", "Habits that support growth.", "Which helpful habit supports my request?", "Some changes have already become part of you. Notice them.", "Uttam Gati"],
+["Plane of holiness", "Respect for life, values and meaning beyond profit.", "What would I protect regardless of the outcome?", "What in this experience feels worthy of careful treatment?", "Yaksha-loka"],
+["Plane of balance", "Aligning needs, action and rest.", "Where am I breaking my own measure?", "Balance doesn't mean standing still. Feel what needs support right now.", "Mahar-loka"],
+["Plane of fragrance", "Subtle perception through the sense of smell.", "Which faint signal have I been ignoring for a long time?", "Notice a nuance that usually slips away. Sometimes the body notices first.", "Gandha-loka"],
+["Plane of taste", "The ability to tell the quality of an experience.", "What do I choose out of habit, and what out of real interest?", "Listen to the taste of this story. What truly nourishes you?", "Rasa-loka"],
+["Purgatory", "A hard meeting with consequences, without demanding self-condemnation.", "What supportive step is available to me now?", "This is a difficult place. Pause and name what is happening in simple words.", "Naraka-loka"],
+["Clarity of consciousness", "The ability to observe without rushing to conclusions.", "What do I now see more precisely?", "Things are becoming a little clearer. Don't hurry to turn clarity into judgment.", "Svaccha"],
+["True knowledge", "Understanding that changes your attitude to life.", "Which knowledge has already changed my choices?", "Here knowledge is lived, not just spoken. What have you understood through your own experience?", "Jnana"],
+["Plane of life energy", "The forces and conditions that sustain life.", "What restores my energy without forcing myself?", "Notice where your strength appears. Where does it leak away?", "Prana-loka"],
+["Plane of release", "Letting go of what has outlived itself, in body and in meaning.", "What is it time for me to calmly part with?", "Not everything needs to be kept. What has finished its work?", "Apana-loka"],
+["Plane of circulation", "The movement of energy and how the parts of the whole connect.", "Where has movement stopped, and what will help it return?", "See how your decisions echo in different areas of life.", "Vyana-loka"],
+["Human plane", "Mature participation in the lives of people.", "How do I show up around people?", "You are not alone in your experience. What connects you with others?", "Jana-loka"],
+["Plane of fire", "Transforming energy, intensity and clear intention.", "Where should I direct my passion?", "Fire can warm and it can burn. Choose how to handle its power.", "Agni-loka"],
+["Human birth", "Accepting human limits together with the freedom to choose.", "Which choice right now is truly mine?", "Here you can be human: alive, imperfect and able to choose.", "Manushya-janma"],
+["Ignorance", "A lack of clarity that lets impulses take charge.", "What fact can I check before I act?", "The unknown can be explored. First notice the desire that has taken the place of an answer.", "Avidya"],
+["Right knowledge", "Knowledge with discernment and responsible use.", "How can I apply what I've understood, gently toward myself and others?", "When understanding becomes action, the horizon widens.", "Suvidya"],
+["Discernment", "The ability to tell the essential from the noise.", "What is important to pay attention to right now?", "Separate yours from others', and the important from the urgent. Simplicity can bring joy.", "Viveka"],
+["Plane of neutrality", "Observing without an immediate reaction.", "What do I notice when I don't rush to react?", "Between an event and your response there is space. Stay in it.", "Saraswati"],
+["Solar plane", "The active, directed quality of energy.", "In what area is it time for me to step forward?", "There is an impulse to act here. How can you give it a clear direction?", "Yamuna"],
+["Lunar plane", "The receptive, restoring quality of energy.", "Where do I need a pause instead of effort?", "Not every movement is visible from outside. Let yourself hear your inner rhythm.", "Ganga"],
+["Plane of austerity", "Conscious discipline without self-punishment.", "Which repeated action serves my path?", "Choose a practice you can keep up. Consistency is born from moderation.", "Tapa-loka"],
+["Earth", "Concreteness, body, daily life and bringing an idea into form.", "What can I do today in the material world?", "The earth meets you where you stand. Name one real next step.", "Prithvi"],
+["Plane of violence", "Harming yourself or another, and the need to see the consequences.", "How can I reduce the damage in this specific situation?", "Stop. Where is it now necessary to refuse harm and find a safe way to act?", "Himsa-loka"],
+["Liquid plane", "Fluidity and the ability to adapt while staying yourself.", "Where would flexibility serve me better than pressure?", "Let the form change without losing the essence.", "Jala-loka"],
+["Plane of devotion", "Openness to something bigger than control and personal gain.", "What meaning ties together the path I've walked?", "This arrow leads to completion. What in your path has become an expression of love and trust?", "Bhakti-loka"],
+["Egoism", "Rigid identification with the image of \"I\" and defending that image.", "Who am I outside my role?", "When your self-image is threatened, anger rises. What are you protecting?", "Ahamkara"],
+["Plane of primal vibrations", "Sound and the original rhythm of experience.", "Which inner note accompanies my request?", "Listen to the silence between words. What sounds steady within you?", "Omkara"],
+["Gaseous plane", "Air, breath and mobility.", "Where do I lack freedom of movement?", "Take a calm breath at your own pace. Give your thoughts a little space.", "Vayu-loka"],
+["Plane of radiance", "Inner light showing through presence and action.", "What do I want to bring into the space around me?", "Your clarity can be visible to others. How can you show it without pressure?", "Teja-loka"],
+["Plane of reality", "Your relationship with truth and acknowledging what is.", "What truth am I ready to admit?", "Name reality as you see it now. Don't embellish it, don't darken it.", "Satya-loka"],
+["Positive intellect", "Thinking that helps you see possibilities and consequences.", "Which decision supports my values?", "A clear mind can serve life. Where will you direct it today?", "Subuddhi"],
+["Negative intellect", "A mind that devalues and cuts you off from meaning.", "Which thought is shrinking my possibilities right now?", "When a thought leads into emptiness, check its foundations. What in it is fact, and what is fear?", "Durbuddhi"],
+["Happiness", "Experiencing well-being in the moment that's available.", "What already makes my life feel alive?", "Notice the good without demanding that it last forever.", "Sukha"],
+["Darkness", "Inertia, numbness and the loss of discernment.", "What small step helps me move out of stillness?", "The snake leads back to illusion. Don't force yourself to understand everything at once; start with one fact.", "Tamas"],
+["Phenomenal plane", "The changing world of phenomena and forms.", "What in my request is temporary, and what lies deeper than form?", "Forms change. See what you have identified with too tightly.", "Prakriti-loka"],
+["Plane of inner space", "The capacity of attention and inner spaciousness.", "How can I protect my inner space?", "It's becoming more spacious. What appears when you don't need to fill everything with answers?", "Uranta-loka"],
+["Plane of bliss", "A deep sense of fullness, not the same as constant euphoria.", "What do I notice when I stop chasing a feeling?", "Let this moment be enough. Don't hold on to it by force.", "Ananda-loka"],
+["Plane of cosmic good", "A wide view beyond your personal outcome.", "What will be good not only for me?", "Look beyond your own story. How is your action connected to the larger whole?", "Rudra-loka"],
+["Cosmic consciousness", "The completion point of the game's route.", "What one conclusion and what doable step do I take with me?", "You have come to completion. Pause. What has become clearer about your question?", "Vaikuntha-loka"],
+["Absolute plane", "The widest perspective, which by itself does not end the game.", "What do I see differently from this point?", "Even here the path continues. What matters is not the title of the height but the lived experience.", "Brahma-loka"],
+["Sattvaguna", "The clear, balanced quality of nature.", "How does clarity show up in my concrete choice?", "Listen to clarity without hurrying to declare the path finished.", "Sattvaguna"],
+["Rajoguna", "The energy of movement, striving and change.", "What drives me: meaning, or the fear of stopping?", "The movement continues. Where is your activity leading?", "Rajoguna"],
+["Tamoguna", "Stopping even at the height; a return to the material foundation.", "How will I carry this understanding into everyday life?", "The board returns you to Earth. Embody what you've seen in one earthly action.", "Tamoguna"]
 ];
 const PLANES_EN=["Muladhara · plane of foundation","Svadhisthana · plane of desire","Manipura · plane of will","Anahata · plane of the heart","Vishuddha · plane of voice","Ajna · plane of vision","Sahasrara · plane of unity","Plane of the Absolute"];
 const INTENTS_EN=[["rel","Relationships"],["self","Self-love"],["choice","A choice"],["state","My state"],["free","My own question"]];
@@ -1134,82 +1135,83 @@ const PLANS_EN={game:{t:"Game reading",d:"A reading of your whole path: cells, s
                 astro:{t:"Reading + astrology",d:"The full game reading plus an astrological hint from Shiva Vakya Siddha Baba based on your birth chart — focused on the themes of your answers."}};
 
 const C_RU=[null,
-["Рождение","Ты входишь в игру. Любая история любви начинается с признания: я здесь, и мне это важно. Не нужно быть готовой — достаточно быть честной.","Что на самом деле стоит за твоим вопросом, если убрать красивые слова?"],
-["Иллюзия / Обнуление","Ты влюбляешься не в человека, а в картинку, которую сама дорисовала. Иногда нужно обнулить ожидания, чтобы увидеть живого человека рядом.","Каким ты его придумала — и каким он показывает себя на деле?"],
-["Гнев","Гнев — это граница, которую ты не решилась назвать вслух. Он не разрушает любовь, если его услышать, а не проглотить.","Где ты сказала «всё нормально», когда было не нормально?"],
-["Желание / Жадность","Желание получить больше внимания, больше доказательств, больше гарантий. Голод, который не утоляется другим человеком.","Чего тебе не хватает так сильно, что ты ждёшь этого только от партнёра?"],
-["Физический план / Род","Тело и род помнят всё: как любили твои мама и бабушка, где тебе спокойно, а где ты сжимаешься. Отношения живут не только в словах.","Какой сценарий любви ты унаследовала от своей семьи?"],
-["Заблуждение","Привязанность, которая держит крепче, чем любовь. Ты остаёшься не потому, что хорошо, а потому, что страшно отпустить.","Если бы не было страха, ты бы осталась?"],
-["Тщеславие","Важно, как это выглядит со стороны: красивая пара, правильный статус. Но фасад не согревает изнутри.","Кому ты доказываешь, что у тебя всё хорошо?"],
-["Недовольство","Всё не так: он не такой, ты не такая, жизнь не такая. Недовольство — это сигнал о потребности, которую ты не называешь.","Чего ты хочешь на самом деле, когда недовольна?"],
-["Чувственный план","Желание — это энергия Шакти. Но ты выбираешь приятное вместо настоящего, потому что настоящее требует смелости.","Чего ты хочешь на самом деле — не удобного, а живого?"],
-["Очищение","Честный взгляд на себя обжигает, но освобождает. Готовность увидеть правду — это уже движение вверх.","От какой иллюзии о себе ты готова отказаться?"],
-["Развлечения","Лёгкость и игра нужны любви. Но если всё — только игра, до глубины так и не доходит.","Где в ваших отношениях радость, а где бегство от серьёзного разговора?"],
-["Ревность","Ревность — это страх, что любви не хватит на тебя. Он говорит о твоей ране больше, чем о его поступках.","Что ревность пытается защитить в тебе?"],
-["Обесценивание себя","Чувство, что ты «недостаточно»: недостаточно красивая, умная, любимая. Пустота, которую невозможно заполнить чужой любовью.","В какой момент ты решила, что тебя можно не выбрать?"],
-["Астральный план","Мечты, сны, предчувствия. Ты много живёшь в воображении — там отношения идеальны и безопасны.","Какую часть этих отношений ты проживаешь только в голове?"],
-["План фантазии","Фантазия даёт силу, если становится замыслом, и отнимает силу, если заменяет жизнь.","Какую фантазию о любви пора превратить в действие — или отпустить?"],
-["Отвержение / Неприязнь","Ты отталкиваешь первой, чтобы не оттолкнули тебя. Неприязнь часто прикрывает старую боль отвержения.","Кого или что ты отвергаешь, чтобы не почувствовать свою уязвимость?"],
-["Сострадание","Сострадание к себе и к нему открывает то, что не откроют ни обиды, ни правота.","Можешь ли ты посмотреть на ситуацию глазами того, кто рядом?"],
-["План радости","Радость без причины — признак того, что ты возвращаешься к себе. Рядом с правильным человеком её становится больше.","Когда ты в последний раз смеялась рядом с ним по-настоящему?"],
-["Действия / План кармы","Ты повторяешь один и тот же сценарий с разными людьми. Это не наказание — это урок, который ещё не пройден.","Какая история в твоих отношениях повторяется снова и снова?"],
-["Благотворительность","Отдавать, не ведя счёт. Щедрость сердца делает союз равным и живым.","Что ты можешь подарить, не ожидая ничего взамен?"],
-["Искупление","Ты можешь исправить то, что было. Не чувством вины, а честным поступком и словами.","Перед кем тебе стоит извиниться — возможно, перед собой?"],
-["Путь души","У души свой маршрут, и отношения — его часть. Когда ты идёшь своим путём, рядом оказываются свои люди.","Эти отношения ведут тебя к себе или уводят от себя?"],
-["Небесный план","Ощущение, что всё складывается. Любовь как благодать, а не как борьба.","Где ты позволяешь себе принимать, а не заслуживать?"],
-["Плохая компания","Окружение шепчет, что ты требуешь слишком многого или соглашаешься на слишком мало.","Чьи голоса звучат в твоей голове, когда ты решаешь про эти отношения?"],
-["Хорошая компания","Люди рядом, которые видят тебя настоящей и верят в тебя. Им можно доверить свой вопрос.","Кто из близких напоминает тебе, какая ты на самом деле?"],
-["Печаль","Грусть по тому, что не случилось. Ей нужно место и время — непрожитая печаль превращается в холод.","Что ты ещё не оплакала в этой истории?"],
-["Высшая цель","Союз двоих становится сильнее, когда служит чему-то большему, чем они сами.","Ради чего вы вместе — кроме того, чтобы не быть одним?"],
-["Зрелость сердца","Зрелая любовь не требует доказательств каждый день. Она выбирает — и отвечает за свой выбор.","Где твоё сердце уже повзрослело, а где ещё ждёт спасения?"],
-["Аморальность","Ты действуешь против своей правды — ради мира в паре, ради спокойствия или ради чужого одобрения.","Где ты предала себя, чтобы сохранить отношения?"],
-["Благие тенденции","Ты хочешь хорошего — для себя и для него. Намерение уже меняет направление пути.","Какое одно доброе действие ты можешь сделать сегодня?"],
-["Встреча с учителем","Учитель приходит в разных обличьях: человек, книга, кризис. Иногда главный учитель — тот, кто сделал больнее всех.","Чему тебя учит человек, о котором твой вопрос?"],
-["План равновесия","Шива и Шакти в равновесии: давать и получать, говорить и слушать, быть вместе и быть собой.","Где в вашем союзе нарушен баланс?"],
-["План ароматов","Тонкие сигналы: взгляд, запах, интонация. Любовь говорит на языке, который не нуждается в объяснениях.","Какие тихие знаки ты замечаешь — и игнорируешь?"],
-["План вкусов","Вкус жизни и отношений. Ты начинаешь различать, что тебе по-настоящему по вкусу.","Что в этих отношениях питает тебя, а что оставляет голодной?"],
-["Чистилище","Ты проходишь через боль, чтобы освободиться от неё. Это не конец — это переход.","Какую боль ты готова наконец прожить до конца?"],
-["Ясность сознания","Туман рассеивается. Ты видишь ситуацию такой, какая она есть, без оправданий.","Что стало очевидным именно сейчас?"],
-["Мудрость","Знание, пришедшее из опыта. Мудрость не спорит — она просто знает.","Что ты уже знаешь о своём вопросе, но боишься признать?"],
-["Энергия","Энергия возвращается. Отношения, которые тебе подходят, наполняют, а не истощают.","Эти отношения дают тебе силы или забирают их?"],
-["Отпускание","Время отпустить лишнее: старые обиды, чужие ожидания, связи, которые держат на месте.","Что пора отпустить, чтобы освободить место?"],
-["Возвращение в целостность","Ты собираешь себя обратно — все части, которые раздала другим. Целой можно быть и одной, и вдвоём.","Какую часть себя ты отдала в отношениях и хочешь вернуть?"],
-["Человеческий план","Ты принимаешь себя и его обычными людьми — без идеализации и без презрения.","Можешь ли ты любить его несовершенным? А себя?"],
-["План огня","Огонь страсти и огонь преображения. Он согревает, если за ним ухаживать, и сжигает, если его бросить.","Что разжигает огонь между вами — и что его гасит?"],
-["Рождение сознания человека","Ты рождаешься заново — в новой роли, с новым взглядом на любовь.","Какой ты хочешь быть в следующих отношениях?"],
-["Неведение","Ты не хочешь знать правду, потому что она потребует перемен.","На что ты закрываешь глаза?"],
-["Верное знание","Ты понимаешь, как устроена любовь, — и это знание поднимает тебя выше.","Какое понимание изменило твой взгляд на отношения?"],
-["Интуиция","Тихий внутренний голос знал ответ раньше ума. Ты учишься ему доверять.","Что подсказывает тебе интуиция, когда ты перестаёшь спорить с ней?"],
-["Нейтральность","Спокойствие без равнодушия. Ты больше не качаешься от восторга к отчаянию.","Какой ты бываешь, когда спокойна рядом с ним?"],
-["Солнечный канал","Энергия Шивы: действие, ясность, направление. Ты берёшь ответственность за свою жизнь.","Какое решение ждёт твоей решимости?"],
-["Лунный план","Энергия Шакти: чувствительность, принятие, мягкая сила. Ты разрешаешь себе чувствовать.","Где тебе нужна не решимость, а нежность к себе?"],
-["Преодоление / Аскеза","Сознательный отказ от того, что тебе вредит. Не наказание, а выбор ради себя.","От чего ты готова отказаться ради своей целостности?"],
-["Земля","Опора. Ты стоишь на своих ногах, и отношения перестают быть вопросом выживания.","На что ты опираешься, кроме него?"],
-["План насилия","Жёсткость к себе или к другому: слова, молчание, наказание холодом.","Как ты наказываешь — себя или его?"],
-["План воды","Эмоции как вода: текут, меняются, очищают. Ты перестаёшь сдерживать слёзы и нежность.","Какие чувства просятся наружу?"],
-["Духовная преданность","Любовь без условий и страха. Преданность своему пути поднимает выше любых сомнений.","Чему ты по-настоящему предана в жизни?"],
-["Эгоист","Желание быть правой сильнее желания быть счастливой. Эго защищает, но не согревает.","В каком споре тебе важнее победить, чем понять?"],
-["Первичная вибрация","Тишина, в которой слышно главное. Звук, с которого началась вселенная — и любая встреча.","Что ты слышишь, когда замолкают мысли о нём?"],
-["План воздуха","Лёгкость и свобода. Любовь, которая не душит, а даёт дышать.","Есть ли у тебя в этих отношениях воздух?"],
-["Расширение сознания","Ты видишь больше, чем раньше: себя, его, вашу историю — как часть большого узора.","Что становится видно, если посмотреть на ситуацию с высоты?"],
-["План реальности","Ты говоришь правду и выдерживаешь правду в ответ.","Какую правду пора сказать вслух?"],
-["Позитивный интеллект","Ум, который служит сердцу. Ты принимаешь решения ясно и бережно.","Какое решение подсказывает тебе светлый разум?"],
-["Негативный интеллект","Ум, который оправдывает боль и сомнение. Он умеет доказать, что тебя не за что любить.","Какие мысли о себе ты принимаешь за правду?"],
-["Счастье","Спокойное счастье, которое не зависит от сообщений и звонков.","Что делает тебя счастливой, даже когда его нет рядом?"],
-["Инерция","Тяжесть, апатия, «потом разберусь». Пропущенный шаг возвращает к старым иллюзиям.","Что ты откладываешь, надеясь, что всё решится само?"],
-["Связь с Землёй","Высокие чувства обретают смысл, когда воплощаются в простой жизни: в быте, в заботе, в делах.","Как твоя любовь выглядит в поступках?"],
-["Внутреннее пространство","Ты становишься большой — в тебе хватает места и для себя, и для другого.","Сколько места ты оставляешь себе в этих отношениях?"],
-["План блаженства","Покой и радость просто оттого, что ты есть. Любовь как состояние, а не как событие.","Каково это — ничего не ждать и быть наполненной?"],
-["План космического блага","Ты видишь, как твоя история связана с чем-то большим — родом, миром, жизнью.","Чему учит тебя эта история в масштабе всей жизни?"],
-["Космическое сознание","Цель игры. Союз Шивы и Шакти внутри тебя: сила и нежность, действие и принятие соединяются.","Какой ответ на свой вопрос ты уже знаешь?"],
-["План Абсолюта","За пределами целей и вопросов. Но и отсюда можно соскользнуть, если принять высоту за победу.","Что остаётся, когда нечего доказывать?"],
-["Гуна благости","Саттва: ясность, чистота, свет. Всё на своих местах.","Какой была бы гармония в твоей жизни прямо сейчас?"],
-["Гуна движения","Раджас: желание, беспокойство, действие. Энергия, которую важно направить, а не подавить.","Куда направлена твоя страсть — к жизни или к борьбе?"],
-["Гуна инерции","Тамас: самый край доски. Даже с вершины можно упасть в инерцию, если перестать осознавать.","Где ты перестала замечать себя?"]
+["Рождение", "Начало нового цикла и факт появления в мире.", "Что в моём запросе сейчас только рождается?", "Начало уже случилось. Почувствуй, с чем ты входишь в этот путь.", "Janma"],
+["Иллюзия", "Различие между непосредственным опытом и историей о нём.", "Что я знаю наверняка, а что лишь предполагаю?", "Остановись на мгновение. Где заканчивается факт и начинается твоё представление?", "Maya"],
+["Гнев", "Энергия реакции на нарушение границ или ожиданий.", "Какую потребность или границу он показывает?", "Здесь есть сила. Сначала услышь, о чём говорит твой гнев.", "Krodha"],
+["Жадность", "Страх недостатка, стремление удержать больше необходимого.", "Где в моём запросе я действую из нехватки?", "Заметь желание удерживать. Что ты боишься потерять?", "Lobha"],
+["Физический план", "Тело, базовые условия и материальные факты.", "Какой практический факт я игнорирую?", "Вернись к земле под ногами. Что сейчас реально доступно твоему телу и твоим рукам?", "Bhu-loka"],
+["Заблуждение", "Привязанность к версии событий, которая закрывает обзор.", "За какую привычную историю я держусь?", "Ты вошёл в игру. Не спеши с ответом: чего ты пока не видишь?", "Moha"],
+["Гордыня", "Зависимость от образа себя и внешнего признания.", "Чью оценку я пытаюсь заслужить?", "Отложи образ, который нужно поддерживать. Кто ты здесь без него?", "Mada"],
+["Алчность", "Сравнение, завистливое присвоение чужого успеха как меры себя.", "О каком моём желании говорит сравнение?", "Чужой путь ничего не отнимает у твоего. Заметь, что в сравнении особенно задевает.", "Matsarya"],
+["Чувственный план", "Удовольствие, желания и импульсы чувств.", "Какое желание поддерживает мой путь, а какое отвлекает?", "Желание — часть жизни. Дай ему имя, прежде чем оно выберет за тебя.", "Kama-loka"],
+["Очищение", "Отказ от лишнего ради ясности.", "Какая привычка мешает мне слышать себя?", "Освобождается место для нового взгляда. Что пора мягко отпустить?", "Shuddhi"],
+["Развлечение", "Воображение, музыка, игра и переключение внимания.", "Что возвращает мне живость без бегства от важного?", "Пусть появится лёгкость. Посмотри, питает ли тебя это удовольствие.", "Gandharvas"],
+["Зависть", "Боль от сравнения своих обстоятельств с чужими.", "Чего я хочу для себя, если убрать чужую историю?", "Сравнение снова ведёт к алчности. Но за ним может стоять твоё собственное желание.", "Irshya"],
+["Пустота", "Пауза между прежним смыслом и ещё не найденным новым.", "Что я чувствую, когда не знаю ответа?", "Пустота не требует немедленного заполнения. Побудь рядом с тем, что пока не оформилось.", "Antariksha"],
+["Астральный план", "Образы, настроение и внутренние представления.", "Какая картина будущего влияет на мой выбор?", "Внутренние образы могут подсказать направление. Проверь, где образ касается реальности.", "Bhuvar-loka"],
+["План фантазии", "Возможности воображения и риск в них раствориться.", "Как перевести фантазию в проверяемое действие?", "Представь свободно. Затем спроси себя, какой первый шаг возможен наяву.", "Naga-loka"],
+["Ревность", "Тревога утраты близости, положения или внимания.", "Какое чувство я могу назвать без обвинения другого?", "Змея возвращает к страху нехватки. Что тебе хотелось бы попросить прямо?", "Dvesha"],
+["Милосердие", "Способность видеть чужую уязвимость, сохраняя собственные границы.", "Где в моём запросе есть место мягкости?", "Сочувствие расширяет пространство. Позволь себе видеть человека целиком.", "Daya"],
+["План радости", "Переживание радости как самостоятельного опыта.", "Что сегодня действительно радует меня?", "Заметь то, что уже приносит свет. Радость тоже может быть ориентиром.", "Harsha-loka"],
+["План действия", "Последствия поступков и способность действовать.", "Какой мой выбор повторяется?", "Здесь важны не обещания, а шаги. Что ты уже сделал и что готов сделать?", "Karma-loka"],
+["Благотворительность", "Свободный обмен и щедрость без принуждения.", "Чем я могу поделиться без самоистощения?", "Когда даёшь по свободному выбору, появляется равновесие.", "Dana"],
+["Искупление", "Признание последствий и возможность исправления.", "Что я могу восстановить на практике?", "Не нужно застревать в вине. Можно увидеть последствия и сделать шаг к исправлению.", "Saman Paap"],
+["План дхармы", "Согласование действий со своим глубоким ориентиром.", "Что для меня верно сейчас, даже если неудобно?", "Заметь, где твои поступки и ценности встречаются. Ясность приходит из этого согласия.", "Dharma-loka"],
+["Небесный план", "Пространство облегчения, награды и расширенного взгляда.", "Как сохранить опору, когда стало легче?", "Позволь себе принять передышку. Что стало видно с этой высоты?", "Swarga-loka"],
+["Плохая компания", "Влияние среды, где усиливаются чужие роли и тщеславие.", "Какие отношения отдаляют меня от собственных ценностей?", "Обрати внимание, в каком окружении тебе приходится играть чужую роль.", "Ku-sang-loka"],
+["Хорошая компания", "Поддерживающие отношения и качество среды.", "Где я нахожу честную поддержку?", "Вспомни людей, рядом с которыми можно быть собой.", "Su-sang-loka"],
+["Печаль", "Встреча с утратой и несбывшимся ожиданием.", "Что для меня действительно было важно в этой потере?", "Печали можно дать место. Не обязательно объяснять её слишком быстро.", "Duhkha"],
+["Бескорыстное служение", "Действие ради другого без стирания собственных границ.", "Как помогать, оставаясь в контакте с собой?", "Твоё действие может соединить тебя с людьми. Что ты делаешь от сердца?", "Parmartha"],
+["Собственная дхарма", "Свой путь, а не предписанная чужими роль.", "Какой выбор ощущается моим?", "Услышь свою меру. Верность ей требует времени и практики.", "Sudharma"],
+["Адхарма", "Уход от внутреннего ориентира и противоречие ценностям.", "Какой маленький честный шаг восстановит направление?", "Потеря ориентира возвращает в заблуждение. Где ты перестал себе верить?", "Adharma"],
+["Благие склонности", "Привычки, которые поддерживают развитие.", "Какая полезная привычка помогает моему запросу?", "Некоторые изменения уже стали частью тебя. Заметь их.", "Uttam Gati"],
+["План святости", "Уважение к жизни, ценностям и смыслу за пределами выгоды.", "Что я хотел бы защищать независимо от результата?", "Что в этом опыте кажется тебе достойным бережного отношения?", "Yaksha-loka"],
+["План равновесия", "Согласование потребностей, действия и отдыха.", "Где я нарушаю свою меру?", "Равновесие не требует неподвижности. Почувствуй, что сейчас нуждается в поддержке.", "Mahar-loka"],
+["План аромата", "Тонкое восприятие через чувство запаха.", "Какой слабый сигнал я давно игнорирую?", "Заметь нюанс, который обычно ускользает. Иногда тело замечает первым.", "Gandha-loka"],
+["План вкуса", "Способность различать качество переживания.", "Что я выбираю из привычки, а что из живого интереса?", "Прислушайся к вкусу этой истории. Что питает тебя по-настоящему?", "Rasa-loka"],
+["Чистилище", "Тяжёлое столкновение с последствиями без требования самоосуждения.", "Какой поддерживающий шаг доступен мне сейчас?", "Это трудное место. Сделай паузу и назови то, что происходит, простыми словами.", "Naraka-loka"],
+["Ясность сознания", "Способность наблюдать, не торопясь с выводом.", "Что я теперь вижу точнее?", "Становится немного яснее. Не спеши превращать ясность в оценку.", "Svaccha"],
+["Истинное знание", "Понимание, которое меняет отношение к жизни.", "Какое знание уже изменило мой выбор?", "Знание здесь проживается, а не только произносится. Что ты понял на собственном опыте?", "Jnana"],
+["План жизненной энергии", "Силы и условия, поддерживающие жизнь.", "Что восстанавливает мою энергию без насилия над собой?", "Заметь, где у тебя появляются силы. Где они утекают?", "Prana-loka"],
+["План выведения", "Освобождение от отжившего на телесном и символическом уровне.", "С чем мне пора спокойно расстаться?", "Не всё нужно удерживать. Что завершило свою работу?", "Apana-loka"],
+["План циркуляции", "Движение энергии и взаимосвязь частей целого.", "Где движение остановилось и что поможет ему восстановиться?", "Посмотри, как твои решения отзываются в разных сферах жизни.", "Vyana-loka"],
+["Человеческий план", "Зрелое участие в жизни людей.", "Как я проявляю себя рядом с людьми?", "Ты не один в своём опыте. Что связывает тебя с другими?", "Jana-loka"],
+["План огня", "Преобразующая энергия, интенсивность и ясное намерение.", "Куда стоит направить мой пыл?", "Огонь может согревать и может обжигать. Выбери, как обращаться с его силой.", "Agni-loka"],
+["Рождение человека", "Принятие человеческой ограниченности и свободы выбора.", "Какой выбор сейчас действительно мой?", "Здесь можно быть человеком: живым, несовершенным и способным выбирать.", "Manushya-janma"],
+["Неведение", "Недостаток ясности, который делает импульсы главными.", "Какой факт я могу проверить, прежде чем действовать?", "Неизвестное можно исследовать. Сначала заметь желание, которое заняло место ответа.", "Avidya"],
+["Верное знание", "Знание с различением и ответственным применением.", "Как применить то, что я понял, бережно к себе и другим?", "Когда понимание становится действием, горизонт расширяется.", "Suvidya"],
+["Различение", "Умение отличать существенное от шума.", "На что важно обратить внимание прямо сейчас?", "Отдели своё от чужого и главное от срочного. Простота может принести радость.", "Viveka"],
+["План нейтральности", "Наблюдение без немедленной реакции.", "Что я замечаю, когда не спешу реагировать?", "Между событием и ответом есть пространство. Побудь в нём.", "Saraswati"],
+["Солнечный план", "Активное, направленное качество энергии.", "В каком деле мне пора проявиться?", "Здесь есть импульс действовать. Как дать ему ясное направление?", "Yamuna"],
+["Лунный план", "Воспринимающее, восстанавливающее качество энергии.", "Где мне нужна пауза вместо усилия?", "Не всякое движение видно снаружи. Позволь себе услышать внутренний ритм.", "Ganga"],
+["План аскезы", "Сознательная дисциплина без самоистязания.", "Какое повторяемое действие служит моему пути?", "Выбери практику, которую сможешь поддерживать. Постоянство рождается из меры.", "Tapa-loka"],
+["Земля", "Конкретность, тело, быт и воплощение замысла.", "Что я могу сделать сегодня в материальном мире?", "Земля встречает тебя там, где ты стоишь. Назови один реальный следующий шаг.", "Prithvi"],
+["План насилия", "Причинение вреда себе или другому и необходимость увидеть последствия.", "Как я могу уменьшить ущерб в конкретной ситуации?", "Остановись. Где сейчас нужен отказ от вреда и поиск безопасного способа действовать?", "Himsa-loka"],
+["Водный план", "Текучесть и способность приспособиться, сохранив себя.", "Где мне полезнее гибкость, чем нажим?", "Позволь форме измениться, не теряя сути.", "Jala-loka"],
+["Духовная преданность", "Открытость чему-то большему, чем контроль и личная выгода.", "Какой смысл объединяет пройденное?", "Эта стрела ведёт к завершению. Что в твоём пути стало выражением любви и доверия?", "Bhakti-loka"],
+["Эгоизм", "Жёсткое отождествление с образом «я» и защита этого образа.", "Кто я вне своей роли?", "Когда образ себя под угрозой, поднимается гнев. Что ты защищаешь?", "Ahamkara"],
+["План первичных вибраций", "Звук и исходный ритм переживания.", "Какая внутренняя нота сопровождает мой запрос?", "Прислушайся к тишине между словами. Что в тебе звучит устойчиво?", "Omkara"],
+["Газовый план", "Воздух, дыхание и подвижность.", "Где мне не хватает свободы движения?", "Сделай спокойный вдох в своём темпе. Дай мыслям немного пространства.", "Vayu-loka"],
+["План излучения", "Проявление внутреннего света через присутствие и действие.", "Что я хочу привнести в пространство вокруг себя?", "Твоя ясность может быть видна другим. Как проявлять её без давления?", "Teja-loka"],
+["План реальности", "Отношение к истине и признание того, что есть.", "Какую правду я готов признать?", "Назови реальность так, как видишь её сейчас. Не украшай и не сгущай.", "Satya-loka"],
+["Позитивный интеллект", "Мышление, которое помогает видеть возможности и последствия.", "Какое решение поддерживает мои ценности?", "Ясный ум может служить жизни. На что направить его сегодня?", "Subuddhi"],
+["Негативный интеллект", "Ум, который обесценивает и отрывает от смысла.", "Какая мысль сейчас уменьшает мои возможности?", "Когда мысль ведёт в пустоту, проверь её основания. Что в ней факт, а что страх?", "Durbuddhi"],
+["Счастье", "Переживание благополучия в доступном моменте.", "Что уже сейчас делает мою жизнь живой?", "Заметь хорошее, не требуя, чтобы оно длилось вечно.", "Sukha"],
+["Тьма", "Инерция, оцепенение и потеря различения.", "Какой небольшой шаг помогает выйти из неподвижности?", "Змея возвращает к иллюзии. Не заставляй себя понимать всё сразу; начни с одного факта.", "Tamas"],
+["Феноменальный план", "Изменчивый мир явлений и форм.", "Что в моём запросе временно, а что глубже формы?", "Формы меняются. Посмотри, с чем ты слишком крепко отождествился.", "Prakriti-loka"],
+["План внутреннего пространства", "Вместимость внимания и внутренний простор.", "Как я могу беречь своё внутреннее пространство?", "Становится просторнее. Что появляется, когда не нужно заполнять всё ответами?", "Uranta-loka"],
+["План блаженства", "Глубокое переживание полноты, не равное постоянной эйфории.", "Что я замечаю, когда перестаю добиваться ощущения?", "Позволь этому мгновению быть достаточным. Не удерживай его силой.", "Ananda-loka"],
+["План космического блага", "Широкий взгляд за пределами личного исхода.", "Что станет благом не только для меня?", "Посмотри дальше собственной истории. Как твоё действие связано с большим целым?", "Rudra-loka"],
+["Космическое сознание", "Точка завершения игрового пути.", "Какой один вывод и какой посильный шаг я беру с собой?", "Ты пришёл к завершению. Сделай паузу. Что стало яснее о твоём вопросе?", "Vaikuntha-loka"],
+["Абсолютный план", "Предельное расширение перспективы, которое само по себе не завершает партию.", "Что я вижу иначе с этой точки?", "Даже здесь путь продолжается. Важен не титул высоты, а прожитый опыт.", "Brahma-loka"],
+["Истинная природа", "Ясное, уравновешенное качество природы.", "Как ясность проявляется в моём конкретном выборе?", "Прислушайся к ясности без спешки объявить путь оконченным.", "Sattvaguna"],
+["Активность", "Энергия движения, стремлений и изменений.", "Что движет мной: смысл или тревога остановиться?", "Движение продолжается. Куда ведёт твоя активность?", "Rajoguna"],
+["Инерция", "Остановка даже на высоте; возврат к материальному основанию.", "Как я перенесу понимание в повседневность?", "Поле возвращает тебя к Земле. Воплоти увиденное в одном земном действии.", "Tamoguna"]
 ];
 let C=C_RU;
-const ARROWS={10:23,22:32,24:42,39:51,45:67,54:68};
-const SNAKES={12:8,29:13,31:16,44:9,69:51,72:21};
+const ARROWS={"10": 23, "17": 69, "20": 32, "22": 60, "27": 41, "28": 50, "37": 66, "45": 67, "46": 62, "54": 68};
+const LINKS_RU={"10-23": "Очищение привычек открывает иной обзор опыта.", "17-69": "Милосердие расширяет ощущение связи с целым.", "20-32": "Щедрость без самоистощения возвращает равновесие.", "22-60": "Следование своей дхарме поддерживает ясное мышление.", "27-41": "Служение соединяет с человеческим опытом.", "28-50": "Верность собственному пути требует дисциплины.", "37-66": "Знание переживается как внутреннее блаженство.", "45-67": "Верное знание открывает более широкий горизонт блага.", "46-62": "Различение помогает почувствовать счастье.", "54-68": "Преданность ведёт прямо к завершению игры.", "12-8": "Зависть возвращает к сравнению и алчности.", "16-4": "Ревность указывает на страх нехватки.", "24-7": "Среда, в которой человек теряет себя, подпитывает тщеславие.", "29-6": "Отказ от внутреннего ориентира возвращает к заблуждению.", "44-9": "Неведение сбивает к импульсам чувств.", "52-35": "Насилие приводит к переживанию последствий.", "55-3": "Эгоизм может раскрыться как гнев.", "61-13": "Негативный интеллект опустошает смысл.", "63-2": "Инерция затягивает в иллюзию.", "72-51": "На вершине инерция возвращает к земле и конкретной жизни."},LINKS_EN={"10-23": "Purifying habits opens a different view of experience.", "17-69": "Mercy widens the sense of connection with the whole.", "20-32": "Generosity without self-depletion restores balance.", "22-60": "Following your dharma supports clear thinking.", "27-41": "Service connects you with human experience.", "28-50": "Being true to your own path requires discipline.", "37-66": "Knowledge is lived as inner bliss.", "45-67": "Right knowledge opens a wider horizon of good.", "46-62": "Discernment helps you feel happiness.", "54-68": "Devotion leads straight to the end of the game.", "12-8": "Envy leads back to comparison and avarice.", "16-4": "Jealousy points to the fear of lack.", "24-7": "Surroundings where you lose yourself feed vanity.", "29-6": "Abandoning your inner compass leads back to delusion.", "44-9": "Ignorance knocks you down to the impulses of the senses.", "52-35": "Violence leads to living through the consequences.", "55-3": "Egoism can reveal itself as anger.", "61-13": "Negative intellect empties meaning.", "63-2": "Inertia pulls you into illusion.", "72-51": "At the top, inertia returns you to the earth and to concrete life."};
+const SNAKES={"12": 8, "16": 4, "24": 7, "29": 6, "44": 9, "52": 35, "55": 3, "61": 13, "63": 2, "72": 51};
 
 const GOAL=68, GATE_MOVE=3, REWARD_EVERY=3;
 const PLANES_RU=["Муладхара · план основания","Свадхистхана · план желания","Манипура · план воли","Анахата · план сердца","Вишудха · план голоса","Аджна · план видения","Сахасрара · план единства","План Абсолюта"];
@@ -1308,7 +1310,7 @@ const SITE="https://shiva-shakti.app";
 const TR={а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"y",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"c",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya"};
 function makeCode(name){const base=(name||"").toLowerCase().split("").map(c=>TR[c]!==undefined?TR[c]:c).join("").replace(/[^a-z0-9]/g,"").slice(0,8)||"friend";return (base+"-"+Math.random().toString(36).slice(2,6)).toUpperCase();}
 const refLink=()=>BOT?`https://t.me/${BOT}${TG_APP?"/"+TG_APP:""}?startapp=${S.refCode}`:`${/^https?:/.test(location.protocol)&&!/claude|localhost/.test(location.host)?location.origin+location.pathname:SITE+"/"}?ref=${S.refCode}`;
-function defaultMsg(){const n=(S.user&&S.user.name)||S.name||"";return L(`Привет!${n?" Это "+n+".":""} Я прохожу «Слияние Шивы и Шакти» — игру о любви и отношениях: задаёшь свой вопрос, бросаешь кубик и по 72 клеткам находишь ответы внутри себя. Мне откликнулось — попробуй и ты, первая игра бесплатно 🤍`,`Hi!${n?" It's "+n+".":""} I'm playing “Union of Shiva & Shakti” — a game about love and relationships: you ask your question, roll the die and find the answers within yourself across 72 cells. It really resonated with me — try it too, your first game is free 🤍`);}
+function defaultMsg(){const n=(S.user&&S.user.name)||S.name||"";return L(`Привет!${n?" Это "+n+".":""} Я прохожу «Лилу» — игру о любви и отношениях: задаёшь свой вопрос, бросаешь кубик и по 72 клеткам находишь ответы внутри себя. Мне откликнулось — попробуй и ты, первая игра бесплатно 🤍`,`Hi!${n?" It's "+n+".":""} I'm playing “Leela” — a game about love and relationships: you ask your question, roll the die and find the answers within yourself across 72 cells. It really resonated with me — try it too, your first game is free 🤍`);}
 function fullMsg(){return (S.inviteMsg||defaultMsg()).trim()+"\n\n"+refLink();}
 const tgShare=()=>"https://t.me/share/url?url="+encodeURIComponent(refLink())+"&text="+encodeURIComponent((S.inviteMsg||defaultMsg()).trim());
 
@@ -1388,9 +1390,11 @@ function cellCardHTML(n,jump,extra){
   const c=C[n];let j="";
   if(jump&&jump.type==="arrow")j=`<div class="tagline arrow">↑ ${L("Стрела","Arrow")}: ${jump.from} → ${jump.to}</div>`;
   if(jump&&jump.type==="snake")j=`<div class="tagline snake">↓ ${L("Змея","Snake")}: ${jump.from} → ${jump.to}</div>`;
+  if(jump&&(jump.type==="arrow"||jump.type==="snake")){const lk=(LANG==="en"?LINKS_EN:LINKS_RU)[jump.from+"-"+jump.to];if(lk)j+=`<p class="muted" style="margin:-4px 0 10px">${L("Ты встала на клетку","You landed on cell")} ${jump.from} «${esc(C[jump.from][0])}». ${esc(lk)}</p>`;}
   return `${extra||""}${j}<div class="head"><div class="badge">${n}</div><div><div class="lvl">${esc(planeOf(n))}</div><h3>${L("Клетка №","Cell ")}${n} — ${esc(c[0])}</h3></div></div>
   ${audioHTML(L("Голос проводника · клетка ","Guide's voice · cell ")+n,dur(n),n)}
   <p>${esc(c[1])}</p>
+  ${c[3]?`<div class="guideq">«${esc(c[3])}»</div>`:""}
   <div class="qbox"><div class="t">${L("Вопрос для осознания","Question for reflection")}</div><div class="q">${esc(c[2])}</div>${answerBlock(n,extra)}</div>`;
 }
 function answerBlock(n,extra){
@@ -2118,7 +2122,7 @@ function applyLang(){
   LEVELS.forEach((l,i)=>Object.assign(l,en?LEVELS_EN[i]:LEVELS_RU[i]));
   DAILY.forEach(t=>t.t=en?DAILY_EN[t.id]:t._ru);BIG.forEach(t=>t.t=en?BIG_EN[t.id]:t._ru);ACH.forEach((a,i)=>a.t=en?ACH_EN[i]:a._ru);
   ["game","astro"].forEach(k=>Object.assign(PLANS[k],en?PLANS_EN[k]:PLANS_RU[k]));
-  document.documentElement.lang=LANG;document.title=en?"Union of Shiva & Shakti":"Слияние Шивы и Шакти";
+  document.documentElement.lang=LANG;document.title=en?"Leela":"Лила";
   document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===LANG));
   applyStatic();
 }
