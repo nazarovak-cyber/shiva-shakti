@@ -847,6 +847,9 @@ body.locked .app,body.locked .tabbar{display:none!important}
 <script>
 (function(){
 "use strict";
+/* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
+const BUILD="20260928a";
+try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
 const TG=(window.Telegram&&window.Telegram.WebApp&&window.Telegram.WebApp.initData)?window.Telegram.WebApp:null;
