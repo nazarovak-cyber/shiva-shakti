@@ -1323,12 +1323,17 @@ const tgShare=()=>"https://t.me/share/url?url="+encodeURIComponent(refLink())+"&
 let active=null;
 /* temporary: one track for every voice recording */
 const TRACK=19;
-const player=new Audio("ElevenLabs_Untitled_project.mp3");player.preload="metadata";
+const DEMO_SRC="ElevenLabs_Untitled_project.mp3";
+/* recorded guide voice per cell: [file, seconds] */
+const CELL_AUDIO={1:["____________1__________.mp3",43],2:["____________2__________.mp3",51],3:["____________3__________.mp3",51],4:["____________4__________.mp3",55],5:["____________5__________.mp3",51]};
+const player=new Audio(DEMO_SRC);player.preload="metadata";
+function trackOf(cell){const a=LANG!=="en"&&CELL_AUDIO[cell];return a?{src:a[0],dur:a[1]}:{src:DEMO_SRC,dur:TRACK};}
+function useSrc(el){const src=trackOf(+el.dataset.cell||0).src;if(player.dataset.src!==src){player.src=src;player.dataset.src=src;try{player.load();}catch(e){}}}
 const playIcon='<svg width="13" height="15" viewBox="0 0 14 16"><path d="M1 1l12 7-12 7z" fill="currentColor"/></svg>';
 const pauseIcon='<svg width="13" height="15" viewBox="0 0 14 16"><path d="M2 1h3v14H2zM9 1h3v14H9z" fill="currentColor"/></svg>';
 const SPEEDS=[1,1.25,1.5,2];
 function speedsHTML(){const cur=S.speed||1;return `<div class="speeds" role="group" aria-label="${L("Скорость голоса","Voice speed")}"><span>${L("Скорость","Speed")}</span>${SPEEDS.map(v=>`<button type="button" data-speed="${v}" aria-pressed="${v===cur}">${LANG==="en"?String(v):String(v).replace(".",",")}×</button>`).join("")}</div>`;}
-function audioHTML(label,secs,cell){return `<div class="aud-wrap"><div class="audio" data-dur="${TRACK}" data-t="0"${cell?` data-cell="${cell}"`:""}><button class="play" type="button" aria-label="${L("Слушать","Listen")}: ${esc(label)}">${playIcon}</button><div class="meta"><div class="rw"><b>${esc(label)}</b><span class="tm">0:00 / ${fmt(TRACK)}</span></div><div class="bar"><i></i></div></div><div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>${speedsHTML()}</div>`;}
+function audioHTML(label,secs,cell){const D=trackOf(cell).dur;return `<div class="aud-wrap"><div class="audio" data-dur="${D}" data-t="0"${cell?` data-cell="${cell}"`:""}><button class="play" type="button" aria-label="${L("Слушать","Listen")}: ${esc(label)}">${playIcon}</button><div class="meta"><div class="rw"><b>${esc(label)}</b><span class="tm">0:00 / ${fmt(D)}</span></div><div class="bar"><i></i></div></div><div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>${speedsHTML()}</div>`;}
 function applySpeed(){const v=S.speed||1;player.playbackRate=v;player.defaultPlaybackRate=v;try{player.preservesPitch=true;}catch(e){}}
 function stopAudio(){if(!active)return;try{player.pause();}catch(e){}active.el.dataset.t=player.currentTime||active.el.dataset.t;active.el.classList.remove("on");const p=active.el.querySelector(".play");if(p)p.innerHTML=playIcon;active=null;syncTop();}
 function paint(el){const d=+el.dataset.dur,t=+el.dataset.t;el.querySelector(".bar i").style.width=Math.min(100,t/d*100)+"%";el.querySelector(".tm").textContent=fmt(t)+" / "+fmt(d);if(el===mainAudio())syncTop();}
@@ -1342,6 +1347,7 @@ function startAudio(el){
   const b=el.querySelector(".play");el.classList.add("on");b.innerHTML=pauseIcon;
   let t=+el.dataset.t||0;if(t>=(+el.dataset.dur)-.5)t=0;
   try{player.currentTime=t;}catch(e){}
+  useSrc(el);try{player.currentTime=t;}catch(e){}
   active={el};syncTop();applySpeed();
   const p=player.play();
   if(p&&p.catch)p.catch(()=>{if(active&&active.el===el){el.classList.remove("on");b.innerHTML=playIcon;active=null;syncTop();}toast(L("Нажми ▶, чтобы включить голос","Tap ▶ to play the voice"));});
