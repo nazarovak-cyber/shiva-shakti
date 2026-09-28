@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Лила — трансформационная игра о любви и союзе. Демо-версия.">
+<meta name="description" content="Лила — трансформационная игра о любви и союзе. Бесплатно.">
 <meta property="og:title" content="Лила">
 <meta property="og:description" content="Трансформационная игра о любви и союзе: 72 клетки, кубик и голос проводника.">
 <meta property="og:image" content="art.jpg">
@@ -594,7 +594,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
         <div class="path" id="path" style="margin-top:10px"></div>
       </div>
       <div class="glass card qpill" style="padding:12px 16px"><div class="t" id="qType">Вопрос</div><div class="q" id="qShow"></div></div>
-      <div class="row-between">
+      <div class="row-between" hidden>
         <button class="link" type="button" id="skipBtn">Демо: перейти к финалу</button>
         <button class="link" type="button" id="resetBtn">Начать заново</button>
       </div>
@@ -715,7 +715,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
     <div class="glass card">
       <div class="row-between" style="margin-bottom:10px"><h2 class="h-serif sec-title" style="margin:0">Мои друзья</h2><span class="muted" id="friendsCount"></span></div>
       <ul class="friends" id="friends"></ul>
-      <button class="link" type="button" id="simFriend" style="margin-top:8px">Демо: друг зарегистрировался</button>
+      <button class="link" type="button" id="simFriend" hidden style="margin-top:8px">Демо: друг зарегистрировался</button>
     </div>
 
     <div class="glass card">
@@ -730,7 +730,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
       <h2 class="h-serif sec-title">Дневник осознаний</h2>
       <ul class="journal" id="journal"></ul>
     </div>
-    <div class="row-between"><button class="link" type="button" id="wipeBtn">Начать демо заново</button><span class="muted">Демо-версия</span></div>
+    <div class="row-between" hidden><button class="link" type="button" id="wipeBtn">Начать демо заново</button><span class="muted">Демо-версия</span></div>
   </section>
 </div>
 
@@ -757,7 +757,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
     </div>
     <div id="gateWait" class="muted" style="margin-top:12px" hidden>Ждём, когда друг откроет ссылку…</div>
     <div class="row-between" style="margin-top:10px">
-      <button class="link" type="button" id="gateSim">Демо: друг зарегистрировался</button>
+      <button class="link" type="button" id="gateSim" hidden>Демо: друг зарегистрировался</button>
       <button class="link" type="button" data-close>Позже</button>
     </div>
   </div>
@@ -828,7 +828,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 /* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
-const BUILD="20260929f";
+const BUILD="20260929g";
 try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
@@ -2015,7 +2015,7 @@ function renderProfile(){
   $("#myName").value=S.name||"";
   const u=S.user||{};
   const bdt=u.birthDate?new Date(u.birthDate+"T12:00").toLocaleDateString(LANG==="en"?"en-GB":"ru-RU",{day:"numeric",month:"long",year:"numeric"}):"";
-  $("#myEmail").textContent=(u.tgId?("Telegram"+(u.tg?" · @"+u.tg:"")+(S.invitedName?" · "+L("пригласил(а): ","invited by: ")+S.invitedName:"")):u.demo?L("Демо-аккаунт","Demo account"):(u.email||""))+(bdt?` · ${L("дата рождения","born")}: ${bdt}${u.birthTime?", "+u.birthTime:u.noTime?L(", время неизвестно",", time unknown"):""}`:"");
+  $("#myEmail").textContent=(u.tgId?("Telegram"+(u.tg?" · @"+u.tg:"")+(S.invitedName?" · "+L("пригласил(а): ","invited by: ")+S.invitedName:"")):u.demo?"":(u.email||""))+(bdt?` · ${L("дата рождения","born")}: ${bdt}${u.birthTime?", "+u.birthTime:u.noTime?L(", время неизвестно",", time unknown"):""}`:"");
   $("#myId").innerHTML=`${L("Мой код","My code")}: <span class="codechip">${esc(S.refCode)}</span>`+(u.demo?"":` · <button class="link" type="button" id="logoutBtn" style="padding:0">${L("Выйти","Log out")}</button>`);
   $("#myCode").textContent=S.refCode;
   if(document.activeElement!==$("#inviteMsg"))$("#inviteMsg").value=S.inviteMsg||defaultMsg();
