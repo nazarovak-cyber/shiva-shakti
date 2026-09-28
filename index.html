@@ -155,7 +155,7 @@ button.chip[aria-pressed="true"]{background:var(--btn);color:#fff;border-color:v
 .intent{text-align:center}
 .intent h2{font-size:clamp(28px,7vw,36px);margin:6px 0}
 .intent p{color:var(--ink2);margin:0 0 14px}
-.intent .chips{justify-content:center}
+.intent .chips{justify-content:center}#vIntent h2{font-size:clamp(22px,6.2vw,30px);line-height:1.15}.intent-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 6px}.intent-btn{font:inherit;font-weight:700;font-size:14px;padding:12px 8px;border-radius:12px;border:1.5px solid rgba(133,147,187,.55);background:rgba(255,255,255,.55);color:var(--ink);cursor:pointer;transition:background .2s,border-color .2s,transform .15s}.intent-btn.wide{grid-column:1/-1}.intent-btn:active{transform:scale(.97)}.intent-btn[aria-pressed="true"]{background:linear-gradient(135deg,#8a97c4,#6f7db0);border-color:#6f7db0;color:#fff;box-shadow:0 4px 14px rgba(111,125,176,.35)}
 .intent label{display:block;text-align:left;margin-top:16px;font-size:13px;color:var(--soft)}
 .intent textarea{width:100%;min-height:100px;margin-top:6px;background:rgba(255,255,255,.85);border:1px solid rgba(133,147,187,.6);border-radius:10px;color:var(--ink);font:inherit;font-size:16px;padding:12px;resize:vertical}
 .err{color:#a23b3b;font-size:13px;min-height:1.2em;margin-top:6px;text-align:left}
@@ -555,7 +555,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
     <div class="glass card">
       <h2 class="h-serif sec-title">С чем приходят</h2>
       <div class="chips">
-        <span class="chip">Уйти или остаться</span><span class="chip">Почему я одна</span><span class="chip">Ревность</span><span class="chip">Остыли чувства</span><span class="chip">Отпустить после расставания</span><span class="chip">Женская энергия</span><span class="chip">Доверие</span><span class="chip">Любовь к себе</span>
+        <span class="chip">Отношения и близость</span><span class="chip">Предназначение</span><span class="chip">Трудный выбор</span><span class="chip">Тревога и внутреннее состояние</span><span class="chip">Отпустить прошлое</span><span class="chip">Любовь к себе</span><span class="chip">Деньги и реализация</span><span class="chip">Доверие к жизни</span>
       </div>
     </div>
   </section>
@@ -564,11 +564,11 @@ body.locked .app,body.locked .tabbar{display:none!important}
   <section id="tGame" hidden>
     <div id="vIntent" class="glass card intent" hidden>
       <div class="eyebrow">Вход в игру</div>
-      <h2 class="h-serif">О чём твоя игра?</h2>
-      <p>Выбери тему и сформулируй вопрос своими словами. Чем честнее вопрос, тем точнее игра.</p>
-      <div class="chips" id="intentChips" role="group" aria-label="Тема запроса"></div>
+      <h2 class="h-serif">С каким запросом ты хочешь сегодня войти в игру?</h2>
+      <p>Выбери тему и сформулируй вопрос своими словами. Лила не даёт готовых ответов — она помогает увидеть то, что уже есть внутри.</p>
+      <div class="intent-grid" id="intentChips" role="group" aria-label="Тема запроса"></div>
       <label for="qText">Твой вопрос</label>
-      <textarea id="qText" maxlength="240" placeholder="Например: почему мне страшно подпускать мужчину близко?"></textarea>
+      <textarea id="qText" maxlength="240" placeholder="Сформулируй свой вопрос своими словами"></textarea>
       <div class="err" id="qErr"></div>
       <button class="btn btn-brown btn-block" type="button" id="startBtn" style="margin-top:8px">Войти в игру</button>
     </div>
@@ -840,7 +840,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 /* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
-const BUILD="20260929h";
+const BUILD="20260929i";
 try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
@@ -1077,7 +1077,17 @@ const DICT={
 "Скопировать ссылку":"Copy the link",
 "Твоё послание":"Your message",
 "Отправь приглашение в Telegram. Каждый, кто придёт по твоей ссылке, появится ниже и принесёт тебе +30 рудракш.":"Send an invitation in Telegram. Everyone who comes via your link will appear below and bring you +30 rudraksha.",
-"Вернуть текст по умолчанию":"Restore the default text"
+"Вернуть текст по умолчанию":"Restore the default text",
+"С каким запросом ты хочешь сегодня войти в игру?":"What request do you want to bring into the game today?",
+"Выбери тему и сформулируй вопрос своими словами. Лила не даёт готовых ответов — она помогает увидеть то, что уже есть внутри.":"Choose a topic and put your question in your own words. Leela doesn't give ready-made answers — it helps you see what's already inside.",
+"Отношения и близость":"Relationships and closeness",
+"Предназначение":"Purpose",
+"Трудный выбор":"A hard choice",
+"Тревога и внутреннее состояние":"Anxiety and inner state",
+"Отпустить прошлое":"Letting go of the past",
+"Деньги и реализация":"Money and fulfilment",
+"Доверие к жизни":"Trust in life",
+"Сформулируй свой вопрос своими словами":"Put your question in your own words"
 };
 
 const C_EN=[null,
@@ -1155,7 +1165,9 @@ const C_EN=[null,
 ["Tamoguna", "Stopping even at the height; a return to the material foundation.", "How will I carry this understanding into everyday life?", "The board returns you to Earth. Embody what you've seen in one earthly action.", "Tamoguna"]
 ];
 const PLANES_EN=["Muladhara · plane of foundation","Svadhisthana · plane of desire","Manipura · plane of will","Anahata · plane of the heart","Vishuddha · plane of voice","Ajna · plane of vision","Sahasrara · plane of unity","Plane of the Absolute"];
-const INTENTS_EN=[["rel","Relationships"],["self","Self-love"],["choice","A choice"],["state","My state"],["free","My own question"]];
+const INTENTS_EN=[["rel","💞 Relationships"],["purpose","🧭 Purpose"],["choice","🤔 A choice"],["state","🌿 My state"],["free","💭 Free question"]];
+const INTENT_HINT={rel:["Например: что мешает мне построить близкие и тёплые отношения?","For example: what keeps me from building close, warm relationships?"],purpose:["Например: в чём сейчас моё предназначение и куда направить силы?","For example: what is my purpose right now and where should I put my energy?"],choice:["Например: остаться на прежнем месте или решиться на перемены?","For example: should I stay where I am or dare to change?"],state:["Например: откуда моя тревога и что поможет мне обрести спокойствие?","For example: where does my anxiety come from and what will help me find calm?"],free:["Сформулируй свой вопрос своими словами","Put your question in your own words"]};
+function intentHint(k){const h=INTENT_HINT[k]||INTENT_HINT.free;return LANG==="en"?h[1]:h[0];}
 const ENTRY_FAIL_EN=["You rolled {d}. To enter the game you need a six.\nYou're not on the board yet — keep rolling.","You rolled {d}. Remember, we need a 6?\nYou are in the space of preparation. That's okay.","You rolled {d}. The game begins when the right moment comes.\nBreathe and roll again."];
 const FRIEND_NAMES_EN=[["Maria","f"],["Alex","m"],["Olivia","f"],["Daniel","m"],["Kate","f"],["Andrew","m"],["Sophie","f"],["Michael","m"],["Emma","f"],["Max","m"],["Julia","f"],["Sam","m"]];
 const LEVELS_EN=[
@@ -1256,7 +1268,7 @@ const SNAKES={"12": 8, "16": 4, "24": 7, "29": 6, "44": 9, "52": 35, "55": 3, "6
 
 const GOAL=68, GATE_MOVE=3, REWARD_EVERY=3;
 const PLANES_RU=["Муладхара · план основания","Свадхистхана · план желания","Манипура · план воли","Анахата · план сердца","Вишудха · план голоса","Аджна · план видения","Сахасрара · план единства","План Абсолюта"];
-const INTENTS_RU=[["rel","Отношения"],["self","Любовь к себе"],["choice","Выбор"],["state","Моё состояние"],["free","Свой вопрос"]];
+const INTENTS_RU=[["rel","💞 Отношения"],["purpose","🧭 Предназначение"],["choice","🤔 Выбор"],["state","🌿 Состояние"],["free","💭 Свободный вопрос"]];
 const ENTRY_FAIL_RU=["Выпало {d}. Чтобы войти в игру, нужна шестёрка.\nПока ты ещё не на поле — продолжай бросать.","Выпало {d}. Помнишь, нам нужна 6?\nТы в пространстве подготовки. Это нормально.","Выпало {d}. Игра начинается тогда, когда приходит нужный момент.\nПодыши и брось снова."];
 const FRIEND_NAMES_RU=[["Марина","f"],["Алексей","m"],["Ольга","f"],["Дмитрий","m"],["Катя","f"],["Андрей","m"],["Света","f"],["Игорь","m"],["Лена","f"],["Максим","m"],["Юля","f"],["Сергей","m"]];
 
@@ -1746,8 +1758,8 @@ function renderGame(){
   $("#vPlay").hidden=g.view!=="play";
   $("#vFinal").hidden=g.view!=="final";
   if(g.view==="intent"){
-    $("#intentChips").innerHTML=INTENTS.map(([k,l])=>`<button class="chip" type="button" data-intent="${k}" aria-pressed="${g.intent===k}">${l}</button>`).join("");
-    $("#qText").value=g.question||"";$("#qErr").textContent="";
+    $("#intentChips").innerHTML=INTENTS.map(([k,l])=>`<button class="intent-btn${k==="free"?" wide":""}" type="button" data-intent="${k}" aria-pressed="${g.intent===k}">${l}</button>`).join("");
+    $("#qText").value=g.question||"";$("#qText").placeholder=intentHint(g.intent);$("#qErr").textContent="";
   }
   if(g.view==="entry")renderEntry();
   if(g.view==="play")renderPlay();
@@ -2101,7 +2113,7 @@ document.addEventListener("click",e=>{
   const go=t.closest("[data-go]");if(go){setTab(go.dataset.go);return;}
   const c=t.closest(".cell");if(c&&!rolling){previewCell(+c.dataset.n);return;}
   if(t.closest("#backToCur")){const g=G(),last=g.history[g.history.length-1];$("#cellCard").innerHTML=cellCardHTML(g.pos,last&&last.jump);return;}
-  const ic=t.closest("[data-intent]");if(ic){G().intent=ic.dataset.intent;save();document.querySelectorAll("[data-intent]").forEach(b=>b.setAttribute("aria-pressed",b===ic));return;}
+  const ic=t.closest("[data-intent]");if(ic){G().intent=ic.dataset.intent;save();document.querySelectorAll("[data-intent]").forEach(b=>b.setAttribute("aria-pressed",b===ic));$("#qText").placeholder=intentHint(ic.dataset.intent);$("#qText").focus({preventScroll:true});return;}
   if(t.closest("[data-close]")||t.classList.contains("modal")){closeModals();return;}
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModals();});
