@@ -840,7 +840,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 /* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
-const BUILD="20260929o";
+const BUILD="20260929p";
 try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
@@ -1918,8 +1918,9 @@ $("#buyForm").addEventListener("submit",e=>{
 });
 
 /* ---------- answers ---------- */
+function unlockRoll(){rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;renderRoller();}
 async function goArrow(){
-  const g=G(),to=g.pendingArrow;if(!to||rolling)return;rolling=true;
+  const g=G(),to=g.pendingArrow;if(!to||rolling)return;rolling=true;$("#rollBtn").disabled=true;$("#rollBtn2").disabled=true;
   const from=g.pos;stopAudio();closeCard();await sleep(900);
   placeToken(to,true);haptic("medium");await sleep(1000);
   const tp=g.pendingType==="snake"?"snake":"arrow",jump={type:tp,from,to,pre:true};
@@ -1927,9 +1928,9 @@ async function goArrow(){
   g.prevAnsCell=to;g.prevAns=(g.answers&&g.answers[to])||"";g.pos=to;g.history.push({n:to,d:0,jump});if(to!==GOAL){g.needAnswer=to;g.draft="";}save();
   markVisited();renderPath();$("#cellCard").innerHTML=cellCardHTML(to,jump);
   $("#status").innerHTML=tp==="snake"?L(`Змея вернула тебя на клетку ${to}. Запиши ответ, если хочешь, — и продолжай игру.`,`The snake took you back to cell ${to}. Write an answer if you like — and continue.`):L(`Стрела подняла тебя на клетку ${to}. Запиши ответ, если хочешь, — и продолжай игру.`,`The arrow lifted you to cell ${to}. Write an answer if you like — and continue.`);
-  rolling=false;renderRoller();if(tp==="snake")addPoints(3,L("урок змеи","snake lesson"));else addPoints(5,L("подъём по стреле","arrow climb"));
-  if(to===GOAL){await sleep(1300);finishGame();return;}
-  landToken(to);await sleep(1200);await openCard(true);
+  if(tp==="snake")addPoints(3,L("урок змеи","snake lesson"));else addPoints(5,L("подъём по стреле","arrow climb"));
+  if(to===GOAL){await sleep(1300);unlockRoll();finishGame();return;}
+  try{landToken(to);await sleep(1200);await openCard(true);}finally{unlockRoll();}
 }
 document.addEventListener("click",e=>{if(e.target.closest("#arrowGo"))goArrow();});
 async function askAnswer(){
@@ -1991,7 +1992,7 @@ async function roll(){
       renderGame();window.scrollTo({top:0});
       const vp=$("#vPlay");vp.classList.remove("reveal");void vp.offsetWidth;vp.classList.add("reveal");
       $("#status").innerHTML=L("Ты входишь в игру — клетка 1, «Рождение».\nЗапиши ответ, если хочешь, — и бросай снова.","You enter the game — cell 1, “Birth”.\nWrite an answer if you like — then roll again.");renderRoller();
-      rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;await sleep(1400);if(G().view==="play"){landToken(1);await sleep(1100);openCard(true);}return;
+      try{await sleep(1400);if(G().view==="play"){landToken(1);await sleep(1100);await openCard(true);}}finally{unlockRoll();}return;
     }
     rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;return;
   }
@@ -2004,8 +2005,8 @@ async function roll(){
     g.pendingArrow=ARROWS[target]||SNAKES[target];g.pendingType=ARROWS[target]?"arrow":"snake";g.prevAnsCell=target;g.prevAns="";g.pos=target;g.playMoves++;g.history.push({n:target,d});g.needAnswer=0;save();
     markVisited();renderPath();$("#cellCard").innerHTML=cellCardHTML(target,null);
     $("#status").innerHTML=(g.pendingType==="snake"?L(`Выпало <b>${d}</b>. Ты на клетке ${target} — здесь начинается змея. Послушай проводника.`,`You rolled <b>${d}</b>. You're on cell ${target} — a snake starts here. Listen to the guide.`):L(`Выпало <b>${d}</b>. Ты на клетке ${target} — здесь начинается стрела. Послушай проводника и поднимайся.`,`You rolled <b>${d}</b>. You're on cell ${target} — an arrow starts here. Listen to the guide and climb.`));
-    rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;renderRoller();
-    landToken(target);await sleep(1200);await openCard(true);return;
+    renderRoller();
+    try{landToken(target);await sleep(1200);await openCard(true);}finally{unlockRoll();}return;
   }
   let jump=null,fin=target;
   if(ARROWS[target]){jump={type:"arrow",from:target,to:ARROWS[target]};fin=ARROWS[target];g.arrows++;S.stats.arrows++;}
@@ -2020,10 +2021,10 @@ async function roll(){
   if(jump)st+=jump.type==="arrow"?L(" <b>+5 рудракш</b>"," <b>+5 rudraksha</b>"):L(" <b>+3 рудракши</b> за урок"," <b>+3 rudraksha</b> for the lesson");
   $("#status").innerHTML=st;
   if(jump){S.points+=jump.type==="arrow"?5:3;const L0=levelOf(S.points-(jump.type==="arrow"?5:3)),L1=levelOf(S.points);save();if(L1.n>L0.n)setTimeout(()=>showLevelUp(L1),600);}
-  rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;renderRoller();
-  if(fin===GOAL){await sleep(1300);finishGame();return;}
-  landToken(fin);await sleep(1200);
-  await openCard(true);
+  renderRoller();
+  if(fin===GOAL){await sleep(1300);unlockRoll();finishGame();return;}
+  try{landToken(fin);await sleep(1200);
+  await openCard(true);}finally{unlockRoll();}
 }
 function finishGame(){
   const g=G();g.view="final";
