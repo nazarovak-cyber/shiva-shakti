@@ -840,7 +840,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 /* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
-const BUILD="20260929l";
+const BUILD="20260929m";
 try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
@@ -1280,7 +1280,9 @@ function rc(n){const rb=Math.floor((n-1)/9),p=(n-1)%9;return {row:7-rb,col:rb%2=
 const planeOf=n=>PLANES[Math.floor((n-1)/9)];
 const dur=n=>85+((n*37)%120);
 const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
-function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,3200);}
+/* only essential hints are shown; reward/progress pop-ups are switched off */
+const TOAST_KEEP=["Напиши хотя бы пару слов","Write at least","Сначала поднимись","Climb the arrow","Сначала спустись","Go down the snake","Ссылка скопирована","Link copied","Выдели","Select the","Секунду","Нажми ▶","Tap ▶","Не получилось сохранить"];
+function toast(t){if(!TOAST_KEEP.some(k=>String(t).includes(k)))return;const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,3200);}
 function today(){return new Date().toLocaleDateString(LANG==="en"?"en-GB":"ru-RU",{day:"numeric",month:"long"});}
 
 /* ---------- state ---------- */
