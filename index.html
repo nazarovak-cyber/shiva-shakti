@@ -163,7 +163,7 @@ button.chip[aria-pressed="true"]{background:var(--btn);color:#fff;border-color:v
 .cell-card.flash{animation:flash 1.2s ease}
 @keyframes flash{0%{box-shadow:0 0 0 0 rgba(201,131,152,.6),var(--glass-sh)}40%{box-shadow:0 0 0 6px rgba(201,131,152,.35),var(--glass-sh)}100%{box-shadow:var(--glass-sh)}}
 .answer{margin-top:14px;background:rgba(255,255,255,.85);border:1px solid #e9c4cf;border-radius:14px;padding:12px;box-shadow:0 0 0 3px rgba(201,131,152,.15)}
-.answer label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8f4b62;font-weight:800;margin-bottom:6px}
+.answer-opt{box-shadow:none}.ans-actions{display:grid;gap:8px}#ansForm:not([hidden])+.ans-actions{margin-top:10px}.answer label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8f4b62;font-weight:800;margin-bottom:6px}
 .answer textarea{width:100%;min-height:92px;border:1px solid rgba(133,147,187,.55);border-radius:10px;background:#fff;font:inherit;font-size:16px;color:var(--ink);padding:10px;resize:vertical}
 .answer .row-between{margin-top:8px}
 .answer .hint{font-size:12px;color:var(--soft)}
@@ -828,7 +828,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 /* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
-const BUILD="20260929e";
+const BUILD="20260929f";
 try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
@@ -1442,7 +1442,8 @@ function cellCardHTML(n,jump,extra){
 function answerBlock(n,extra){
   const g=G();
   if(!extra&&g.view==="play"&&g.needAnswer===n){
-    return `<div class="answer"><label for="ansText">${L("Твой ответ","Your answer")}</label><textarea id="ansText" maxlength="600" placeholder="${L("Напиши, что откликается. Первое, что приходит — самое честное","Write what resonates. The first thing that comes is the most honest")}">${esc(g.draft||"")}</textarea><div class="row-between"><span class="hint">${L("Ответ сохранится в дневник осознаний","Your answer is saved to the insight journal")}</span><button class="btn btn-brown btn-sm" type="button" id="ansSend">${L("Отправить ответ","Send answer")}</button></div></div>`;
+    const open=!!(g.draft||"").trim();
+    return `<div class="answer answer-opt"><div id="ansForm"${open?"":" hidden"}><label for="ansText">${L("Твой ответ","Your answer")}</label><textarea id="ansText" maxlength="600" placeholder="${L("Напиши, что откликается. Первое, что приходит — самое честное","Write what resonates. The first thing that comes is the most honest")}">${esc(g.draft||"")}</textarea><div class="row-between"><span class="hint">${L("Ответ сохранится в дневник осознаний","Your answer is saved to the insight journal")}</span><button class="btn btn-brown btn-sm" type="button" id="ansSend">${L("Отправить ответ","Send answer")}</button></div></div><div class="ans-actions"><button class="btn btn-line btn-block" type="button" id="ansOpen"${open?" hidden":""}>✎ ${L("Записать ответ","Write an answer")}</button><button class="btn btn-brown btn-block" type="button" id="ansSkip">${L("Продолжить игру","Continue the game")} →</button></div></div>`;
   }
   const a=(g.answers||{})[n];
   if(!extra&&a)return `<div class="answered"><b>${L("Твой ответ ✓","Your answer ✓")}</b>${esc(a)}</div>`;
@@ -1725,10 +1726,10 @@ function renderEntry(){
 function gateActive(){return false;}
 function renderRoller(){
   const btn=$("#rollBtn");
-  const need=G().view==="play"&&(G().needAnswer||G().pendingArrow);
+  const need=G().view==="play"&&G().pendingArrow;
   btn.classList.toggle("need",!!need);
   btn.classList.toggle("shine",!need&&!rolling&&G().view==="play");
-  btn.textContent=need?(G().pendingArrow?stopMsg():L("Сначала ответь на вопрос клетки","Answer the cell's question first")):L("Бросить кубик","Roll the die");
+  btn.textContent=need?stopMsg():L("Бросить кубик","Roll the die");
   $("#rollBtn2").classList.toggle("shine",!rolling);
 }
 function renderPlay(){
@@ -1867,7 +1868,7 @@ async function goArrow(){
   g.pendingArrow=0;g.pendingType="";if(tp==="snake"){g.snakes++;S.stats.snakes++;}else{g.arrows++;S.stats.arrows++;}
   g.prevAnsCell=to;g.prevAns=(g.answers&&g.answers[to])||"";g.pos=to;g.history.push({n:to,d:0,jump});if(to!==GOAL){g.needAnswer=to;g.draft="";}save();
   markVisited();renderPath();$("#cellCard").innerHTML=cellCardHTML(to,jump);
-  $("#status").innerHTML=tp==="snake"?L(`Змея вернула тебя на клетку ${to}. Ответь на вопрос клетки, чтобы бросить дальше.`,`The snake took you back to cell ${to}. Answer the cell's question to roll again.`):L(`Стрела подняла тебя на клетку ${to}. Ответь на вопрос клетки, чтобы бросить дальше.`,`The arrow lifted you to cell ${to}. Answer the cell's question to roll again.`);
+  $("#status").innerHTML=tp==="snake"?L(`Змея вернула тебя на клетку ${to}. Запиши ответ, если хочешь, — и продолжай игру.`,`The snake took you back to cell ${to}. Write an answer if you like — and continue.`):L(`Стрела подняла тебя на клетку ${to}. Запиши ответ, если хочешь, — и продолжай игру.`,`The arrow lifted you to cell ${to}. Write an answer if you like — and continue.`);
   rolling=false;renderRoller();if(tp==="snake")addPoints(3,L("урок змеи","snake lesson"));else addPoints(5,L("подъём по стреле","arrow climb"));
   if(to===GOAL){await sleep(1300);finishGame();return;}
   landToken(to);await sleep(1200);await openCard(true);
@@ -1879,6 +1880,17 @@ async function askAnswer(){
   toast(L("Сначала напиши ответ на вопрос клетки","First write your answer to the cell's question"));
 }
 document.addEventListener("input",e=>{if(e.target.id==="ansText"){G().draft=e.target.value;save();}});
+function skipAnswer(){const g=G();if(g.view!=="play"||!g.needAnswer)return;const n=g.needAnswer;g.needAnswer=0;g.draft="";save();return n;}
+document.addEventListener("click",e=>{
+  if(e.target.closest("#ansOpen")){const f=$("#ansForm");if(f){f.hidden=false;e.target.closest("#ansOpen").hidden=true;const t=$("#ansText");if(t)t.focus();}return;}
+  if(!e.target.closest("#ansSkip"))return;
+  const n=skipAnswer();if(!n)return;
+  const box=document.querySelector("#cellCard .answer");
+  if(box)box.outerHTML=`<button class="btn btn-line btn-sm note-btn" type="button" data-note="${n}">${L("Записать ответ в дневник","Write an answer in the journal")}</button>`;
+  renderRoller();
+  $("#status").innerHTML=L("<b>Бросай кубик</b> — путь продолжается.","<b>Roll the die</b> — the path continues.");
+  closeCard();
+});
 document.addEventListener("click",e=>{
   if(!e.target.closest("#ansSend"))return;
   const g=G(),t=$("#ansText"),v=(t&&t.value||"").trim();
@@ -1901,7 +1913,7 @@ face(6);face(6,$("#bigDie"));
 let rolling=false;
 async function roll(){
   if(rolling)return;
-  if(G().view==="play"&&G().needAnswer){askAnswer();return;}
+  if(G().view==="play"&&G().needAnswer)skipAnswer();
   if(G().view==="play"&&G().pendingArrow){toast(stopMsg());const b=$("#arrowGo");if(b){openCard(false);}return;}
   const g=G();rolling=true;$("#rollBtn").disabled=true;$("#rollBtn2").disabled=true;$("#rollBtn").classList.remove("shine");$("#rollBtn2").classList.remove("shine");if(g.view!=="entry")stopAudio();
   const entry=g.view==="entry";
@@ -1920,7 +1932,7 @@ async function roll(){
       await sleep(1300);
       renderGame();window.scrollTo({top:0});
       const vp=$("#vPlay");vp.classList.remove("reveal");void vp.offsetWidth;vp.classList.add("reveal");
-      $("#status").innerHTML=L("Ты входишь в игру — клетка 1, «Рождение».\nОтветь на вопрос клетки — и бросай снова.","You enter the game — cell 1, “Birth”.\nAnswer the cell's question — then roll again.");renderRoller();
+      $("#status").innerHTML=L("Ты входишь в игру — клетка 1, «Рождение».\nЗапиши ответ, если хочешь, — и бросай снова.","You enter the game — cell 1, “Birth”.\nWrite an answer if you like — then roll again.");renderRoller();
       rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;await sleep(1400);if(G().view==="play"){landToken(1);await sleep(1100);openCard(true);}return;
     }
     rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;return;
@@ -1946,7 +1958,7 @@ async function roll(){
   let st=L(`Выпало <b>${d}</b>. `,`You rolled <b>${d}</b>. `);
   if(bounced)st+=L("Перелёт! Ты отскочила назад от границы 72. ","Overshoot! You bounced back from cell 72. ");
   st+=jump?(jump.type==="arrow"?L(`Стрела поднимает тебя на клетку ${fin}. `,`An arrow lifts you to cell ${fin}. `):L(`Змея возвращает тебя на клетку ${fin}. `,`A snake takes you back to cell ${fin}. `)):L(`Ты на клетке ${fin}. `,`You are on cell ${fin}. `);
-  if(fin!==GOAL)st+=d===6?L("\nШестёрка даёт ещё бросок — но сначала ответь на вопрос клетки.","\nA six gives another roll — but first answer the cell's question."):L("\nОтветь на вопрос клетки, чтобы бросить дальше.","\nAnswer the cell's question to roll again.");
+  if(fin!==GOAL)st+=d===6?L("\nШестёрка даёт ещё бросок.","\nA six gives another roll."):L("\nЗапиши ответ, если хочешь, — и продолжай игру.","\nWrite an answer if you like — and continue.");
   if(jump)st+=jump.type==="arrow"?L(" <b>+5 рудракш</b>"," <b>+5 rudraksha</b>"):L(" <b>+3 рудракши</b> за урок"," <b>+3 rudraksha</b> for the lesson");
   $("#status").innerHTML=st;
   if(jump){S.points+=jump.type==="arrow"?5:3;const L0=levelOf(S.points-(jump.type==="arrow"?5:3)),L1=levelOf(S.points);save();if(L1.n>L0.n)setTimeout(()=>showLevelUp(L1),600);}
