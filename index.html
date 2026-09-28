@@ -478,7 +478,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
       <button class="btn btn-brown btn-block shine" type="submit" id="aSubmit" style="margin-top:6px">Начать путь</button>
       <p class="fine log-only" hidden><button type="button" class="link" id="aForgot" style="padding:0">Забыла пароль?</button></p>
       <p class="fine reg-only">Без подтверждения почты. Нажимая кнопку, ты соглашаешься с правилами игры и политикой конфиденциальности.</p>
-      <p class="fine log-only" hidden>Твой путь, ответы, лепестки и уровень сохранены в аккаунте — продолжишь с того же места.</p>
+      <p class="fine log-only" hidden>Твой путь, ответы, рудракши и уровень сохранены в аккаунте — продолжишь с того же места.</p>
     </form>
   </div>
 </section>
@@ -529,8 +529,8 @@ body.locked .app,body.locked .tabbar{display:none!important}
         </ul>
       </details>
       <details class="acc"><summary>Сколько длится игра?</summary><p>Обычно 30–60 минут. Можно прерваться: прогресс сохранится, и ты продолжишь с той же клетки.</p></details>
-      <details class="acc"><summary>Сколько стоит?</summary><p>Первая игра бесплатна. Каждая следующая игра — $15. Приглашай друзей через задания: за каждого — лепестки, а за трёх друзей — игра в подарок.</p></details>
-      <details class="acc"><summary>Что такое уровни и лепестки?</summary><p>За игры, приглашения и задания ты собираешь лепестки лотоса. Они поднимают тебя по семи уровням — семи чакрам, от «Ростка» до «Союза». На каждом уровне открывается подарок: медитация, скидка, игра в подарок.</p></details>
+      <details class="acc"><summary>Сколько стоит?</summary><p>Первая игра бесплатна. Каждая следующая игра — $15. Приглашай друзей через задания: за каждого — рудракши, а за трёх друзей — игра в подарок.</p></details>
+      <details class="acc"><summary>Что такое уровни и рудракши?</summary><p>За игры, приглашения и задания ты собираешь рудракши — священные бусины Шивы. Они поднимают тебя по семи уровням — семи чакрам, от Муладхары до Сахасрары. На каждом уровне открывается подарок: медитация, скидка, игра в подарок.</p></details>
       <details class="acc"><summary>Это гадание?</summary><p>Нет. Игра не предсказывает будущее — она помогает посмотреть на свою ситуацию со стороны и услышать собственные ответы.</p></details>
       <details class="acc"><summary>Как слушать клетки?</summary><p>На каждой клетке есть запись голосом проводника. Нажми на кнопку воспроизведения, послушай и ответь себе на вопрос с карточки.</p></details>
     </div>
@@ -653,13 +653,13 @@ body.locked .app,body.locked .tabbar{display:none!important}
   <section id="tTasks" class="stack" hidden>
     <div class="glass card">
       <div class="row-between"><h2 class="h-serif sec-title" style="margin:0">Задания дня</h2><span class="muted">обновятся через <span class="timer" id="resetTimer"></span></span></div>
-      <p class="muted" style="margin:6px 0 12px">Выполняй задания и собирай лепестки лотоса — они поднимают твой уровень.</p>
+      <p class="muted" style="margin:6px 0 12px">Выполняй задания и собирай рудракши — они поднимают твой уровень.</p>
       <ul class="tasks" id="dailyList"></ul>
     </div>
     <div class="glass card">
       <div class="row-between"><h2 class="h-serif sec-title" style="margin:0">Серия дней</h2><span class="reward-pill" id="streakTxt"></span></div>
       <div class="streak" id="streakRow"></div>
-      <p class="muted" style="margin:10px 0 0">Заходи каждый день: за каждый день серии — бонус, на 7-й день — +50 лепестков.</p>
+      <p class="muted" style="margin:10px 0 0">Заходи каждый день: за каждый день серии — бонус, на 7-й день — +50 рудракш.</p>
     </div>
     <div class="glass card">
       <h2 class="h-serif sec-title">Большие задания</h2>
@@ -676,7 +676,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
       <ul class="ladder" id="ladder"></ul>
     </div>
     <div class="glass card">
-      <h2 class="h-serif sec-title">Как собирать лепестки</h2>
+      <h2 class="h-serif sec-title">Как собирать рудракши</h2>
       <div class="earn">
         <span>Пройти игру до клетки 68</span><span>+100</span>
         <span>Пригласить друга (за каждого)</span><span>+30</span>
@@ -710,7 +710,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 
     <div class="glass card">
       <h2 class="h-serif sec-title">Пригласи друзей</h2>
-      <p style="margin:0;color:var(--ink2);font-size:14px">Это твоя личная ссылка с кодом <span class="codechip" id="myCode"></span>. Каждый, кто зарегистрируется по ней, появится ниже и принесёт тебе +30 лепестков.</p>
+      <p style="margin:0;color:var(--ink2);font-size:14px">Это твоя личная ссылка с кодом <span class="codechip" id="myCode"></span>. Каждый, кто зарегистрируется по ней, появится ниже и принесёт тебе +30 рудракш.</p>
       <div class="ref">
         <input id="refLink" readonly aria-label="Моя реферальная ссылка">
         <button class="btn btn-line btn-sm" type="button" id="copyBtn">Копировать</button>
@@ -848,7 +848,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 /* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
-const BUILD="20260929a";
+const BUILD="20260929b";
 try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
@@ -888,7 +888,7 @@ const DICT={
 "Начать путь":"Begin the path",
 "Забыла пароль?":"Forgot your password?",
 "Без подтверждения почты. Нажимая кнопку, ты соглашаешься с правилами игры и политикой конфиденциальности.":"No email confirmation needed. By tapping the button you agree to the game rules and the privacy policy.",
-"Твой путь, ответы, лепестки и уровень сохранены в аккаунте — продолжишь с того же места.":"Your path, answers, petals and level are saved in your account — you'll continue from the same place.",
+"Твой путь, ответы, рудракши и уровень сохранены в аккаунте — продолжишь с того же места.":"Your path, answers, rudraksha beads and level are saved in your account — you'll continue from the same place.",
 "Голос проводника":"Guide's voice",
 "Игра о любви и союзе — с собой и с другим. Задай вопрос, брось кубик и пройди свой путь по 72 клеткам с голосом проводника.":"A game about love and union — with yourself and with another. Ask your question, roll the die and walk your path across 72 cells with the guide's voice.",
 "Начать игру":"Start the game",
@@ -912,9 +912,9 @@ const DICT={
 "Сколько длится игра?":"How long does a game take?",
 "Обычно 30–60 минут. Можно прерваться: прогресс сохранится, и ты продолжишь с той же клетки.":"Usually 30–60 minutes. You can take a break: your progress is saved and you'll continue from the same cell.",
 "Сколько стоит?":"How much does it cost?",
-"Первая игра бесплатна. Каждая следующая игра — $15. Приглашай друзей через задания: за каждого — лепестки, а за трёх друзей — игра в подарок.":"Your first game is free. Each next game is $15. Invite friends through tasks: you get petals for each one, and a free game for three friends.",
-"Что такое уровни и лепестки?":"What are levels and petals?",
-"За игры, приглашения и задания ты собираешь лепестки лотоса. Они поднимают тебя по семи уровням — семи чакрам, от «Ростка» до «Союза». На каждом уровне открывается подарок: медитация, скидка, игра в подарок.":"For games, invitations and tasks you collect lotus petals. They raise you through seven levels — seven chakras, from “Sprout” to “Union”. Each level unlocks a gift: a meditation, a discount, a free game.",
+"Первая игра бесплатна. Каждая следующая игра — $15. Приглашай друзей через задания: за каждого — рудракши, а за трёх друзей — игра в подарок.":"Your first game is free. Each next game is $15. Invite friends through tasks: you get rudraksha beads for each one, and a free game for three friends.",
+"Что такое уровни и рудракши?":"What are levels and rudraksha beads?",
+"За игры, приглашения и задания ты собираешь рудракши — священные бусины Шивы. Они поднимают тебя по семи уровням — семи чакрам, от Муладхары до Сахасрары. На каждом уровне открывается подарок: медитация, скидка, игра в подарок.":"For games, invitations and tasks you collect rudraksha — Shiva's sacred beads. They raise you through seven levels — seven chakras, from Muladhara to Sahasrara. Each level unlocks a gift: a meditation, a discount, a free game.",
 "Это гадание?":"Is this fortune-telling?",
 "Нет. Игра не предсказывает будущее — она помогает посмотреть на свою ситуацию со стороны и услышать собственные ответы.":"No. The game doesn't predict the future — it helps you look at your situation from the outside and hear your own answers.",
 "Как слушать клетки?":"How do I listen to the cells?",
@@ -974,13 +974,13 @@ const DICT={
 "Задания":"Tasks",
 "Задания дня":"Daily tasks",
 "обновятся через":"refresh in",
-"Выполняй задания и собирай лепестки лотоса — они поднимают твой уровень.":"Complete tasks and collect lotus petals — they raise your level.",
+"Выполняй задания и собирай рудракши — они поднимают твой уровень.":"Complete tasks and collect rudraksha beads — they raise your level.",
 "Серия дней":"Day streak",
-"Заходи каждый день: за каждый день серии — бонус, на 7-й день — +50 лепестков.":"Come back every day: each day of the streak gives a bonus, and day 7 gives +50 petals.",
+"Заходи каждый день: за каждый день серии — бонус, на 7-й день — +50 рудракш.":"Come back every day: each day of the streak gives a bonus, and day 7 gives +50 rudraksha.",
 "Большие задания":"Big tasks",
 "Путь Шакти к Шиве":"Shakti's path to Shiva",
 "Парвати прошла путь от земной девушки до супруги Шивы, поднимая свою энергию ступень за ступенью. В игре этот путь — семь уровней по семи чакрам: от корня до макушки, где случается слияние — союз Шивы и Шакти внутри тебя.":"Parvati went from an earthly girl to the consort of Shiva, raising her energy step by step. In the game this path is seven levels along the seven chakras: from the root to the crown, where the union happens — the merging of Shiva and Shakti within you.",
-"Как собирать лепестки":"How to collect petals",
+"Как собирать рудракши":"How to collect rudraksha",
 "Пройти игру до клетки 68":"Finish a game at cell 68",
 "Пригласить друга (за каждого)":"Invite a friend (each)",
 "Подняться по стреле":"Climb an arrow",
@@ -990,7 +990,7 @@ const DICT={
 "Мой аккаунт":"My account",
 "Пригласи друзей":"Invite friends",
 "Это твоя личная ссылка с кодом":"This is your personal link with the code",
-". Каждый, кто зарегистрируется по ней, появится ниже и принесёт тебе +30 лепестков.":". Everyone who signs up with it will appear below and bring you +30 petals.",
+". Каждый, кто зарегистрируется по ней, появится ниже и принесёт тебе +30 рудракш.":". Everyone who signs up with it will appear below and bring you +30 rudraksha.",
 "Копировать":"Copy",
 "Послание для нового игрока":"Message for a new player",
 "Сообщение":"Message",
@@ -1044,7 +1044,7 @@ const DICT={
 "Первое, что приходит в голову — самое честное":"The first thing that comes to mind is the most honest",
 "Например, Екатеринбург":"For example, London",
 "@username или почта":"@username or email",
-"Задания и лепестки":"Tasks & petals"
+"Задания и рудракши":"Tasks & rudraksha"
 };
 
 const C_EN=[null,
@@ -1126,13 +1126,13 @@ const INTENTS_EN=[["rel","Relationships"],["self","Self-love"],["choice","A choi
 const ENTRY_FAIL_EN=["You rolled {d}. To enter the game you need a six.\nYou're not on the board yet — keep rolling.","You rolled {d}. Remember, we need a 6?\nYou are in the space of preparation. That's okay.","You rolled {d}. The game begins when the right moment comes.\nBreathe and roll again."];
 const FRIEND_NAMES_EN=[["Maria","f"],["Alex","m"],["Olivia","f"],["Daniel","m"],["Kate","f"],["Andrew","m"],["Sophie","f"],["Michael","m"],["Emma","f"],["Max","m"],["Julia","f"],["Sam","m"]];
 const LEVELS_EN=[
- {name:"Sprout",chakra:"Muladhara",desc:"You stand on the earth and ask your first honest question. The root is your support: everything that grows later grows from here.",reward:"Access to the game and tasks"},
- {name:"Flow",chakra:"Svadhisthana",desc:"Desire stops being frightening and becomes energy. You allow yourself to want — and to feel.",reward:"“Water” meditation voiced by the guide"},
- {name:"Flame",chakra:"Manipura",desc:"The fire of will. You make your own choice and stop waiting for someone to choose for you.",reward:"20% off your next game"},
- {name:"Heart",chakra:"Anahata",desc:"The middle of the path. The heart opens both to another and to yourself — without conditions and without losing yourself.",reward:"One game as a gift"},
- {name:"Voice",chakra:"Vishuddha",desc:"You speak the truth about your feelings — and can bear the truth in return.",reward:"Extended final message"},
- {name:"Vision",chakra:"Ajna",desc:"The third eye of Shiva. You see the scripts of your relationships from the outside — and can change them.",reward:"Group game with a facilitator"},
- {name:"Union",chakra:"Sahasrara",desc:"The Union of Shiva and Shakti. Strength and tenderness, action and acceptance have merged within you.",reward:"“Shakti” status and a personal game with the author"}
+ {name:"Muladhara",chakra:"Root chakra",desc:"You stand on the earth and ask your first honest question. The root is your support: everything that grows later grows from here.",reward:"Access to the game and tasks"},
+ {name:"Svadhisthana",chakra:"Sacral chakra",desc:"Desire stops being frightening and becomes energy. You allow yourself to want — and to feel.",reward:"“Water” meditation voiced by the guide"},
+ {name:"Manipura",chakra:"Solar plexus chakra",desc:"The fire of will. You make your own choice and stop waiting for someone to choose for you.",reward:"20% off your next game"},
+ {name:"Anahata",chakra:"Heart chakra",desc:"The middle of the path. The heart opens both to another and to yourself — without conditions and without losing yourself.",reward:"One game as a gift"},
+ {name:"Vishuddha",chakra:"Throat chakra",desc:"You speak the truth about your feelings — and can bear the truth in return.",reward:"Extended final message"},
+ {name:"Ajna",chakra:"Third-eye chakra",desc:"The third eye of Shiva. You see the scripts of your relationships from the outside — and can change them.",reward:"Group game with a facilitator"},
+ {name:"Sahasrara",chakra:"Crown chakra",desc:"The Union of Shiva and Shakti. Strength and tenderness, action and acceptance have merged within you.",reward:"“Shakti” status and a personal game with the author"}
 ];
 const DAILY_EN={login:"Visit the game today",rolls:"Roll the die 5 times",listen:"Listen to a cell's interpretation to the end",note:"Write an answer to a cell's question",invite:"Invite a friend with your link"};
 const BIG_EN={channel:"Subscribe to the game's Telegram channel",name:"Introduce yourself in your profile",first:"Finish your first game",three:"Invite three friends",streak3:"Visit 3 days in a row"};
@@ -1524,13 +1524,13 @@ function markVisited(){document.querySelectorAll(".cell.visited").forEach(c=>c.c
 
 /* ---------- levels, petals, tasks ---------- */
 const LEVELS=[
- {n:1,name:"Росток",chakra:"Муладхара",petals:4,color:"#c8574f",need:0,desc:"Ты стоишь на земле и задаёшь первый честный вопрос. Корень — это опора: всё, что вырастет дальше, растёт отсюда.",reward:"Доступ к игре и заданиям"},
- {n:2,name:"Поток",chakra:"Свадхистхана",petals:6,color:"#e08a4a",need:100,desc:"Желание перестаёт пугать и становится энергией. Ты позволяешь себе хотеть — и чувствовать.",reward:"Медитация «Вода» голосом проводника"},
- {n:3,name:"Пламя",chakra:"Манипура",petals:10,color:"#d9a93a",need:250,desc:"Огонь воли. Ты делаешь выбор сама и перестаёшь ждать, что кто-то выберет за тебя.",reward:"Скидка 20% на следующую игру"},
- {n:4,name:"Сердце",chakra:"Анахата",petals:12,color:"#5f9f73",need:450,desc:"Середина пути. Сердце открывается и для другого, и для себя — без условий и без потери себя.",reward:"Одна игра в подарок"},
- {n:5,name:"Голос",chakra:"Вишудха",petals:16,color:"#4d8fc0",need:700,desc:"Ты говоришь правду о своих чувствах — и выдерживаешь правду в ответ.",reward:"Расширенное финальное послание"},
- {n:6,name:"Взор",chakra:"Аджна",petals:2,color:"#5b56b0",need:1000,desc:"Третий глаз Шивы. Ты видишь сценарии своих отношений со стороны — и можешь их менять.",reward:"Групповая игра с ведущей"},
- {n:7,name:"Союз",chakra:"Сахасрара",petals:24,color:"#9a5bb0",need:1400,desc:"Слияние Шивы и Шакти. Сила и нежность, действие и принятие соединились внутри тебя.",reward:"Статус «Шакти» и личная игра с автором"}
+ {n:1,name:"Муладхара",chakra:"Корневая чакра",petals:4,color:"#c8574f",need:0,desc:"Ты стоишь на земле и задаёшь первый честный вопрос. Корень — это опора: всё, что вырастет дальше, растёт отсюда.",reward:"Доступ к игре и заданиям"},
+ {n:2,name:"Свадхистхана",chakra:"Сакральная чакра",petals:6,color:"#e08a4a",need:100,desc:"Желание перестаёт пугать и становится энергией. Ты позволяешь себе хотеть — и чувствовать.",reward:"Медитация «Вода» голосом проводника"},
+ {n:3,name:"Манипура",chakra:"Чакра солнечного сплетения",petals:10,color:"#d9a93a",need:250,desc:"Огонь воли. Ты делаешь выбор сама и перестаёшь ждать, что кто-то выберет за тебя.",reward:"Скидка 20% на следующую игру"},
+ {n:4,name:"Анахата",chakra:"Сердечная чакра",petals:12,color:"#5f9f73",need:450,desc:"Середина пути. Сердце открывается и для другого, и для себя — без условий и без потери себя.",reward:"Одна игра в подарок"},
+ {n:5,name:"Вишуддха",chakra:"Горловая чакра",petals:16,color:"#4d8fc0",need:700,desc:"Ты говоришь правду о своих чувствах — и выдерживаешь правду в ответ.",reward:"Расширенное финальное послание"},
+ {n:6,name:"Аджна",chakra:"Чакра третьего глаза",petals:2,color:"#5b56b0",need:1000,desc:"Третий глаз Шивы. Ты видишь сценарии своих отношений со стороны — и можешь их менять.",reward:"Групповая игра с ведущей"},
+ {n:7,name:"Сахасрара",chakra:"Коронная чакра",petals:24,color:"#9a5bb0",need:1400,desc:"Слияние Шивы и Шакти. Сила и нежность, действие и принятие соединились внутри тебя.",reward:"Статус «Шакти» и личная игра с автором"}
 ];
 function levelOf(p){let L=LEVELS[0];for(const l of LEVELS)if(p>=l.need)L=l;return L;}
 function nextOf(L){return LEVELS[L.n]||null;}
@@ -1539,10 +1539,13 @@ function lotus(L,size,dim){
   for(let i=0;i<k;i++){const a=360/k*i;parts.push(`<path d="M${r} ${r} C ${r-r*.22} ${r-r*.35}, ${r-r*.14} ${r-r*.78}, ${r} ${r-r*.92} C ${r+r*.14} ${r-r*.78}, ${r+r*.22} ${r-r*.35}, ${r} ${r}Z" transform="rotate(${a} ${r} ${r})" fill="${L.color}" fill-opacity="${dim?.25:.28+.5*((i%2))}" stroke="${L.color}" stroke-width="${size/90}"/>`);}
   return `<svg viewBox="0 0 ${size} ${size}" class="lvl-emblem" style="width:${size}px;height:${size}px" aria-hidden="true">${parts.join("")}<circle cx="${r}" cy="${r}" r="${r*.3}" fill="#fff" stroke="${L.color}" stroke-width="${size/60}"/><text x="${r}" y="${r+r*.11}" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-weight="700" font-size="${r*.34}" fill="${L.color}">${L.n}</text></svg>`;
 }
-const petalIcon='<svg viewBox="0 0 16 16"><path d="M8 15C4 12 3 8 8 1c5 7 4 11 0 14z" fill="#e7a9b9" stroke="#c98398"/></svg>';
+const petalIcon='<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.6" fill="#8b4a26"/><path d="M8 1.6v12.8M4.4 3.2c-2.2 2.9-2.2 6.7 0 9.6M11.6 3.2c2.2 2.9 2.2 6.7 0 9.6" stroke="#4e2410" stroke-width="1.1" fill="none" stroke-linecap="round"/><ellipse cx="5.9" cy="5.2" rx="1.5" ry="1" fill="#d39a6a" opacity=".75"/></svg>';
+/* «рудракша» with Russian plural forms */
+function rudW(n){n=Math.abs(n)%100;const d=n%10;return n>10&&n<20?"рудракш":d===1?"рудракша":d>=2&&d<=4?"рудракши":"рудракш";}
+function rudL(n){return LANG==="en"?"rudraksha":rudW(n);}
 function addPoints(n,why){
   const before=levelOf(S.points);S.points+=n;save();
-  toast(`+${n} ${L("лепестков","petals")} · ${why}`);
+  toast(`+${n} ${rudL(n)} · ${why}`);
   const after=levelOf(S.points);
   if(after.n>before.n){setTimeout(()=>showLevelUp(after),900);}
   renderBadges();
@@ -1585,7 +1588,7 @@ function renderBadges(){const n=claimableCount(),d=$("#taskDot");d.hidden=!n;d.t
 function taskLI(t,cur,goal,claimed,kind){
   const done=cur>=goal;
   const btn=claimed?`<span class="reward-pill">${L("Получено ✓","Claimed ✓")}</span>`:done?`<button class="btn btn-claim btn-sm" type="button" data-claim="${kind}:${t.id}">+${t.pts}</button>`:(t.action==="channel"?`<a class="btn btn-tg btn-sm" href="https://t.me/" target="_blank" rel="noopener" data-channel>${L("Открыть","Open")}</a>`:(t.go?`<button class="btn btn-line btn-sm" type="button" data-go="${t.go}">${L("Перейти","Go")}</button>`:`<span class="reward-pill">+${t.pts}</span>`));
-  return `<li class="${claimed?"done":done?"ready":""}"><div class="tk"><svg viewBox="0 0 24 24">${t.ic}</svg></div><div class="tb"><b>${esc(t.t)}</b>${goal>1?`<div class="mini"><i style="width:${Math.min(100,cur/goal*100)}%"></i></div><span>${Math.min(cur,goal)} ${L("из","of")} ${goal} · +${t.pts} ${L("лепестков","petals")}</span>`:`<span>+${t.pts} ${L("лепестков","petals")}</span>`}</div><div class="go">${btn}</div></li>`;
+  return `<li class="${claimed?"done":done?"ready":""}"><div class="tk"><svg viewBox="0 0 24 24">${t.ic}</svg></div><div class="tb"><b>${esc(t.t)}</b>${goal>1?`<div class="mini"><i style="width:${Math.min(100,cur/goal*100)}%"></i></div><span>${Math.min(cur,goal)} ${L("из","of")} ${goal} · +${t.pts} ${rudL(t.pts)}</span>`:`<span>+${t.pts} ${rudL(t.pts)}</span>`}</div><div class="go">${btn}</div></li>`;
 }
 function renderTasks(){
   const d=D();
@@ -1619,13 +1622,13 @@ function renderLevel(){
   const pct=N?Math.round((S.points-L.need)/(N.need-L.need)*100):100;
   $("#lvlCard").innerHTML=`<div class="lvl-no">${LANG==="en"?`Level ${L.n} of 7`:`Уровень ${L.n} из 7`}</div>${lotus(L,132)}<h2 class="h-serif">${L.name}</h2><div class="chak">${L.chakra} · ${LANG==="en"?`a lotus of ${L.petals===24?"a thousand":L.petals} petals`:`лотос из ${L.petals===24?"тысячи":L.petals} лепестков`}</div><p class="desc">${L.desc}</p>
    <div class="pbar"><i style="width:${pct}%;background:linear-gradient(90deg,${L.color}99,${L.color})"></i></div>
-   <div class="row-between"><span class="petals">${petalIcon}${S.points} ${LANG==="en"?"petals":"лепестков"}</span><span class="muted">${N?(LANG==="en"?`${N.need-S.points} to “${N.name}”`:`до уровня «${N.name}» — ${N.need-S.points}`):(LANG==="en"?"the whole path is complete":"весь путь пройден")}</span></div>`;
+   <div class="row-between"><span class="petals">${petalIcon}${S.points} ${rudL(S.points)}</span><span class="muted">${N?(LANG==="en"?`${N.need-S.points} to “${N.name}”`:`до уровня «${N.name}» — ${N.need-S.points}`):(LANG==="en"?"the whole path is complete":"весь путь пройден")}</span></div>`;
   $("#ladder").innerHTML=LEVELS.map(l=>{const st=S.points>=l.need?(l.n===L.n?"cur":"open"):"lock";return `<li class="${st}" style="--c:${l.color}"><div class="ic">${lotus(l,30,st==="lock").replace('class="lvl-emblem" style="width:30px;height:30px"','style="width:30px;height:30px"')}</div><div><b>${l.n}. ${l.name}</b><div class="sub">${l.chakra}</div><div class="rw">${st==="lock"?(LANG==="en"?"Unlocks: ":"Откроется: "):(LANG==="en"?"Unlocked: ":"Открыто: ")}${l.reward}</div></div><div class="need">${l.need?`<span class="petals">${petalIcon}${l.need}</span>`:(LANG==="en"?"start":"старт")}</div></li>`;}).join("");
   $("#achList").innerHTML=ACH.map(a=>`<div class="${a.ok()?"":"off"}"><div class="em">${a.em}</div><b>${a.t}</b></div>`).join("");
 }
 function miniLevelHTML(){
   const L=levelOf(S.points),N=nextOf(L);const pct=N?Math.round((S.points-L.need)/(N.need-L.need)*100):100;
-  return `${lotus(L,52).replace('class="lvl-emblem" ','')}<div style="flex:1;min-width:0"><div class="eyebrow">${LANG==="en"?"Level":"Уровень"} ${L.n} · ${L.chakra}</div><b style="font-size:17px">${L.name}</b><div class="pbar"><i style="width:${pct}%;background:${L.color}"></i></div><span class="muted">${S.points} ${LANG==="en"?"petals":"лепестков"}${N?(LANG==="en"?` · ${N.need-S.points} to “${N.name}”`:` · до «${N.name}» ${N.need-S.points}`):""}</span></div>`;
+  return `${lotus(L,52).replace('class="lvl-emblem" ','')}<div style="flex:1;min-width:0"><div class="eyebrow">${LANG==="en"?"Level":"Уровень"} ${L.n} · ${L.chakra}</div><b style="font-size:17px">${L.name}</b><div class="pbar"><i style="width:${pct}%;background:${L.color}"></i></div><span class="muted">${S.points} ${rudL(S.points)}${N?(LANG==="en"?` · ${N.need-S.points} to “${N.name}”`:` · до «${N.name}» ${N.need-S.points}`):""}</span></div>`;
 }
 
 /* ---------- tabs ---------- */
@@ -1892,7 +1895,7 @@ async function roll(){
   if(bounced)st+=L("Перелёт! Ты отскочила назад от границы 72. ","Overshoot! You bounced back from cell 72. ");
   st+=jump?(jump.type==="arrow"?L(`Стрела поднимает тебя на клетку ${fin}. `,`An arrow lifts you to cell ${fin}. `):L(`Змея возвращает тебя на клетку ${fin}. `,`A snake takes you back to cell ${fin}. `)):L(`Ты на клетке ${fin}. `,`You are on cell ${fin}. `);
   if(fin!==GOAL)st+=d===6?L("\nШестёрка даёт ещё бросок — но сначала ответь на вопрос клетки.","\nA six gives another roll — but first answer the cell's question."):L("\nОтветь на вопрос клетки, чтобы бросить дальше.","\nAnswer the cell's question to roll again.");
-  if(jump)st+=jump.type==="arrow"?L(" <b>+5 лепестков</b>"," <b>+5 petals</b>"):L(" <b>+3 лепестка</b> за урок"," <b>+3 petals</b> for the lesson");
+  if(jump)st+=jump.type==="arrow"?L(" <b>+5 рудракш</b>"," <b>+5 rudraksha</b>"):L(" <b>+3 рудракши</b> за урок"," <b>+3 rudraksha</b> for the lesson");
   $("#status").innerHTML=st;
   if(jump){S.points+=jump.type==="arrow"?5:3;const L0=levelOf(S.points-(jump.type==="arrow"?5:3)),L1=levelOf(S.points);save();if(L1.n>L0.n)setTimeout(()=>showLevelUp(L1),600);}
   rolling=false;$("#rollBtn").disabled=false;renderRoller();
@@ -1999,7 +2002,7 @@ let noteCell=0;
 document.addEventListener("click",e=>{
   const cl=e.target.closest("[data-claim]");if(cl){claim(cl.dataset.claim);return;}
   const nb=e.target.closest("[data-note]");if(nb){noteCell=+nb.dataset.note;$("#noteCell").textContent=L("Клетка ","Cell ")+noteCell+" · "+C[noteCell][0];$("#noteQ").textContent=C[noteCell][2];$("#noteText").value="";$("#mNote").hidden=false;setTimeout(()=>$("#noteText").focus(),50);return;}
-  if(e.target.closest("[data-channel]")){setTimeout(()=>{S.channel=true;save();renderTasks();renderBadges();toast(L("Подписка засчитана — забери лепестки","Subscription counted — claim your petals"));},2500);}
+  if(e.target.closest("[data-channel]")){setTimeout(()=>{S.channel=true;save();renderTasks();renderBadges();toast(L("Подписка засчитана — забери рудракши","Subscription counted — claim your rudraksha"));},2500);}
 });
 $("#noteSave").addEventListener("click",()=>{
   const v=$("#noteText").value.trim();if(!v){$("#noteText").focus();return;}
