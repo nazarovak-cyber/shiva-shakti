@@ -840,7 +840,7 @@ body.locked .app,body.locked .tabbar{display:none!important}
 (function(){
 "use strict";
 /* auto-update: if a newer version is published, reload once with a fresh URL (Telegram caches the page) */
-const BUILD="20260929n";
+const BUILD="20260929o";
 try{fetch(location.pathname+"?build="+Date.now(),{cache:"no-store"}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD="([^"]+)"/);if(!m||m[1]===BUILD)return;const k="lilaUpd"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){return;}const u=new URL(location.href);u.searchParams.set("v",m[1]);location.replace(u.toString());}).catch(()=>{});}catch(e){}
 let LANG="ru";try{LANG=localStorage.getItem("shivaShakti.lang")==="en"?"en":"ru";}catch(e){}
 /* ---------- Telegram Mini App ---------- */
@@ -2004,7 +2004,7 @@ async function roll(){
     g.pendingArrow=ARROWS[target]||SNAKES[target];g.pendingType=ARROWS[target]?"arrow":"snake";g.prevAnsCell=target;g.prevAns="";g.pos=target;g.playMoves++;g.history.push({n:target,d});g.needAnswer=0;save();
     markVisited();renderPath();$("#cellCard").innerHTML=cellCardHTML(target,null);
     $("#status").innerHTML=(g.pendingType==="snake"?L(`Выпало <b>${d}</b>. Ты на клетке ${target} — здесь начинается змея. Послушай проводника.`,`You rolled <b>${d}</b>. You're on cell ${target} — a snake starts here. Listen to the guide.`):L(`Выпало <b>${d}</b>. Ты на клетке ${target} — здесь начинается стрела. Послушай проводника и поднимайся.`,`You rolled <b>${d}</b>. You're on cell ${target} — an arrow starts here. Listen to the guide and climb.`));
-    rolling=false;$("#rollBtn").disabled=false;renderRoller();
+    rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;renderRoller();
     landToken(target);await sleep(1200);await openCard(true);return;
   }
   let jump=null,fin=target;
@@ -2020,7 +2020,7 @@ async function roll(){
   if(jump)st+=jump.type==="arrow"?L(" <b>+5 рудракш</b>"," <b>+5 rudraksha</b>"):L(" <b>+3 рудракши</b> за урок"," <b>+3 rudraksha</b> for the lesson");
   $("#status").innerHTML=st;
   if(jump){S.points+=jump.type==="arrow"?5:3;const L0=levelOf(S.points-(jump.type==="arrow"?5:3)),L1=levelOf(S.points);save();if(L1.n>L0.n)setTimeout(()=>showLevelUp(L1),600);}
-  rolling=false;$("#rollBtn").disabled=false;renderRoller();
+  rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;renderRoller();
   if(fin===GOAL){await sleep(1300);finishGame();return;}
   landToken(fin);await sleep(1200);
   await openCard(true);
@@ -2135,7 +2135,7 @@ $("#noteSave").addEventListener("click",()=>{
 $("#startBtn").addEventListener("click",()=>{
   const q=$("#qText").value.trim();
   if(q.length<5){$("#qErr").textContent=L("Сформулируй вопрос хотя бы в несколько слов — так игра будет точнее.","Put your question in at least a few words — the game will be more precise.");$("#qText").focus();return;}
-  const i=G().intent;S.g=freshGame();S.g.intent=i;S.g.question=q;S.g.view="entry";save();$("#status").textContent="";$("#status2").textContent="";renderGame();window.scrollTo({top:0});playIntro();
+  rolling=false;$("#rollBtn").disabled=false;$("#rollBtn2").disabled=false;const i=G().intent;S.g=freshGame();S.g.intent=i;S.g.question=q;S.g.view="entry";save();$("#status").textContent="";$("#status2").textContent="";renderGame();window.scrollTo({top:0});playIntro();
 });
 $("#qText").addEventListener("input",e=>{G().question=e.target.value;save();});
 $("#rollBtn").addEventListener("click",roll);
